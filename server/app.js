@@ -22,6 +22,9 @@ const main = async () => {
 }
 main().catch(err => console.log(err))
 
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
 app.use(cors({ exposedHeaders: 'Authorization' }))
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'ejs');

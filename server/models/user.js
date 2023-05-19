@@ -2,7 +2,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema
 
 const UserSchema = new Schema({
-   
+   first_name: { type: String, maxLength: 15, minLength: 2, required: true },
+   last_name: { type: String, maxLength: 15, minLength: 2, required: true },
+   username: { type: String, maxLength: 15, minLength: 2, required: true },
+   password: { type: String, minLength: 2, required: true },
+})
+
+UserSchema.virtual('fullName').get(function() {
+    return `${this.first_name} ${this.last_name}`
 })
 
 UserSchema.virtual('url').get(function() {
