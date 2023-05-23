@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, token, user } from 'react';
 
 export const NewPost = (props) => {
+    const { token, user, posts, setPosts } = props;
     const [postText, setPostText] = useState('');
 
     const handleChange = (e) => {
@@ -10,8 +11,6 @@ export const NewPost = (props) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const token = JSON.parse(localStorage.getItem('token'));
-        const bearer = `Bearer ${token}`;
         const data = JSON.stringify(postText);
         
         await fetch(`/odinbook/create/post`, {
@@ -20,15 +19,18 @@ export const NewPost = (props) => {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': bearer
+                'Authorization': token,
             }
-        }).then(res => res.json()).then(data => console.log(data))
-        window.location.href = '/odinbook';
+        }).then(res => res.json())
+            .then(data => {
+                setPostText('');
+                setPosts([...posts, data.post])
+            })
     }
 
     return (
         <form>
-            <input type='text' name='postText' value={postText.postText} onChange={(e) => handleChange(e)} placeholder={`What's on your mind, ${props.user.first_name}?`} />
+            <input type='text' name='postText' value={postText.postText === undefined ? '' : postText.postText} onChange={(e) => handleChange(e)} placeholder={`What's on your mind, ${props.user.first_name}?`} />
             <button type='submit' onClick={(e) => handleSubmit(e)}>Post</button>
         </form>
     )

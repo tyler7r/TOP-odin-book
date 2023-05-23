@@ -3,37 +3,43 @@ import { Link } from 'react-router-dom';
 import { NewPost } from './NewPost';
 import { DisplayPosts } from './DisplayPosts';
 
-export const Home = () => {
-    const [data, setData] = useState(null);
+export const Home = (props) => {
+    const { user, token } = props;
+    const [posts, setPosts] = useState(null);
     // const [errors, setErrors] = useState(null);
     
     const fetchHome = async () => {
-        let token = JSON.parse(localStorage.getItem('token'));
-        let bearer = `Bearer ${token}`
         let res = await fetch('/odinbook', {
             method: 'get',
             headers: {
-                'Authorization': bearer,
+                'Authorization': token,
                 'Content-Type': 'application/json'
             }
         })
         let myJson = await res.json();
-        setData(myJson);
+        setPosts(myJson.posts);
     }
 
     useEffect(() => {
-        fetchHome()
-    }, []);
+        if (token !== null) {
+            fetchHome()
+        }
+    }, [token]);
 
     return (
         <>
-            <h1>Home Page</h1>
-            {data !== null &&
-                <>
-                    <Link to={`/odinbook${data.user.url}`}>{data.user.fullName} @{data.user.username}</Link>
-                    <NewPost user={data.user}/>
-                    <DisplayPosts posts={data.posts} />
-                </>
+            {token !== null && 
+            <>
+                <h1>Home Page</h1>
+                {user !== null &&
+                    <>
+                        <Link to={`/odinbook${user.url}`}>{user.fullName} @{user.username}</Link>
+                        <NewPost token={token} user={user} posts={posts} setPosts={setPosts} />
+                    </>
+                } {posts !== null && 
+                    <DisplayPosts token={token} user={user} posts={posts} setPosts={setPosts} />
+                }
+            </>
             }
         </>
     )

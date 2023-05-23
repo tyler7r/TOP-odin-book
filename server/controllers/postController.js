@@ -19,11 +19,34 @@ exports.create_post = [
             })
         } else {
             await post.save()
-            await User.findByIdAndUpdate(req.user._id, { $push: { posts: post }})
+            await User.findByIdAndUpdate(req.user._id, { $push: { posts: post }}).exec()
             res.status(200).json({
-                message: 'Post Created Successfully',
+                message: 'Post created successfully',
                 post: post,
             })
         }
     })
 ]
+
+exports.like_post = asyncHandler(async (req, res, next) => {
+    let post = await Post.findById(req.params.postId).exec();
+    if (post.likes.includes(req.user._id)) {
+        await Post.findByIdAndUpdate(req.params.postId, { $pull: { likes: req.user._id }}).exec();
+    } else {
+        await Post.findByIdAndUpdate(req.params.postId, { $push: { likes: req.user._id }}).exec();
+    }
+    let posts = await Post.find().populate('author').limit(10).exec()
+    res.status(200).json({
+        message: 'Post liked successfully',
+        posts: posts
+    })
+})
+
+exports.delete_post = asyncHandler(async (req, res, next) => {
+    await Post.findByIdAndRemove(req.params.postId).exec()
+    let posts = await Post.find().limit(10).populate('author').exec();
+    res.status(200).json({
+        message: 'Post deleted successfully',
+        posts: posts,
+    })
+})
