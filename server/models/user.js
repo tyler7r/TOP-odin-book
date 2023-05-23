@@ -6,6 +6,12 @@ const UserSchema = new Schema({
    last_name: { type: String, maxLength: 15, minLength: 2, required: true },
    username: { type: String, maxLength: 15, minLength: 2, required: true },
    password: { type: String, minLength: 2, required: true },
+   posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
+   friends: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+   requests: [{ type: Schema.Types.ObjectId, ref: 'Request' }]
+}, {
+    toObject: { virtuals: true },
+    toJSON: { virtuals: true },
 })
 
 UserSchema.virtual('fullName').get(function() {

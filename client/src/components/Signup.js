@@ -21,7 +21,7 @@ export const Signup = () => {
                 },
                 body: data,
             })
-            window.location.href = '/odinbook';
+            window.location.href = '/odinbook/login';
         } catch (err) {
             console.error(err);
         }

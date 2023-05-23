@@ -7,6 +7,9 @@ const PostSchema = new Schema({
     time: { type: Date, default: Date.now() },
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
     likes: [{ type: Schema.Types.ObjectId, ref: 'User' }]
+}, {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
 })
 
 PostSchema.virtual('url').get(function() {

@@ -24,6 +24,7 @@ export const Login = () => {
             let myJson = await res.json();
             localStorage.setItem('user', JSON.stringify(myJson.user))
             localStorage.setItem('token', JSON.stringify(myJson.token))
+            window.location.href = '/odinbook'
         } catch (err) {
             console.error(err);
         }
@@ -47,6 +48,7 @@ export const Login = () => {
             let myJson = await res.json();
             localStorage.setItem('user', JSON.stringify(myJson.user));
             localStorage.setItem('token', JSON.stringify(myJson.token));
+            window.location.href = '/odinbook';
         } catch (err) {
             console.error(err);
         }
