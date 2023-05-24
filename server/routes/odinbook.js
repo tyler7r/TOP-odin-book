@@ -14,6 +14,10 @@ router.post('/signup', auth_controller.signup);
 
 router.get('/', passport.authenticate('jwt', { session: false }), user_controller.home);
 
+/// USER ROUTES ///
+
+router.get('/users/:userId', user_controller.profile);
+
 /// POST ROUTES ///
 
 router.post('/create/post', passport.authenticate('jwt', { session: false }), post_controller.create_post);

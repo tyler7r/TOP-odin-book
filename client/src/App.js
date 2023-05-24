@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Login } from './components/Login';
 import { Signup } from './components/Signup';
 import { Home } from './components/Home';
+import { Profile } from './components/Profile';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -27,6 +28,7 @@ function App() {
           <Route path='/odinbook' element={<Home token={token} user={user} />} />
           <Route path='/odinbook/login' element={<Login setToken={setToken} setUser={setUser} />} />
           <Route path='/odinbook/signup' element={<Signup />} />
+          <Route path='/odinbook/users/:userId' element={<Profile user={user} token={token} />} />
         </Routes>
       </div>
     </BrowserRouter>

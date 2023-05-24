@@ -21,7 +21,6 @@ exports.create_post = [
             await post.save()
             await User.findByIdAndUpdate(req.user._id, { $push: { posts: post }}).exec()
             let postI = await Post.findById(post.id).populate('author').exec();
-            console.log(postI);
             res.status(200).json({
                 message: 'Post created successfully',
                 post: postI,
@@ -37,9 +36,11 @@ exports.like_post = asyncHandler(async (req, res, next) => {
     } else {
         await Post.findByIdAndUpdate(req.params.postId, { $push: { likes: req.user._id }}).exec();
     }
+    let updatePost = await Post.findById(req.params.postId).populate('author').populate('comments').exec()
     let posts = await Post.find().populate('author').limit(10).exec()
     res.status(200).json({
         message: 'Post liked successfully',
+        post: updatePost,
         posts: posts
     })
 })

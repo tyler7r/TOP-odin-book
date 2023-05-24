@@ -37,7 +37,7 @@ export const Home = (props) => {
                         <NewPost token={token} user={user} posts={posts} setPosts={setPosts} />
                     </>
                 } {posts !== null && 
-                    <DisplayPosts token={token} user={user} posts={posts} setPosts={setPosts}>{console.log(posts)}</DisplayPosts>
+                    <DisplayPosts token={token} user={user} posts={posts} setPosts={setPosts}></DisplayPosts>
                 }
             </>
             }

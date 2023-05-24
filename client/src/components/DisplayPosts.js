@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom';
 import { DisplayComments } from './DisplayComments';
 import { NewComment } from './NewComment';
 
@@ -16,7 +17,10 @@ export const DisplayPosts = (props) => {
             }
         }).then(res => res.json())
             .then(data => {
-                setPosts(data.posts)
+                let copy = [...posts];
+                let index = copy.findIndex(post => post._id === postId);
+                copy[index] = data.post;
+                setPosts([...copy]);
             })
 
     }
@@ -31,8 +35,11 @@ export const DisplayPosts = (props) => {
                 'Content-Type': 'application/json'
             }
         }).then(res => res.json())
-            .then(data => {
-                setPosts(data.posts)
+            .then(() => {
+                let copy = [...posts];
+                let index = copy.findIndex(post => post._id === postId);
+                copy.splice(index, 1);
+                setPosts([...copy]);
             })
     }
 
@@ -42,7 +49,7 @@ export const DisplayPosts = (props) => {
             {posts.map(post => {
                 return (
                     <div key={post._id}>
-                        <div>{post.author.fullName} @{post.author.username}</div>
+                        <Link to={`/odinbook${post.author.url}`}>{post.author.fullName} @{post.author.username}</Link>
                         <div>{post.text}: {post.time}</div>
                         <div>Likes: {post.likes.length}</div>
                         <div>Comments: {post.comments.length}</div>

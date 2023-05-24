@@ -8,7 +8,9 @@ const UserSchema = new Schema({
    password: { type: String, minLength: 2, required: true },
    posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
    friends: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-   requests: [{ type: Schema.Types.ObjectId, ref: 'Request' }]
+   sentRequests: [{ type: Schema.Types.ObjectId, ref: 'Request' }],
+   receivedRequests: [{ type: Schema.Types.ObjectId, ref: 'Request' }],
+   profilePic: { data: Buffer, contentType: String },
 }, {
     toObject: { virtuals: true },
     toJSON: { virtuals: true },

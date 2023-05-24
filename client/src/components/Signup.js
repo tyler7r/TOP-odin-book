@@ -6,7 +6,6 @@ export const Signup = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({...formData, [name]: value})
-        console.log(formData);
     }
     
     const handleSubmit = async (e) => {
