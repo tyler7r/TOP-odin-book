@@ -37,6 +37,10 @@ export const DisplayComments = (props) => {
         }).then(res => res.json())
             .then(data => {
                 setPostComments(data.comments);
+                let copy = [...posts];
+                let index = posts.findIndex(post => post._id === postId);
+                copy[index] = data.post;
+                setPosts(copy);
             })
     }
 
@@ -59,7 +63,7 @@ export const DisplayComments = (props) => {
                     )
                 })
             }
-            <NewComment user={user} postId={postId} token={token} setPosts={setPosts} setPostComments={setPostComments} postComments={postComments} />
+            <NewComment user={user} postId={postId} token={token} posts={posts} setPosts={setPosts} setPostComments={setPostComments} postComments={postComments} />
         </>
     )
 }

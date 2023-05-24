@@ -22,7 +22,7 @@ export const Home = (props) => {
 
     useEffect(() => {
         if (token !== null) {
-            fetchHome()
+            fetchHome();
         }
     }, [token]);
 
@@ -37,7 +37,7 @@ export const Home = (props) => {
                         <NewPost token={token} user={user} posts={posts} setPosts={setPosts} />
                     </>
                 } {posts !== null && 
-                    <DisplayPosts token={token} user={user} posts={posts} setPosts={setPosts} />
+                    <DisplayPosts token={token} user={user} posts={posts} setPosts={setPosts}>{console.log(posts)}</DisplayPosts>
                 }
             </>
             }

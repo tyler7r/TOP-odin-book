@@ -20,9 +20,11 @@ exports.create_post = [
         } else {
             await post.save()
             await User.findByIdAndUpdate(req.user._id, { $push: { posts: post }}).exec()
+            let postI = await Post.findById(post.id).populate('author').exec();
+            console.log(postI);
             res.status(200).json({
                 message: 'Post created successfully',
-                post: post,
+                post: postI,
             })
         }
     })

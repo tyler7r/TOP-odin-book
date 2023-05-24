@@ -22,8 +22,9 @@ exports.create_comment = [
             })
         } else {
             await comment.save()
-            let post = await Post.findByIdAndUpdate(req.params.postId, { $push: { comments: comment }}).exec()
+            await Post.findByIdAndUpdate(req.params.postId, { $push: { comments: comment }}).exec()
             let posts = await Post.find().limit(10).populate('author').exec()
+            let post = await Post.findById(req.params.postId).populate('author').populate('comments').exec()
             res.status(200).json({
                 message: 'Comment created successfully',
                 comment: comment,
@@ -52,10 +53,11 @@ exports.like_comment = asyncHandler(async (req, res, next) => {
 exports.delete_comment = asyncHandler(async (req, res, next) => {
     await Post.findByIdAndUpdate(req.params.postId, { $pull: { comments: req.params.commentId }}).exec();
     await Comment.findByIdAndRemove(req.params.commentId).exec();
-    let post = await Post.findById(req.params.postId).populate('comments').exec();
+    let post = await Post.findById(req.params.postId).populate('comments').populate('author').exec();
     let comments = post.comments;
     res.status(200).json({
         message: 'Comment deleted successfully',
         comments: comments,
+        post: post,
     })
 })
