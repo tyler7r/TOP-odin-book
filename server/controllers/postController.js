@@ -46,6 +46,7 @@ exports.like_post = asyncHandler(async (req, res, next) => {
 })
 
 exports.delete_post = asyncHandler(async (req, res, next) => {
+    await User.findByIdAndUpdate(req.user._id, { $pull: { posts: req.params.postId }}).exec();
     await Post.findByIdAndRemove(req.params.postId).exec()
     let posts = await Post.find().limit(10).populate('author').exec();
     res.status(200).json({

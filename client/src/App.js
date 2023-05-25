@@ -11,15 +11,27 @@ function App() {
 
   useEffect(() => {
     const tokenSet = JSON.parse(localStorage.getItem('token'))
-    const userSet = JSON.parse(localStorage.getItem('user'))
+    const userInfo = JSON.parse(localStorage.getItem('user'))
+    // const userSet = async () => {
+    //   console.log('run')
+    //   await fetch(`/odinbook/info/${userInfo._id}`, {
+    //     method: 'get',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     }
+    //   }).then(res => res.json())
+    //     .then(data => {
+    //       setUser(data.user);
+    //     })
+    // }
 
     if (tokenSet) {
       setToken(`Bearer ${tokenSet}`)
     }
-    if (userSet) {
-      setUser(userSet)
+    if (userInfo) {
+      setUser(userInfo);
     }
-  },[])
+  }, [])
 
   return (
     <BrowserRouter>
