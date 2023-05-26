@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { NewComment } from './NewComment';
+import { Link } from 'react-router-dom';
 
 export const DisplayComments = (props) => {
     const { posts, setPosts, postId, token, user } = props;
@@ -7,6 +8,7 @@ export const DisplayComments = (props) => {
 
     useEffect(() => {
         let post = posts.find(post => post._id === postId);
+        console.log(post.comments);
         setPostComments(post.comments);
     }, [])
 
@@ -53,10 +55,12 @@ export const DisplayComments = (props) => {
                 postComments.map(comment => {
                     return (
                         <div key={comment._id}>
+                            <Link to={`/odinbook${comment.author.url}`}>{comment.author.profilePic === null ? '' : <img src={comment.author.profilePic} alt='profilePic' height={30} width={30} />}</Link>
+                            <Link to={`/odinbook${comment.author.url}`}><div>{comment.author.fullName}</div></Link>
                             <div>{comment.text}</div>
                             <div>Likes: {comment.likes.length}</div>
                             <button id={comment._id} onClick={(e) => handleLike(e)}>Like Comment</button>
-                            {comment.author === user._id &&
+                            {comment.author._id === user._id &&
                                 <button id={comment._id} onClick={(e) => handleDelete(e)}>Delete Comment</button>
                             }
                         </div>

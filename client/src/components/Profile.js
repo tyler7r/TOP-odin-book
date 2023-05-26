@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { DisplayPosts } from './DisplayPosts';
+import { ProfileInfo } from './ProfileInfo';
 
 export const Profile = (props) => {
     const { userId } = useParams();
-    const { token, user } = props;
+    const { token, user, setUser } = props;
     const [profileData, setProfileData] = useState(null);
     const [profilePosts, setProfilePosts] = useState(null);
     const [requests, setRequests] = useState(null);
     const [isCurrentUserProfile, setIsCurrentUserProfile] = useState(false);
+    const [editProfileModal, setEditProfileModal] = useState(false);
+    const [formData, setFormData] = useState('');
 
     useEffect(() => {
         fetchProfile();
@@ -28,6 +31,7 @@ export const Profile = (props) => {
                 setProfileData(data.data);
                 setProfilePosts(data.posts);
                 setRequests(data.receivedRequests);
+                setFormData(...formData, { bio: data.data.profileBio });
             })
     }
 
@@ -62,7 +66,6 @@ export const Profile = (props) => {
             }
         }).then(res => res.json())
             .then(data => {
-                console.log(data)
                 setProfileData({...profileData, 
                     receivedRequests: data.receivingUser.receivedRequests,
                     friends: data.receivingUser.friends,
@@ -71,7 +74,7 @@ export const Profile = (props) => {
     }
 
     const handleRequest = async (e, action) => {
-        const requestId = e.target.id
+        const requestId = e.target.id;
         await fetch(`/odinbook/${requestId}/${action}`, {
             method: 'get',
             headers: {
@@ -80,7 +83,6 @@ export const Profile = (props) => {
             }
         }).then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (action === 'accept') setProfileData({...profileData, friends: data.receiver.friends})
                 setRequests(data.receivedRequests);
             })
@@ -94,6 +96,8 @@ export const Profile = (props) => {
             }
             {profilePosts !== null &&
                 <>
+                    {profileData.profilePic === undefined ? '' : <img src={profileData.profilePic} height={100} width={100} alt='profilePic'/>}
+                    {profileData.profileBio === undefined ? '' : <div>{profileData.profileBio}</div>}
                     <h1>{profileData.fullName}</h1>
                     <div>Friends: {profileData.friends.length}</div>
                     {friendStatus() === 'Not Friend' && 
@@ -104,6 +108,12 @@ export const Profile = (props) => {
                     }
                     {friendStatus() === 'Friend' &&
                         <button onClick={() => friendRequestButton()}>Friends</button>
+                    }
+                    {editProfileModal === false && 
+                        <button onClick={() => setEditProfileModal(true)}>Edit Profile</button>
+                    }
+                    {editProfileModal === true && 
+                        <ProfileInfo setEditProfileModal={setEditProfileModal} token={token} setProfileData={setProfileData} profileData={profileData} formData={formData} setFormData={setFormData} setUser={setUser} />
                     }
                     <h3>Friend Requests</h3>
                     {(requests !== null && isCurrentUserProfile === true) &&

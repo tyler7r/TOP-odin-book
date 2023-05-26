@@ -9,15 +9,17 @@ export const Home = (props) => {
     // const [errors, setErrors] = useState(null);
     
     const fetchHome = async () => {
-        let res = await fetch('/odinbook', {
+        await fetch('/odinbook', {
             method: 'get',
             headers: {
                 'Authorization': token,
                 'Content-Type': 'application/json'
             }
-        })
-        let myJson = await res.json();
-        setPosts(myJson.posts);
+        }).then(res => res.json())
+            .then(data => {
+                console.log(data);
+                setPosts(data.posts)
+            })
     }
 
     useEffect(() => {

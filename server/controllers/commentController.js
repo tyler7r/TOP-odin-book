@@ -21,10 +21,10 @@ exports.create_comment = [
                 errors: errors.array(),
             })
         } else {
-            await comment.save()
+            (await comment.save()).populate('author');
             await Post.findByIdAndUpdate(req.params.postId, { $push: { comments: comment }}).exec()
             let posts = await Post.find().limit(10).populate('author').exec()
-            let post = await Post.findById(req.params.postId).populate('author').populate('comments').exec()
+            let post = await Post.findById(req.params.postId).populate('author').populate({ path: 'comments', populate: { path: 'author' } }).exec()
             res.status(200).json({
                 message: 'Comment created successfully',
                 comment: comment,
@@ -42,7 +42,7 @@ exports.like_comment = asyncHandler(async (req, res, next) => {
     } else {
         await Comment.findByIdAndUpdate(req.params.commentId, { $push: { likes: req.user._id }}).exec()
     }
-    let post = await Post.findById(req.params.postId).populate('author').populate('comments').exec()
+    let post = await Post.findById(req.params.postId).populate('author').populate({ path: 'comments', populate: { path: 'author'} }).exec()
     res.status(200).json({
         message: 'Comment liked successfully',
         comment: comment,
@@ -53,7 +53,7 @@ exports.like_comment = asyncHandler(async (req, res, next) => {
 exports.delete_comment = asyncHandler(async (req, res, next) => {
     await Post.findByIdAndUpdate(req.params.postId, { $pull: { comments: req.params.commentId }}).exec();
     await Comment.findByIdAndRemove(req.params.commentId).exec();
-    let post = await Post.findById(req.params.postId).populate('comments').populate('author').exec();
+    let post = await Post.findById(req.params.postId).populate({ path: 'comments', populate: { path: 'author'} }).populate('author').exec();
     let comments = post.comments;
     res.status(200).json({
         message: 'Comment deleted successfully',

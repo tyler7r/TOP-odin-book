@@ -12,18 +12,6 @@ function App() {
   useEffect(() => {
     const tokenSet = JSON.parse(localStorage.getItem('token'))
     const userInfo = JSON.parse(localStorage.getItem('user'))
-    // const userSet = async () => {
-    //   console.log('run')
-    //   await fetch(`/odinbook/info/${userInfo._id}`, {
-    //     method: 'get',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     }
-    //   }).then(res => res.json())
-    //     .then(data => {
-    //       setUser(data.user);
-    //     })
-    // }
 
     if (tokenSet) {
       setToken(`Bearer ${tokenSet}`)
@@ -33,6 +21,26 @@ function App() {
     }
   }, [])
 
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem('user'))
+    getUser(userInfo)
+  }, [token])
+
+  const getUser = async (info) => {
+    const userId = info._id;
+    await fetch(`/odinbook/users/${userId}`, {
+      method: 'get',
+      headers: {
+        'Authorization': token,
+        'Content-Type': 'application/json'
+      },
+    }).then(res => res.json())
+      .then(data => {
+        console.log(data.data);
+        setUser(data.data);
+      })
+  }
+
   return (
     <BrowserRouter>
       <div className="App">
@@ -40,7 +48,7 @@ function App() {
           <Route path='/odinbook' element={<Home token={token} user={user} />} />
           <Route path='/odinbook/login' element={<Login setToken={setToken} setUser={setUser} />} />
           <Route path='/odinbook/signup' element={<Signup />} />
-          <Route path='/odinbook/users/:userId' element={<Profile user={user} token={token} />} />
+          <Route path='/odinbook/users/:userId' element={<Profile user={user} setUser={setUser} token={token} />} />
         </Routes>
       </div>
     </BrowserRouter>

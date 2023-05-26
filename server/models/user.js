@@ -10,7 +10,8 @@ const UserSchema = new Schema({
    friends: [{ type: Schema.Types.ObjectId, ref: 'User' }],
    sentRequests: [{ type: Schema.Types.ObjectId, ref: 'Request' }],
    receivedRequests: [{ type: Schema.Types.ObjectId, ref: 'Request' }],
-   profilePic: { data: Buffer, contentType: String },
+   profilePic: { type: String },
+   profileBio: { type: String, maxLength: 160 }
 }, {
     toObject: { virtuals: true },
     toJSON: { virtuals: true },
