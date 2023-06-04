@@ -9,7 +9,7 @@ const ExtractJWT = passportJWT.ExtractJwt;
 
 passport.use(new LocalStrategy(async (username, password, done) => {
     try {
-        const user = await User.findOne({ username: username }).exec();
+        const user = await User.findOne({ username: username }, { profilePic: 0 }).exec();
         if (!user) {
             return done(null, false, {
                 message: 'Incorrect Username'

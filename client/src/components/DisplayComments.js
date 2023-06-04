@@ -8,7 +8,6 @@ export const DisplayComments = (props) => {
 
     useEffect(() => {
         let post = posts.find(post => post._id === postId);
-        console.log(post.comments);
         setPostComments(post.comments);
     }, [])
 

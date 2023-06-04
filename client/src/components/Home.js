@@ -9,17 +9,20 @@ export const Home = (props) => {
     // const [errors, setErrors] = useState(null);
     
     const fetchHome = async () => {
-        await fetch('/odinbook', {
-            method: 'get',
-            headers: {
-                'Authorization': token,
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json())
-            .then(data => {
-                console.log(data);
-                setPosts(data.posts)
-            })
+        try {
+            await fetch('/odinbook', {
+                method: 'get',
+                headers: {
+                    'Authorization': token,
+                    'Content-Type': 'application/json',
+                },
+            }).then(res => res.json())
+                .then(data => {
+                    setPosts(data.posts)
+                })
+        } catch (err){
+            console.log(err)
+        }
     }
 
     useEffect(() => {
@@ -32,14 +35,16 @@ export const Home = (props) => {
         <>
             {token !== null && 
             <>
+                <Link to='/odinbook/users/index'>User Index</Link>
                 <h1>Home Page</h1>
+                {console.log(user)}
                 {user !== null &&
                     <>
                         <Link to={`/odinbook${user.url}`}>{user.fullName} @{user.username}</Link>
                         <NewPost token={token} user={user} posts={posts} setPosts={setPosts} />
                     </>
                 } {posts !== null && 
-                    <DisplayPosts token={token} user={user} posts={posts} setPosts={setPosts}></DisplayPosts>
+                    <DisplayPosts  token={token} user={user} posts={posts} setPosts={setPosts}></DisplayPosts>
                 }
             </>
             }

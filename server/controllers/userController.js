@@ -55,3 +55,11 @@ exports.profileInfo = [
         }
     })
 ]
+
+exports.index = asyncHandler(async (req, res, next) => {
+    let users = await User.find({ _id: { $nin: [req.user._id] }, username: { $ne: 'guest' }}).populate('friends sentRequests receivedRequests').exec();
+
+    res.status(200).json({
+        users,
+    })
+})

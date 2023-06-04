@@ -5,7 +5,7 @@ import { ProfileInfo } from './ProfileInfo';
 
 export const Profile = (props) => {
     const { userId } = useParams();
-    const { token, user, setUser } = props;
+    const { token, user, setUser, setUpdateUser } = props;
     const [profileData, setProfileData] = useState(null);
     const [profilePosts, setProfilePosts] = useState(null);
     const [requests, setRequests] = useState(null);
@@ -31,7 +31,7 @@ export const Profile = (props) => {
                 setProfileData(data.data);
                 setProfilePosts(data.posts);
                 setRequests(data.receivedRequests);
-                setFormData(...formData, { bio: data.data.profileBio });
+                setFormData({...formData, bio: data.data.profileBio });
             })
     }
 
@@ -70,6 +70,22 @@ export const Profile = (props) => {
                     receivedRequests: data.receivingUser.receivedRequests,
                     friends: data.receivingUser.friends,
                 });
+                setUpdateUser(true);
+            })
+    }
+
+    const unfriendUser = async () => {
+        await fetch(`/odinbook/${userId}/unfriend`, {
+            method: 'get',
+            headers: {
+                'Authorization': token,
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+            .then(data => {
+                setProfileData({...profileData,
+                    friends: data.profileUser.friends
+                })
             })
     }
 
@@ -85,6 +101,7 @@ export const Profile = (props) => {
             .then(data => {
                 if (action === 'accept') setProfileData({...profileData, friends: data.receiver.friends})
                 setRequests(data.receivedRequests);
+                setUpdateUser(true)
             })
     }
 
@@ -107,13 +124,13 @@ export const Profile = (props) => {
                         <button onClick={() => friendRequestButton()}>Request Sent</button>
                     }
                     {friendStatus() === 'Friend' &&
-                        <button onClick={() => friendRequestButton()}>Friends</button>
+                        <button onClick={() => unfriendUser()}>Friends</button>
                     }
-                    {editProfileModal === false && 
+                    {(editProfileModal === false && user._id === profileData._id) && 
                         <button onClick={() => setEditProfileModal(true)}>Edit Profile</button>
                     }
                     {editProfileModal === true && 
-                        <ProfileInfo setEditProfileModal={setEditProfileModal} token={token} setProfileData={setProfileData} profileData={profileData} formData={formData} setFormData={setFormData} setUser={setUser} />
+                        <ProfileInfo setEditProfileModal={setEditProfileModal} token={token} setProfileData={setProfileData} profileData={profileData} formData={formData} setFormData={setFormData} setUser={setUser} setUpdateUser={setUpdateUser} />
                     }
                     <h3>Friend Requests</h3>
                     {(requests !== null && isCurrentUserProfile === true) &&

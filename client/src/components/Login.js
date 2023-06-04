@@ -13,17 +13,18 @@ export const Login = () => {
         e.preventDefault();
         try {
             let data = JSON.stringify(formData);
-            let res = await fetch(`/odinbook/login`, {
+            await fetch(`/odinbook/login`, {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: data,
-            })
-            let myJson = await res.json();
-            localStorage.setItem('user', JSON.stringify(myJson.user))
-            localStorage.setItem('token', JSON.stringify(myJson.token))
-            window.location.href = '/odinbook'
+            }).then(res => res.json())
+                .then(data => {
+                    localStorage.setItem('user', JSON.stringify(data.user))
+                    localStorage.setItem('token', JSON.stringify(data.token))
+                    window.location.href = '/odinbook'
+                })
         } catch (err) {
             console.error(err);
         }

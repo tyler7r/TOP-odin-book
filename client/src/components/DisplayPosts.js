@@ -4,7 +4,7 @@ import { DisplayComments } from './DisplayComments';
 import { NewComment } from './NewComment';
 
 export const DisplayPosts = (props) => {
-    const { setPosts, posts, token, user } = props; 
+    const { setPosts, posts, token, user, formatDate } = props; 
 
     const handleLike = async (e) => {
         const postId = e.target.id;
@@ -51,7 +51,7 @@ export const DisplayPosts = (props) => {
                     <div key={post._id}>
                         <Link to={`/odinbook${post.author.url}`}>{post.author.profilePic === null ? '' : <img src={post.author.profilePic} alt='profile pic' height={50} width={50} />}</Link>
                         <Link to={`/odinbook${post.author.url}`}>{post.author.fullName} @{post.author.username}</Link>
-                        <div>{post.text}: {post.time}</div>
+                        <div>{post.text}:</div>
                         <div>Likes: {post.likes.length}</div>
                         <div>Comments: {post.comments.length}</div>
                         <button id={post._id} onClick={(e) => handleLike(e)}>Like Post</button>

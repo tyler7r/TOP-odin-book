@@ -8,7 +8,6 @@ const user_controller = require('../controllers/userController');
 const post_controller = require('../controllers/postController');
 const comment_controller = require('../controllers/commentController');
 const request_controller = require('../controllers/requestController');
-const request = require('../models/request');
 
 router.post('/login', auth_controller.login);
 
@@ -17,6 +16,8 @@ router.post('/signup', auth_controller.signup);
 router.get('/', passport.authenticate('jwt', { session: false }), user_controller.home);
 
 /// USER ROUTES ///
+
+router.get('/users/index', passport.authenticate('jwt', { session: false }), user_controller.index)
 
 router.get('/info/:userId', user_controller.getUser);
 
@@ -43,6 +44,8 @@ router.get('/:postId/:commentId/delete', passport.authenticate('jwt', { session:
 /// REQUEST ROUTES ///
 
 router.get('/:userId/request', passport.authenticate('jwt', { session: false }), request_controller.sendRequest);
+
+router.get('/:userId/unfriend', passport.authenticate('jwt', { session: false }), request_controller.unfriendUser);
 
 router.get('/:requestId/accept', passport.authenticate('jwt', { session: false }), request_controller.acceptRequest);
 

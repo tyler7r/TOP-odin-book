@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 export const ProfileInfo = (props) => {
-    const { setEditProfileModal, token, setProfileData, profileData, formData, setFormData, user, setUser } = props;
+    const { setUpdateUser, setEditProfileModal, token, setProfileData, profileData, formData, setFormData, user, setUser } = props;
     const { userId } = useParams();
 
     const handleChange = (e) => {
@@ -32,7 +32,6 @@ export const ProfileInfo = (props) => {
             body: data
         }).then(res => res.json())
             .then(data => {
-                console.log(data)
                 setProfileData({
                     ...profileData,
                     profilePic: data.user.profilePic,
@@ -43,6 +42,7 @@ export const ProfileInfo = (props) => {
                     profilePic: data.user.profilePic,
                     profileBio: data.user.profileBio,
                 })
+                setUpdateUser(true);
             });
     }
 
