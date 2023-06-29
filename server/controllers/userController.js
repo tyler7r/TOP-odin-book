@@ -13,9 +13,11 @@ exports.getUser = asyncHandler(async (req, res, next) => {
 
 exports.home = asyncHandler(async (req, res, next) => {
     let posts = await Post.find().populate('author').populate({ path: 'comments', populate: { path: 'author'} }).limit(10).exec();
+    let user = await User.findById(req.user._id).exec()
 
     res.status(200).json({
         posts: posts,
+        friends: user.friends,
     })
 })
 

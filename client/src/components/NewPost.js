@@ -1,7 +1,7 @@
 import React, { useState, useEffect, token, user } from 'react';
 
 export const NewPost = (props) => {
-    const { token, user, posts, setPosts } = props;
+    const { token, posts, setPosts } = props;
     const [postText, setPostText] = useState('');
 
     const handleChange = (e) => {

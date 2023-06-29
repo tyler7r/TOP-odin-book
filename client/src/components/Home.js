@@ -6,6 +6,7 @@ import { DisplayPosts } from './DisplayPosts';
 export const Home = (props) => {
     const { user, token } = props;
     const [posts, setPosts] = useState(null);
+    const [view, setView] = useState('friends');
     // const [errors, setErrors] = useState(null);
     
     const fetchHome = async () => {
@@ -18,7 +19,11 @@ export const Home = (props) => {
                 },
             }).then(res => res.json())
                 .then(data => {
-                    setPosts(data.posts)
+                    if (view === 'recent') setPosts(data.posts)
+                    else {
+                        let friendPosts = data.posts.filter(post => data.friends.includes(post.author._id))
+                        setPosts(friendPosts);
+                    }
                 })
         } catch (err){
             console.log(err)
@@ -29,7 +34,7 @@ export const Home = (props) => {
         if (token !== null) {
             fetchHome();
         }
-    }, [token]);
+    }, [token, view]);
 
     return (
         <>
@@ -37,14 +42,19 @@ export const Home = (props) => {
             <>
                 <Link to='/odinbook/users/index'>User Index</Link>
                 <h1>Home Page</h1>
-                {console.log(user)}
                 {user !== null &&
                     <>
                         <Link to={`/odinbook${user.url}`}>{user.fullName} @{user.username}</Link>
                         <NewPost token={token} user={user} posts={posts} setPosts={setPosts} />
                     </>
-                } {posts !== null && 
-                    <DisplayPosts  token={token} user={user} posts={posts} setPosts={setPosts}></DisplayPosts>
+                }
+                <button onClick={() => setView('friends')}>Friends</button>
+                <button onClick={() => setView('recent')}>Recent</button>
+                {posts !== null &&
+                    (view === 'friends'
+                        ? <DisplayPosts  token={token} user={user} posts={posts} setPosts={setPosts}></DisplayPosts>
+                        : <DisplayPosts  token={token} user={user} posts={posts} setPosts={setPosts}></DisplayPosts>
+                    )
                 }
             </>
             }

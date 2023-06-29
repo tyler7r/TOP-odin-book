@@ -56,10 +56,9 @@ export const UserIndex = (props) => {
             }
         }).then(res => res.json())
             .then(data => {
-                console.log(data);
                 let copy = [...index];
-                let updatedUser = index.findIndex(user => user._id === data.receivingUser._id);
-                copy[updatedUser] = data.receivingUser
+                let updatedUser = copy.findIndex(user => user._id === data.receivingUser._id);
+                copy[updatedUser] = data.receivingUser;
                 setIndex(copy);
                 setUpdateUser(true);
             })
@@ -86,14 +85,16 @@ export const UserIndex = (props) => {
         }).then(res => res.json())
             .then(data => {
                 let copy = [...index];
-                let userIndex = copy.findIndex(user => user._id === data.request.sender);
+                let userIndex = copy.findIndex(user => user._id === data.sender._id);
                 copy[userIndex] = data.sender;
                 setIndex(copy);
+                setUpdateUser(true);
             })
     }
 
     return (
         <div>
+            <Link to='/odinbook'>Back Home</Link>
             {index !== null && 
                 index.map(user => {
                     return (

@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { DisplayPosts } from './DisplayPosts';
 import { ProfileInfo } from './ProfileInfo';
+import { NewPost } from './NewPost';
 
 export const Profile = (props) => {
     const { userId } = useParams();
-    const { token, user, setUser, setUpdateUser } = props;
+    const { token, user, setUser, setUpdateUser, posts, setPosts } = props;
     const [profileData, setProfileData] = useState(null);
     const [profilePosts, setProfilePosts] = useState(null);
     const [requests, setRequests] = useState(null);
@@ -144,6 +145,8 @@ export const Profile = (props) => {
                             )
                         })
                     }
+                    <h3>New Post</h3>
+                    <NewPost token={token} user={user} posts={profilePosts} setPosts={setProfilePosts}/>
                     <DisplayPosts token={token} user={user} posts={profilePosts} setPosts={setProfilePosts} />
                 </>
             }

@@ -3,7 +3,7 @@ import { NewComment } from './NewComment';
 import { Link } from 'react-router-dom';
 
 export const DisplayComments = (props) => {
-    const { posts, setPosts, postId, token, user } = props;
+    const { posts, setPosts, postId, token, user, formatDate } = props;
     const [postComments, setPostComments] = useState([]);
 
     useEffect(() => {
@@ -57,6 +57,7 @@ export const DisplayComments = (props) => {
                             <Link to={`/odinbook${comment.author.url}`}>{comment.author.profilePic === null ? '' : <img src={comment.author.profilePic} alt='profilePic' height={30} width={30} />}</Link>
                             <Link to={`/odinbook${comment.author.url}`}><div>{comment.author.fullName}</div></Link>
                             <div>{comment.text}</div>
+                            <div>{formatDate(comment.time)}</div>
                             <div>Likes: {comment.likes.length}</div>
                             <button id={comment._id} onClick={(e) => handleLike(e)}>Like Comment</button>
                             {comment.author._id === user._id &&

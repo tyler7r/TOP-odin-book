@@ -52,8 +52,8 @@ exports.unfriendUser = asyncHandler(async (req, res, next) => {
 
     res.status(200).json({
         message: 'User unfriended',
-        currentUser,
-        profileUser
+        sendingUser: currentUser,
+        receivingUser: profileUser,
     })
 })
 
@@ -63,8 +63,8 @@ exports.acceptRequest = asyncHandler(async (req, res, next) => {
     await User.findByIdAndUpdate(request.receiver._id, { $push: { friends: request.sender._id }, $pull: { receivedRequests: request._id }}).exec();
     await Request.findByIdAndRemove(req.params.requestId).exec()
 
-    let sender = await User.findById(request.sender._id).exec();
-    let receiver = await User.findById(request.receiver._id).exec();
+    let sender = await User.findById(request.sender._id).populate('friends').exec();
+    let receiver = await User.findById(request.receiver._id).populate('friends').exec();
     let receivedRequests = await Request.find({ receiver: request.receiver._id, status: 'Pending' }).populate('sender receiver').exec()
 
     res.status(200).json({
