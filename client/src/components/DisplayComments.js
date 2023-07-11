@@ -3,7 +3,7 @@ import { NewComment } from './NewComment';
 import { Link } from 'react-router-dom';
 
 export const DisplayComments = (props) => {
-    const { posts, setPosts, postId, token, user, formatDate } = props;
+    const { posts, setPosts, postId, token, user, formatDate, isGuest } = props;
     const [postComments, setPostComments] = useState([]);
 
     useEffect(() => {
@@ -59,7 +59,9 @@ export const DisplayComments = (props) => {
                             <div>{comment.text}</div>
                             <div>{formatDate(comment.time)}</div>
                             <div>Likes: {comment.likes.length}</div>
-                            <button id={comment._id} onClick={(e) => handleLike(e)}>Like Comment</button>
+                            {isGuest === false && 
+                                <button id={comment._id} onClick={(e) => handleLike(e)}>Like Comment</button>
+                            }
                             {comment.author._id === user._id &&
                                 <button id={comment._id} onClick={(e) => handleDelete(e)}>Delete Comment</button>
                             }
@@ -67,7 +69,9 @@ export const DisplayComments = (props) => {
                     )
                 })
             }
-            <NewComment user={user} postId={postId} token={token} posts={posts} setPosts={setPosts} setPostComments={setPostComments} postComments={postComments} />
+            {isGuest === false && 
+                <NewComment user={user} postId={postId} token={token} posts={posts} setPosts={setPosts} setPostComments={setPostComments} postComments={postComments} />
+            }
         </>
     )
 }

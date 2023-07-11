@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 export const UserIndex = (props) => {
-    const { token, user, updateUser, setUpdateUser } = props;
+    const { token, user, updateUser, setUpdateUser, isGuest } = props;
     const [index, setIndex] = useState(null);
 
     useEffect(() => {
@@ -34,6 +34,9 @@ export const UserIndex = (props) => {
     const friendStatus = (userCheck) => {
         let receivedRequests = userCheck.receivedRequests;
 
+        if (isGuest === true) {
+            return 'Guest Status'
+        }
         if (isFriendWithUser(userCheck) === true) {
             return 'Friend'
         }
@@ -100,6 +103,9 @@ export const UserIndex = (props) => {
                     return (
                         <div key={user._id}>
                             <Link to={`/odinbook${user.url}`}>{user.fullName} @{user.username}</Link>
+                            {friendStatus(user) === 'Guest Status' && 
+                                <></>
+                            }
                             {friendStatus(user) === 'Friend' && 
                                 <button id={user._id} onClick={(e) => requestButton(e, 'unfriend')}>Unfriend</button>
                             }

@@ -25,6 +25,10 @@ router.get('/users/:userId', user_controller.profile);
 
 router.post('/users/:userId/edit-profile', passport.authenticate('jwt', { session: false }), user_controller.profileInfo);
 
+/// GUEST ROUTES ///
+
+router.get('/guest', passport.authenticate('jwt', { session: false }), user_controller.home);
+
 /// POST ROUTES ///
 
 router.post('/create/post', passport.authenticate('jwt', { session: false }), post_controller.create_post);

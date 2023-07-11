@@ -23,7 +23,7 @@ exports.home = asyncHandler(async (req, res, next) => {
 
 exports.profile = asyncHandler(async (req, res, next) => {
     let userData = await User.findById(req.params.userId).populate('friends posts receivedRequests sentRequests').exec();
-    let userPosts = await Post.find({ author: req.params.userId }).populate('author').populate('comments').exec();
+    let userPosts = await Post.find({ author: req.params.userId }).populate('author').populate({ path: 'comments', populate: { path: 'author'} }).exec();
     let receivedRequests = await Request.find({ receiver: req.params.userId, status: 'Pending' }).populate('sender').exec();
 
     res.status(200).json({

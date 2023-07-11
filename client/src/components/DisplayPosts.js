@@ -5,7 +5,7 @@ import { NewComment } from './NewComment';
 import isSameWeek from 'date-fns/isSameISOWeek';
 
 export const DisplayPosts = (props) => {
-    const { setPosts, posts, token, user } = props;
+    const { setPosts, posts, token, user, isGuest } = props;
 
     const handleLike = async (e) => {
         const postId = e.target.id;
@@ -87,12 +87,14 @@ export const DisplayPosts = (props) => {
                         <div>Post Date: {formatDate(post.time)}</div>
                         <div>Likes: {post.likes.length}</div>
                         <div>Comments: {post.comments.length}</div>
-                        <button id={post._id} onClick={(e) => handleLike(e)}>Like Post</button>
+                        {isGuest === false &&
+                            <button id={post._id} onClick={(e) => handleLike(e)}>Like Post</button>
+                        }
                         {post.author._id === user._id &&
                             <button id={post._id} onClick={(e) => handleDelete(e)}>Delete Post</button>
                         }
                         <h3>Comments</h3>
-                        <DisplayComments user={user} token={token} postId={post._id} posts={posts} setPosts={setPosts} formatDate={formatDate} />
+                        <DisplayComments user={user} token={token} postId={post._id} posts={posts} setPosts={setPosts} formatDate={formatDate} isGuest={isGuest} />
                         <div>=============================</div>
                     </div>
                 )

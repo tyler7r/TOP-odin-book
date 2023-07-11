@@ -6,7 +6,7 @@ import { NewPost } from './NewPost';
 
 export const Profile = (props) => {
     const { userId } = useParams();
-    const { token, user, setUser, setUpdateUser, posts, setPosts } = props;
+    const { token, user, setUser, setUpdateUser, isGuest, posts, setPosts } = props;
     const [profileData, setProfileData] = useState(null);
     const [profilePosts, setProfilePosts] = useState(null);
     const [requests, setRequests] = useState(null);
@@ -109,7 +109,7 @@ export const Profile = (props) => {
     return (
         <>
             <Link to='/odinbook'>Back Home</Link>
-            {user !== null &&
+            {(user !== null && isGuest === false) &&
                 <Link style={{margin: '8px'}} to={`/odinbook${user.url}`}>{user.fullName}</Link>
             }
             {profilePosts !== null &&
@@ -118,22 +118,37 @@ export const Profile = (props) => {
                     {profileData.profileBio === undefined ? '' : <div>{profileData.profileBio}</div>}
                     <h1>{profileData.fullName}</h1>
                     <div>Friends: {profileData.friends.length}</div>
-                    {friendStatus() === 'Not Friend' && 
-                        <button onClick={() => friendRequestButton()}>Send Friend Request</button>
-                    }
-                    {friendStatus() === 'Pending Request' &&
-                        <button onClick={() => friendRequestButton()}>Request Sent</button>
-                    }
-                    {friendStatus() === 'Friend' &&
-                        <button onClick={() => unfriendUser()}>Friends</button>
-                    }
-                    {(editProfileModal === false && user._id === profileData._id) && 
-                        <button onClick={() => setEditProfileModal(true)}>Edit Profile</button>
+                    {isGuest === false && 
+                        (friendStatus() === 'Not Friend' && 
+                            <button onClick={() => friendRequestButton()}>Send Friend Request</button>
+                        )
+                        (friendStatus() === 'Pending Request' &&
+                            <button onClick={() => friendRequestButton()}>Request Sent</button>
+                        )
+                        (friendStatus() === 'Friend' &&
+                            <button onClick={() => unfriendUser()}>Friends</button>
+                        )
                     }
                     {editProfileModal === true && 
                         <ProfileInfo setEditProfileModal={setEditProfileModal} token={token} setProfileData={setProfileData} profileData={profileData} formData={formData} setFormData={setFormData} setUser={setUser} setUpdateUser={setUpdateUser} />
                     }
-                    <h3>Friend Requests</h3>
+                    {(editProfileModal === false && user._id === profileData._id) && 
+                        <>
+                            <button onClick={() => setEditProfileModal(true)}>Edit Profile</button>
+                            <h3>Friend Requests</h3>
+                            {(requests !== null && isCurrentUserProfile === true) &&
+                                requests.map(request => {
+                                    return ( 
+                                        <div key={request._id}>
+                                            <Link to={`/odinbook/users/${request.sender._id}`}>{request.sender.fullName}</Link>
+                                            <button id={request._id} onClick={(e) => handleRequest(e, 'accept')}>Accept</button>
+                                            <button id={request._id} onClick={(e) => handleRequest(e, 'reject')}>Reject</button>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </>
+                    }
                     {(requests !== null && isCurrentUserProfile === true) &&
                         requests.map(request => {
                             return ( 
@@ -145,8 +160,12 @@ export const Profile = (props) => {
                             )
                         })
                     }
-                    <h3>New Post</h3>
-                    <NewPost token={token} user={user} posts={profilePosts} setPosts={setProfilePosts}/>
+                    {isGuest === false && 
+                        <>
+                            <h3>New Post</h3>
+                            <NewPost token={token} user={user} posts={profilePosts} setPosts={setProfilePosts}/>
+                        </>
+                    }
                     <DisplayPosts token={token} user={user} posts={profilePosts} setPosts={setProfilePosts} />
                 </>
             }
