@@ -12,8 +12,10 @@ exports.getUser = asyncHandler(async (req, res, next) => {
 })
 
 exports.home = asyncHandler(async (req, res, next) => {
-    let posts = await Post.find().populate('author').populate({ path: 'comments', populate: { path: 'author'} }).limit(10).exec();
-    let user = await User.findById(req.user._id).exec()
+    const skip = req.query.skip && /^\d+$/.test(req.query.skip) ? Number(req.query.skip) : 0;
+
+    let posts = await Post.find({}, undefined, { skip, limit: 5 }).populate('author').populate({ path: 'comments', populate: { path: 'author'} }).exec();
+    let user = await User.findById(req.user._id).exec();
 
     res.status(200).json({
         posts: posts,
@@ -22,8 +24,10 @@ exports.home = asyncHandler(async (req, res, next) => {
 })
 
 exports.profile = asyncHandler(async (req, res, next) => {
+    const skip = req.query.skip && /^\d+$/.test(req.query.skip) ? Number(req.query.skip) : 0;
+
     let userData = await User.findById(req.params.userId).populate('friends posts receivedRequests sentRequests').exec();
-    let userPosts = await Post.find({ author: req.params.userId }).populate('author').populate({ path: 'comments', populate: { path: 'author'} }).exec();
+    let userPosts = await Post.find({ author: req.params.userId }, undefined, { skip, limit: 3 }).populate('author').populate({ path: 'comments', populate: { path: 'author'} }).sort('time').exec();
     let receivedRequests = await Request.find({ receiver: req.params.userId, status: 'Pending' }).populate('sender').exec();
 
     res.status(200).json({

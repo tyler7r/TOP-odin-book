@@ -77,6 +77,7 @@ export const DisplayPosts = (props) => {
     return (
         <>
             <h2>Feed</h2>
+            {console.log(posts)}
             {posts.map(post => {
                 return (
                     <div key={post._id}>

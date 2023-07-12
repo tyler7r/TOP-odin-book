@@ -14,13 +14,14 @@ export const Profile = (props) => {
     const [isCurrentUserProfile, setIsCurrentUserProfile] = useState(false);
     const [editProfileModal, setEditProfileModal] = useState(false);
     const [formData, setFormData] = useState('');
+    const [skip, setSkip] = useState(0);
 
     useEffect(() => {
         fetchProfile();
-    }, [userId])
+    }, [userId, skip])
 
     const fetchProfile = async () => {
-        await fetch(`/odinbook/users/${userId}`, {
+        await fetch(`/odinbook/users/${userId}?skip=${skip}`, {
             method: 'get',
             headers: {
                 'Content-Type': 'application/json'
@@ -31,7 +32,11 @@ export const Profile = (props) => {
                     if (user._id === data.data._id) setIsCurrentUserProfile(true)
                 };
                 setProfileData(data.data);
-                setProfilePosts(data.posts);
+                if (profilePosts === null) {
+                    setProfilePosts(data.posts);
+                } else {
+                    setProfilePosts([...profilePosts, ...data.posts])
+                }
                 setRequests(data.receivedRequests);
                 setFormData({...formData, bio: data.data.profileBio });
             })
@@ -107,11 +112,19 @@ export const Profile = (props) => {
             })
     }
 
+    const handleScroll = (e) => {
+        const { offsetHeight, scrollTop, scrollHeight } = e.target;
+
+        if (offsetHeight + scrollTop >= scrollHeight) {
+            setSkip(profilePosts.length)
+        }
+    }
+
     return (
         <>
             <Link to='/odinbook'>Back Home</Link>
             {isGuest === false ? 
-            <>
+            <div className='feed' onScroll={handleScroll}>
                 {user !== null &&
                     <Link style={{margin: '8px'}} to={`/odinbook${user.url}`}>{user.fullName}</Link>
                 }
@@ -169,7 +182,7 @@ export const Profile = (props) => {
                 {profilePosts === null &&
                     <div>No user data found</div>
                 }
-            </>
+            </div>
             : <GuestProfile token={token} user={user} />
             }
         </>

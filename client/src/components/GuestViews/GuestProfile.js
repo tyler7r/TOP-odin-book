@@ -7,13 +7,14 @@ export const GuestProfile = (props) => {
     const { token, user } = props;
     const [profileData, setProfileData] = useState(null);
     const [profilePosts, setProfilePosts] = useState(null);
+    const [skip, setSkip] = useState(0)
 
     useEffect(() => {
         fetchProfile();
-    }, [userId])
+    }, [userId, skip])
 
     const fetchProfile = async () => {
-        await fetch(`/odinbook/users/${userId}`, {
+        await fetch(`/odinbook/users/${userId}?skip=${skip}`, {
             method: 'get',
             headers: {
                 'Content-Type': 'application/json'
@@ -25,8 +26,16 @@ export const GuestProfile = (props) => {
             })
     }
 
+    const handleScroll = (e) => {
+        const { offsetHeight, scrollTop, scrollHeight } = e.target;
+
+        if (offsetHeight + scrollTop >= scrollHeight) {
+            setSkip(profilePosts.length)
+        }
+    }
+
     return (
-        <>
+        <div className='feed' onScroll={handleScroll}>
             <Link to='/odinbook'>Back Home</Link>
             {profilePosts !== null &&
                 <>
@@ -40,7 +49,7 @@ export const GuestProfile = (props) => {
             {profilePosts === null &&
                 <div>No user data found</div>
             }
-        </>
+        </div>
     )
 }
 

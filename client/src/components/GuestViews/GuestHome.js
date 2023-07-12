@@ -5,6 +5,7 @@ import { GuestDisplayPosts } from './GuestDisplayPosts';
 export const GuestHome = (props) => {
     const { user, token } = props;
     const [posts, setPosts] = useState(null);
+    const [skip, setSkip] = useState(0);
     
     const fetchHome = async () => {
         try {
@@ -27,10 +28,18 @@ export const GuestHome = (props) => {
         if (token !== null) {
             fetchHome();
         }
-    }, [token]);
+    }, [token, skip]);
+
+    const handleScroll = (e) => {
+        const { offsetHeight, scrollTop, scrollHeight } = e.target;
+
+        if (offsetHeight + scrollTop >= scrollHeight) {
+            setSkip(posts.length)
+        }
+    }
 
     return (
-        <>
+        <div className='feed' handleScroll={handleScroll}>
             {token !== null && 
             <>
                 {console.log('guest home')}
@@ -41,6 +50,6 @@ export const GuestHome = (props) => {
                 }
             </>
             }
-        </>
+        </div>
     )
 }
