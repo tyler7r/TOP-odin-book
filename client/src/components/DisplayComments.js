@@ -3,7 +3,7 @@ import { NewComment } from './NewComment';
 import { Link } from 'react-router-dom';
 
 export const DisplayComments = (props) => {
-    const { posts, setPosts, postId, token, user, formatDate, isGuest } = props;
+    const { posts, setPosts, postId, token, user, formatDate } = props;
     const [postComments, setPostComments] = useState([]);
 
     useEffect(() => {
@@ -58,10 +58,8 @@ export const DisplayComments = (props) => {
                             <Link to={`/odinbook${comment.author.url}`}><div>{comment.author.fullName}</div></Link>
                             <div>{comment.text}</div>
                             <div>{formatDate(comment.time)}</div>
-                            <div>Likes: {comment.likes.length}</div>
-                            {isGuest === false && 
-                                <button id={comment._id} onClick={(e) => handleLike(e)}>Like Comment</button>
-                            }
+                            <div>Likes: {comment.likes.length}</div> 
+                            <button id={comment._id} onClick={(e) => handleLike(e)}>Like Comment</button>
                             {comment.author._id === user._id &&
                                 <button id={comment._id} onClick={(e) => handleDelete(e)}>Delete Comment</button>
                             }
@@ -69,9 +67,7 @@ export const DisplayComments = (props) => {
                     )
                 })
             }
-            {isGuest === false && 
-                <NewComment user={user} postId={postId} token={token} posts={posts} setPosts={setPosts} setPostComments={setPostComments} postComments={postComments} />
-            }
+            <NewComment user={user} postId={postId} token={token} posts={posts} setPosts={setPosts} setPostComments={setPostComments} postComments={postComments} />
         </>
     )
 }

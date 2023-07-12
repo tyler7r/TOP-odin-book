@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import { NewPost } from './NewPost';
 import { DisplayPosts } from './DisplayPosts';
-import { GuestHome } from './Guest/GuestHome';
+import { GuestHome } from './GuestViews/GuestHome';
 
 export const Home = (props) => {
     const { user, token, isGuest } = props;
@@ -39,8 +39,8 @@ export const Home = (props) => {
 
     return (
         <>
-            {token !== null && 
-                (isGuest === false 
+            {token !== null &&
+                (isGuest === false
                     ? <>
                         <Link to='/odinbook/users/index'>User Index</Link>
                         <h1>Home Page</h1>
@@ -53,11 +53,8 @@ export const Home = (props) => {
                         <button onClick={() => setView('friends')}>Friends</button>
                         <button onClick={() => setView('recent')}>Recent</button>
                         {posts !== null &&
-                            (view === 'friends'
-                                ? <DisplayPosts  token={token} user={user} posts={posts} setPosts={setPosts}></DisplayPosts>
-                                : <DisplayPosts  token={token} user={user} posts={posts} setPosts={setPosts}></DisplayPosts>
-                            )
-                        } 
+                            <DisplayPosts token={token} user={user} posts={posts} setPosts={setPosts} />
+                        }
                     </>
                     : <GuestHome token={token} user={user} posts={posts} setPosts={setPosts}></GuestHome>
                 )

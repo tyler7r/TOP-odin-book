@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { GuestProfile } from './GuestViews/GuestProfile';
 import { DisplayPosts } from './DisplayPosts';
 import { ProfileInfo } from './ProfileInfo';
 import { NewPost } from './NewPost';
 
 export const Profile = (props) => {
     const { userId } = useParams();
-    const { token, user, setUser, setUpdateUser, isGuest, posts, setPosts } = props;
+    const { token, user, setUser, setUpdateUser, isGuest } = props;
     const [profileData, setProfileData] = useState(null);
     const [profilePosts, setProfilePosts] = useState(null);
     const [requests, setRequests] = useState(null);
@@ -109,68 +110,67 @@ export const Profile = (props) => {
     return (
         <>
             <Link to='/odinbook'>Back Home</Link>
-            {(user !== null && isGuest === false) &&
-                <Link style={{margin: '8px'}} to={`/odinbook${user.url}`}>{user.fullName}</Link>
-            }
-            {profilePosts !== null &&
-                <>
-                    {profileData.profilePic === undefined ? '' : <img src={profileData.profilePic} height={100} width={100} alt='profilePic'/>}
-                    {profileData.profileBio === undefined ? '' : <div>{profileData.profileBio}</div>}
-                    <h1>{profileData.fullName}</h1>
-                    <div>Friends: {profileData.friends.length}</div>
-                    {isGuest === false && 
-                        (friendStatus() === 'Not Friend' && 
+            {isGuest === false ? 
+            <>
+                {user !== null &&
+                    <Link style={{margin: '8px'}} to={`/odinbook${user.url}`}>{user.fullName}</Link>
+                }
+                {profilePosts !== null &&
+                    <>
+                        {profileData.profilePic === undefined ? '' : <img src={profileData.profilePic} height={100} width={100} alt='profilePic'/>}
+                        {profileData.profileBio === undefined ? '' : <div>{profileData.profileBio}</div>}
+                        <h1>{profileData.fullName}</h1>
+                        <div>Friends: {profileData.friends.length}</div> 
+                        {friendStatus() === 'Not Friend' && 
                             <button onClick={() => friendRequestButton()}>Send Friend Request</button>
-                        )
-                        (friendStatus() === 'Pending Request' &&
+                        }
+                        {friendStatus() === 'Pending Request' &&
                             <button onClick={() => friendRequestButton()}>Request Sent</button>
-                        )
-                        (friendStatus() === 'Friend' &&
+                        }
+                        {friendStatus() === 'Friend' &&
                             <button onClick={() => unfriendUser()}>Friends</button>
-                        )
-                    }
-                    {editProfileModal === true && 
-                        <ProfileInfo setEditProfileModal={setEditProfileModal} token={token} setProfileData={setProfileData} profileData={profileData} formData={formData} setFormData={setFormData} setUser={setUser} setUpdateUser={setUpdateUser} />
-                    }
-                    {(editProfileModal === false && user._id === profileData._id) && 
-                        <>
-                            <button onClick={() => setEditProfileModal(true)}>Edit Profile</button>
-                            <h3>Friend Requests</h3>
-                            {(requests !== null && isCurrentUserProfile === true) &&
-                                requests.map(request => {
-                                    return ( 
-                                        <div key={request._id}>
-                                            <Link to={`/odinbook/users/${request.sender._id}`}>{request.sender.fullName}</Link>
-                                            <button id={request._id} onClick={(e) => handleRequest(e, 'accept')}>Accept</button>
-                                            <button id={request._id} onClick={(e) => handleRequest(e, 'reject')}>Reject</button>
-                                        </div>
-                                    )
-                                })
-                            }
-                        </>
-                    }
-                    {(requests !== null && isCurrentUserProfile === true) &&
-                        requests.map(request => {
-                            return ( 
-                                <div key={request._id}>
-                                    <Link to={`/odinbook/users/${request.sender._id}`}>{request.sender.fullName}</Link>
-                                    <button id={request._id} onClick={(e) => handleRequest(e, 'accept')}>Accept</button>
-                                    <button id={request._id} onClick={(e) => handleRequest(e, 'reject')}>Reject</button>
-                                </div>
-                            )
-                        })
-                    }
-                    {isGuest === false && 
-                        <>
-                            <h3>New Post</h3>
-                            <NewPost token={token} user={user} posts={profilePosts} setPosts={setProfilePosts}/>
-                        </>
-                    }
-                    <DisplayPosts token={token} user={user} posts={profilePosts} setPosts={setProfilePosts} />
-                </>
-            }
-            {profilePosts === null &&
-                <div>No user data found</div>
+                        }
+                        {(editProfileModal === false && isCurrentUserProfile === true) &&
+                            <>
+                                <button onClick={() => setEditProfileModal(true)}>Edit Profile</button>
+                                <h3>Friend Requests</h3>
+                                {(requests !== null && isCurrentUserProfile === true) &&
+                                    requests.map(request => {
+                                        return ( 
+                                            <div key={request._id}>
+                                                <Link to={`/odinbook/users/${request.sender._id}`}>{request.sender.fullName}</Link>
+                                                <button id={request._id} onClick={(e) => handleRequest(e, 'accept')}>Accept</button>
+                                                <button id={request._id} onClick={(e) => handleRequest(e, 'reject')}>Reject</button>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </>
+                        }
+                        {editProfileModal === true && 
+                            <ProfileInfo setEditProfileModal={setEditProfileModal} token={token} setProfileData={setProfileData} profileData={profileData} formData={formData} setFormData={setFormData} setUser={setUser} setUpdateUser={setUpdateUser} />
+                        }
+                        {(requests !== null && isCurrentUserProfile === true) &&
+                            requests.map(request => {
+                                return ( 
+                                    <div key={request._id}>
+                                        <Link to={`/odinbook/users/${request.sender._id}`}>{request.sender.fullName}</Link>
+                                        <button id={request._id} onClick={(e) => handleRequest(e, 'accept')}>Accept</button>
+                                        <button id={request._id} onClick={(e) => handleRequest(e, 'reject')}>Reject</button>
+                                    </div>
+                                )
+                            })
+                        }
+                        <h3>New Post</h3>
+                        <NewPost token={token} user={user} posts={profilePosts} setPosts={setProfilePosts}/>
+                        <DisplayPosts token={token} user={user} posts={profilePosts} setPosts={setProfilePosts} />
+                    </>
+                }
+                {profilePosts === null &&
+                    <div>No user data found</div>
+                }
+            </>
+            : <GuestProfile token={token} user={user} />
             }
         </>
     )

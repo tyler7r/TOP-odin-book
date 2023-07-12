@@ -1,47 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { DisplayComments } from './DisplayComments';
+import { GuestDisplayComments } from './GuestDisplayComments';
 import isSameWeek from 'date-fns/isSameISOWeek';
 
-export const DisplayPosts = (props) => {
+export const GuestDisplayPosts = (props) => {
     const { setPosts, posts, token, user, isGuest } = props;
-
-    const handleLike = async (e) => {
-        const postId = e.target.id;
-
-        await fetch(`/odinbook/${postId}/like`, {
-            method: 'get',
-            headers: {
-                'Authorization': token,
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json())
-            .then(data => {
-                let copy = [...posts];
-                let index = copy.findIndex(post => post._id === postId);
-                copy[index] = data.post;
-                setPosts([...copy]);
-            })
-
-    }
-
-    const handleDelete = async (e) => {
-        const postId = e.target.id
-
-        await fetch(`/odinbook/${postId}/delete`, {
-            method: 'get',
-            headers: {
-                'Authorization': token,
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json())
-            .then(() => {
-                let copy = [...posts];
-                let index = copy.findIndex(post => post._id === postId);
-                copy.splice(index, 1);
-                setPosts([...copy]);
-            })
-    }
 
     const formatDate = (date) => {
         const formatted = new Date(date);
@@ -86,12 +49,8 @@ export const DisplayPosts = (props) => {
                         <div>Post Date: {formatDate(post.time)}</div>
                         <div>Likes: {post.likes.length}</div>
                         <div>Comments: {post.comments.length}</div>
-                        <button id={post._id} onClick={(e) => handleLike(e)}>Like Post</button>
-                        {post.author._id === user._id &&
-                            <button id={post._id} onClick={(e) => handleDelete(e)}>Delete Post</button>
-                        }
                         <h3>Comments</h3>
-                        <DisplayComments user={user} token={token} postId={post._id} posts={posts} setPosts={setPosts} formatDate={formatDate} />
+                        <GuestDisplayComments user={user} token={token} postId={post._id} posts={posts} setPosts={setPosts} formatDate={formatDate} isGuest={isGuest} />
                         <div>=============================</div>
                     </div>
                 )

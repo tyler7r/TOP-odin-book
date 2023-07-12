@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { NewPost } from '../NewPost';
-import { DisplayPosts } from '../DisplayPosts';
+import { GuestDisplayPosts } from './GuestDisplayPosts';
 
 export const GuestHome = (props) => {
     const { user, token } = props;
@@ -34,10 +33,11 @@ export const GuestHome = (props) => {
         <>
             {token !== null && 
             <>
+                {console.log('guest home')}
                 <Link to='/odinbook/users/index'>User Index</Link>
                 <h1>Home Page</h1>
                 {posts !== null &&
-                    <DisplayPosts  token={token} user={user} posts={posts} setPosts={setPosts}></DisplayPosts>
+                    <GuestDisplayPosts token={token} user={user} posts={posts} setPosts={setPosts}></GuestDisplayPosts>
                 }
             </>
             }

@@ -5,7 +5,6 @@ import { Signup } from './components/Signup';
 import { Home } from './components/Home';
 import { Profile } from './components/Profile';
 import { UserIndex } from './components/UserIndex';
-import { GuestHome } from './components/Guest/GuestHome';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -14,7 +13,6 @@ function App() {
   const [updateUser, setUpdateUser] = useState(false);
 
   useEffect(() => {
-    console.log(token);
     const checkToken = localStorage.getItem('token')
     const checkUser = localStorage.getItem('user')
 
@@ -31,6 +29,7 @@ function App() {
       }
       setUser(parseUser);
     }
+    console.log(isGuest);
   }, [])
 
   useEffect(() => {
@@ -59,8 +58,7 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Routes>
-          <Route path='/odinbook' element={<Home token={token} user={user} updateUser={updateUser} setUpdateUser={setUpdateUser} />} />
-          <Route path='/odinbook/guest' element={<GuestHome token={token} user={user} updateUser={updateUser} setUpdateUser={setUpdateUser} />} />
+          <Route path='/odinbook' element={<Home isGuest={isGuest} token={token} user={user} updateUser={updateUser} setUpdateUser={setUpdateUser} />} />
           <Route path='/odinbook/login' element={<Login isGuest={isGuest} setToken={setToken} setUser={setUser} updateUser={updateUser} setUpdateUser={setUpdateUser} />} />
           <Route path='/odinbook/signup' element={<Signup isGuest={isGuest} updateUser={updateUser} setUpdateUser={setUpdateUser} />} />
           <Route path='/odinbook/users/:userId' element={<Profile isGuest={isGuest} user={user} setUser={setUser} token={token} updateUser={updateUser} setUpdateUser={setUpdateUser} />} />
