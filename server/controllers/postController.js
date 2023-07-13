@@ -20,10 +20,10 @@ exports.create_post = [
         } else {
             await post.save()
             await User.findByIdAndUpdate(req.user._id, { $push: { posts: post }}).exec()
-            let postI = await Post.findById(post.id).populate('author').exec();
+            let updatedPost = await Post.findById(post.id).populate('author').exec();
             res.status(200).json({
                 message: 'Post created successfully',
-                post: postI,
+                post: updatedPost,
             })
         }
     })
@@ -32,16 +32,16 @@ exports.create_post = [
 exports.like_post = asyncHandler(async (req, res, next) => {
     let post = await Post.findById(req.params.postId).exec();
     if (post.likes.includes(req.user._id)) {
-        await Post.findByIdAndUpdate(req.params.postId, { $pull: { likes: req.user._id }}).exec();
+        await Post.findByIdAndUpdate(req.params.postId, { $pull: { likes: req.user._id }, $inc: { interactions: -1 }}).exec();
     } else {
-        await Post.findByIdAndUpdate(req.params.postId, { $push: { likes: req.user._id }}).exec();
+        await Post.findByIdAndUpdate(req.params.postId, { $push: { likes: req.user._id }, $inc: { interactions: 1 }}).exec();
     }
-    let updatePost = await Post.findById(req.params.postId).populate('author').populate('comments').exec()
+    let updatedPost = await Post.findById(req.params.postId).populate('author').populate('comments').exec()
     let posts = await Post.find().populate('author').limit(10).exec()
     res.status(200).json({
         message: 'Post liked successfully',
-        post: updatePost,
-        posts: posts
+        post: updatedPost,
+        posts
     })
 })
 
@@ -51,6 +51,6 @@ exports.delete_post = asyncHandler(async (req, res, next) => {
     let posts = await Post.find().limit(10).populate('author').exec();
     res.status(200).json({
         message: 'Post deleted successfully',
-        posts: posts,
+        posts
     })
 })

@@ -20,7 +20,7 @@ exports.login = asyncHandler(async (req, res, next) => {
                 }
                 const token = jwt.sign({user}, process.env.SECRET_KEY, { expiresIn: '1d' })
                 return res.status(200).json({
-                    token: token,
+                    token,
                     user: user,
                 })
             })
@@ -71,7 +71,7 @@ exports.signup = [
                         await user.save();
                         res.status(200).json({
                             message: 'User created',
-                            user: user,
+                            user
                         })
                     }
                 })

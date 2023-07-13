@@ -16,19 +16,21 @@ exports.home = asyncHandler(async (req, res, next) => {
 
     let user = await User.findById(req.user._id).exec();
 
+    let friends = user.friends;
+
     let posts;
 
-    console.log(user.friends);
-
     if (req.query.feed === 'friends') {
-        posts = await Post.find({ author: user.friends }, undefined, { skip, limit: 5 }).populate('author').populate({ path: 'comments', populate: { path: 'author'}}).sort({ 'time': -1 }).exec()
+        posts = await Post.find({ author: friends }, undefined, { skip, limit: 5 }).populate('author').populate({ path: 'comments', populate: { path: 'author'}}).sort({ 'time': -1 }).exec()
+    } else if (req.query.feed === 'popular') {
+        posts = await Post.find({}, undefined, { skip, limit: 5 }).populate('author').populate({ path: 'comments', populate: { path: 'author'} }).sort({ 'interactions' : -1 }).exec();
     } else {    
         posts = await Post.find({}, undefined, { skip, limit: 5 }).populate('author').populate({ path: 'comments', populate: { path: 'author'} }).sort({ 'time': -1 }).exec();
     }
 
     res.status(200).json({
-        posts: posts,
-        friends: user.friends,
+        posts,
+        friends
     })
 })
 

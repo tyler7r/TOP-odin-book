@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import { NewPost } from './NewPost';
 import { DisplayPosts } from './DisplayPosts';
 import { GuestHome } from './GuestViews/GuestHome';
-import { FriendsFeed } from './FriendsFeed';
-import { RecentFeed } from './RecentFeed';
+import { FriendsFeed } from './FeedViews/FriendsFeed';
+import { RecentFeed } from './FeedViews/RecentFeed';
 import './Home.css'
+import { PopularFeed } from './FeedViews/PopularFeed';
 
 export const Home = (props) => {
     const { user, token, isGuest } = props;
@@ -61,16 +62,12 @@ export const Home = (props) => {
         <>
             {token !== null &&
                 (isGuest === false
-                    ? <>
-                        <Link to='/odinbook/users/index'>User Index</Link>
-                        <h1>Home Page</h1>
-                        <button onClick={() => {setView('friends')}}>Friends</button>
-                        <button onClick={() => {setView('recent')}}>Recent</button>
-                        {view === 'recent' 
-                            ? <RecentFeed token={token} user={user} posts={posts} setPosts={setPosts} />
-                            : <FriendsFeed view={view} token={token} user={user} posts={posts} setPosts={setPosts} />
-                        }
-                    </>
+                    ? (view === 'recent' 
+                            ? <RecentFeed setView={setView} view={view} token={token} user={user} posts={posts} setPosts={setPosts} />
+                            : (view === 'friends'
+                                ? <FriendsFeed setView={setView} view={view} token={token} user={user} posts={posts} setPosts={setPosts} />
+                                : <PopularFeed setView={setView} view={view} token={token} user={user} posts={posts} setPosts={setPosts} />) 
+                        )
                     : <GuestHome token={token} user={user} posts={posts} setPosts={setPosts}></GuestHome>
                 )
             }

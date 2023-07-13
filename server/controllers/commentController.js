@@ -22,14 +22,14 @@ exports.create_comment = [
             })
         } else {
             (await comment.save()).populate('author');
-            await Post.findByIdAndUpdate(req.params.postId, { $push: { comments: comment }}).exec()
+            await Post.findByIdAndUpdate(req.params.postId, { $push: { comments: comment }, $inc: { interactions: 1 }}).exec()
             let posts = await Post.find().limit(10).populate('author').exec()
             let post = await Post.findById(req.params.postId).populate('author').populate({ path: 'comments', populate: { path: 'author' } }).exec()
             res.status(200).json({
                 message: 'Comment created successfully',
-                comment: comment,
-                post: post,
-                posts: posts,
+                comment,
+                post,
+                posts
             })
         }
     })
@@ -38,26 +38,26 @@ exports.create_comment = [
 exports.like_comment = asyncHandler(async (req, res, next) => {
     let comment = await Comment.findById(req.params.commentId).exec();
     if (comment.likes.includes(req.user._id)) {
-        await Comment.findByIdAndUpdate(req.params.commentId, { $pull: { likes: req.user._id }}).exec()
+        await Comment.findByIdAndUpdate(req.params.commentId, { $pull: { likes: req.user._id }, $inc: { interactions: -1 }}).exec()
     } else {
-        await Comment.findByIdAndUpdate(req.params.commentId, { $push: { likes: req.user._id }}).exec()
+        await Comment.findByIdAndUpdate(req.params.commentId, { $push: { likes: req.user._id }, $inc: { interactions: 1 }}).exec()
     }
     let post = await Post.findById(req.params.postId).populate('author').populate({ path: 'comments', populate: { path: 'author'} }).exec()
     res.status(200).json({
         message: 'Comment liked successfully',
-        comment: comment,
-        post: post,
+        comment,
+        post
     })
 })
 
 exports.delete_comment = asyncHandler(async (req, res, next) => {
-    await Post.findByIdAndUpdate(req.params.postId, { $pull: { comments: req.params.commentId }}).exec();
+    await Post.findByIdAndUpdate(req.params.postId, { $pull: { comments: req.params.commentId }, $inc: { interactions: 1 }}).exec();
     await Comment.findByIdAndRemove(req.params.commentId).exec();
     let post = await Post.findById(req.params.postId).populate({ path: 'comments', populate: { path: 'author'} }).populate('author').exec();
     let comments = post.comments;
     res.status(200).json({
         message: 'Comment deleted successfully',
-        comments: comments,
-        post: post,
+        comments,
+        post
     })
 })
