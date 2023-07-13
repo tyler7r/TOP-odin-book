@@ -17,7 +17,11 @@ export const GuestHome = (props) => {
                 },
             }).then(res => res.json())
                 .then(data => {
-                    setPosts(data.posts);
+                    if (posts !== null) {
+                        setPosts([...posts, ...data.posts])
+                    } else {
+                        setPosts(data.posts);
+                    }
                 })
         } catch (err){
             console.log(err)
@@ -39,17 +43,16 @@ export const GuestHome = (props) => {
     }
 
     return (
-        <div className='feed' handleScroll={handleScroll}>
+        <>
             {token !== null && 
-            <>
-                {console.log('guest home')}
+            <div className='feed' onScroll={handleScroll}>
                 <Link to='/odinbook/users/index'>User Index</Link>
                 <h1>Home Page</h1>
                 {posts !== null &&
                     <GuestDisplayPosts token={token} user={user} posts={posts} setPosts={setPosts}></GuestDisplayPosts>
                 }
-            </>
+            </div>
             }
-        </div>
+        </>
     )
 }

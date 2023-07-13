@@ -24,7 +24,7 @@ export const NewPost = (props) => {
         }).then(res => res.json())
             .then(data => {
                 setPostText('');
-                setPosts([...posts, data.post])
+                setPosts([data.post, ...posts])
             })
     }
 

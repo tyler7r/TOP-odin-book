@@ -29,6 +29,7 @@ function App() {
       }
       setUser(parseUser);
     }
+    console.log(isGuest);
   }, [])
 
   useEffect(() => {

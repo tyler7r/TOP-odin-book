@@ -163,17 +163,6 @@ export const Profile = (props) => {
                         {editProfileModal === true && 
                             <ProfileInfo setEditProfileModal={setEditProfileModal} token={token} setProfileData={setProfileData} profileData={profileData} formData={formData} setFormData={setFormData} setUser={setUser} setUpdateUser={setUpdateUser} />
                         }
-                        {(requests !== null && isCurrentUserProfile === true) &&
-                            requests.map(request => {
-                                return ( 
-                                    <div key={request._id}>
-                                        <Link to={`/odinbook/users/${request.sender._id}`}>{request.sender.fullName}</Link>
-                                        <button id={request._id} onClick={(e) => handleRequest(e, 'accept')}>Accept</button>
-                                        <button id={request._id} onClick={(e) => handleRequest(e, 'reject')}>Reject</button>
-                                    </div>
-                                )
-                            })
-                        }
                         <h3>New Post</h3>
                         <NewPost token={token} user={user} posts={profilePosts} setPosts={setProfilePosts}/>
                         <DisplayPosts token={token} user={user} posts={profilePosts} setPosts={setProfilePosts} />
