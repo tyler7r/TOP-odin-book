@@ -8,6 +8,7 @@ const user_controller = require('../controllers/userController');
 const post_controller = require('../controllers/postController');
 const comment_controller = require('../controllers/commentController');
 const request_controller = require('../controllers/requestController');
+const search_controller = require('../controllers/searchController');
 
 router.post('/login', auth_controller.login);
 
@@ -54,5 +55,9 @@ router.get('/:userId/unfriend', passport.authenticate('jwt', { session: false })
 router.get('/:requestId/accept', passport.authenticate('jwt', { session: false }), request_controller.acceptRequest);
 
 router.get('/:requestId/reject', passport.authenticate('jwt', { session: false }), request_controller.rejectRequest);
+
+/// SEARCH ROUTES ///
+
+router.get('/search/:topic', passport.authenticate('jwt', { session: false }), search_controller.search)
 
 module.exports = router;

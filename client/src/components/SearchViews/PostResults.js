@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom';
-import { NewPost } from '../NewPost';
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom';
 import { DisplayPosts } from '../DisplayPosts';
-import '../Home.css';
 
-export const FriendsFeed = (props) => {
-    const { user, token, view } = props;
+export const PostResults = (props) => {
+    const search = useParams();
+    const { token, user, view } = props;
     const [posts, setPosts] = useState(null);
-    const [skip, setSkip] = useState(0);
-    // const [errors, setErrors] = useState(null);
-    
+    const [skip, setSkip] = useState(0)
+
     const fetchPosts = async () => {
         try {
-            await fetch(`/odinbook?skip=${skip}&feed=${view}`, {
+            await fetch(`/odinbook/search/${search.topic}?skip=${skip}&view=${view}`, {
                 method: 'get',
                 headers: {
                     'Authorization': token,
@@ -53,10 +51,9 @@ export const FriendsFeed = (props) => {
         <>
             {token !== null &&
                 <div className='feed' onScroll={handleScroll}>
-                    <h4>Friends Feed</h4>
-                    {(posts !== null && posts.length !== 0)
-                        ? <DisplayPosts token={token} user={user} posts={posts} setPosts={setPosts} />
-                        : <div>No Friend Posts</div>
+                    {(posts !== null && posts.length !== 0) 
+                        ? <DisplayPosts token={token} posts={posts} setPosts={setPosts} user={user} />
+                        : <div>No posts results</div>
                     }
                 </div>
             }

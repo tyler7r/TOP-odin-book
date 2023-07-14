@@ -11,20 +11,7 @@ export const SearchBar = (props) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        const data = JSON.stringify(search);
-
-        await fetch(`/odinbook/search/${search.topic}`, {
-            method: 'post',
-            body: data,
-            headers: {
-                'Authorization': token,
-                'Content-Type': 'application/json',
-            }
-        }).then(res => res.json())
-            .then((data) => {
-                console.log(data)
-            })
+        window.location.href = `/odinbook/search/${search.topic}`;
     }
 
     return (

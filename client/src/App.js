@@ -5,6 +5,7 @@ import { Signup } from './components/Signup';
 import { Home } from './components/Home';
 import { Profile } from './components/Profile';
 import { UserIndex } from './components/UserIndex';
+import { SearchHome } from './components/SearchViews/SearchHome';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -63,6 +64,7 @@ function App() {
           <Route path='/odinbook/signup' element={<Signup isGuest={isGuest} updateUser={updateUser} setUpdateUser={setUpdateUser} />} />
           <Route path='/odinbook/users/:userId' element={<Profile isGuest={isGuest} user={user} setUser={setUser} token={token} updateUser={updateUser} setUpdateUser={setUpdateUser} />} />
           <Route path='/odinbook/users/index' element={<UserIndex isGuest={isGuest} token={token} user={user} updateUser={updateUser} setUpdateUser={setUpdateUser} />} />
+          <Route path='/odinbook/search/:topic' element={<SearchHome isGuest={isGuest} token={token} user={user} />} />
         </Routes>
       </div>
     </BrowserRouter>

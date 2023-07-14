@@ -5,10 +5,31 @@ import { DisplayPosts } from '../DisplayPosts';
 import '../Home.css'
 
 export const RecentFeed = (props) => {
-    const { user, token, fetchPosts } = props;
+    const { user, token, view } = props;
     const [posts, setPosts] = useState(null);
     const [skip, setSkip] = useState(0);
     // const [errors, setErrors] = useState(null);
+
+    const fetchPosts = async () => {
+        try {
+            await fetch(`/odinbook?skip=${skip}&feed=${view}`, {
+                method: 'get',
+                headers: {
+                    'Authorization': token,
+                    'Content-Type': 'application/json',
+                },
+            }).then(res => res.json())
+                .then(data => {
+                    if (posts !== null) {
+                        setPosts([...posts, ...data.posts])
+                    } else {
+                        setPosts(data.posts)
+                    }
+                })
+        } catch (err){
+            console.log(err)
+        }
+    }
 
     useEffect(() => {
         if (token !== null) {
@@ -31,15 +52,13 @@ export const RecentFeed = (props) => {
     return (
         <>
             {token !== null &&
-                <>
-                    <div className='feed' onScroll={handleScroll}>
-                        <h4>Recent Feed</h4>
-                        {(posts !== null && posts.length !== 0)
-                            ? <DisplayPosts token={token} user={user} posts={posts} setPosts={setPosts} />
-                            : <div>No recent posts</div>
-                        }
-                    </div>
-                </>
+                <div className='feed' onScroll={handleScroll}>
+                    <h4>Recent Feed</h4>
+                    {(posts !== null && posts.length !== 0)
+                        ? <DisplayPosts token={token} user={user} posts={posts} setPosts={setPosts} />
+                        : <div>No recent posts</div>
+                    }
+                </div>
             }
         </>
     )
