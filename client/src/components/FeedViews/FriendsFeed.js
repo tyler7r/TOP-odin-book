@@ -5,7 +5,7 @@ import { DisplayPosts } from '../DisplayPosts';
 import '../Home.css';
 
 export const FriendsFeed = (props) => {
-    const { user, token, view, setView } = props;
+    const { user, token, fetchPosts } = props;
     const [posts, setPosts] = useState(null);
     const [skip, setSkip] = useState(0);
     // const [errors, setErrors] = useState(null);
