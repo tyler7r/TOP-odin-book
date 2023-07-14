@@ -4,6 +4,7 @@ import { GuestProfile } from './GuestViews/GuestProfile';
 import { DisplayPosts } from './DisplayPosts';
 import { ProfileInfo } from './ProfileInfo';
 import { NewPost } from './NewPost';
+import { Header } from './Header';
 
 export const Profile = (props) => {
     const { userId } = useParams();
@@ -122,7 +123,7 @@ export const Profile = (props) => {
 
     return (
         <>
-            <Link to='/odinbook'>Back Home</Link>
+            <Header user={user} />
             {isGuest === false ? 
             <div className='feed' onScroll={handleScroll}>
                 {user !== null &&

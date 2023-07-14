@@ -17,11 +17,11 @@ function App() {
     const checkToken = localStorage.getItem('token')
     const checkUser = localStorage.getItem('user')
 
-    if (checkToken !== 'undefined' || null) {
+    if (checkToken !== 'undefined' && checkToken !== 'null') {
       let parseToken = JSON.parse(localStorage.getItem('token'))
       setToken(`Bearer ${parseToken}`)
     }
-    if (checkUser !== 'undefined' || null) {
+    if (checkUser !== 'undefined' && checkUser !== 'null') {
       let parseUser = JSON.parse(localStorage.getItem('user'));
       if (parseUser.username === 'guest') {
         setIsGuest(true);
@@ -30,7 +30,6 @@ function App() {
       }
       setUser(parseUser);
     }
-    console.log(isGuest);
   }, [])
 
   useEffect(() => {

@@ -14,6 +14,8 @@ router.post('/login', auth_controller.login);
 
 router.post('/signup', auth_controller.signup);
 
+router.get('/logout', auth_controller.logout);
+
 router.get('/', passport.authenticate('jwt', { session: false }), user_controller.home);
 
 /// USER ROUTES ///

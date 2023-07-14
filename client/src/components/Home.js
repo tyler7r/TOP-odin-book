@@ -8,6 +8,7 @@ import { RecentFeed } from './FeedViews/RecentFeed';
 import './Home.css'
 import { PopularFeed } from './FeedViews/PopularFeed';
 import { SearchBar } from './SearchBar';
+import { Header } from './Header';
 
 export const Home = (props) => {
     const { user, token, isGuest } = props;
@@ -29,14 +30,12 @@ export const Home = (props) => {
         <>
             {token !== null &&
                 <>
+                    <Header user={user} />
                     <Link to='/odinbook/users/index'>User Index</Link>
                     <SearchBar token={token} user={user} />
                     <h1>Home Page</h1>
                     {user !== null &&
-                        <>
-                            <Link to={`/odinbook${user.url}`}>{user.fullName} @{user.username}</Link>
-                            <NewPost token={token} user={user} posts={posts} setPosts={setPosts} />
-                        </>
+                        <NewPost token={token} user={user} posts={posts} setPosts={setPosts} />
                     }
                     {isGuest === false
                         ? <>

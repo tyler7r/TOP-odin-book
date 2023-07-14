@@ -79,3 +79,13 @@ exports.signup = [
         }
     })
 ]
+
+exports.logout = asyncHandler(async (req, res, next) => {
+    let token = null;
+    let user = null;
+
+    res.status(200).json({
+        token,
+        user
+    })
+})
