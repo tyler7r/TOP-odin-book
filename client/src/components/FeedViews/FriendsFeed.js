@@ -21,11 +21,9 @@ export const FriendsFeed = (props) => {
             }).then(res => res.json())
                 .then(data => {
                     if (posts !== null) {
-                        let friendPosts = data.posts.filter(post => data.friends.includes(post.author._id))
-                        setPosts([...posts, ...friendPosts])
+                        setPosts([...posts, ...data.posts])
                     } else {
-                        let friendPosts = data.posts.filter(post => data.friends.includes(post.author._id))
-                        setPosts(friendPosts);
+                        setPosts(data.posts)
                     }
                 })
         } catch (err){
@@ -55,17 +53,6 @@ export const FriendsFeed = (props) => {
         <>
             {token !== null &&
                 <>
-                    <Link to='/odinbook/users/index'>User Index</Link>
-                    <h1>Home Page</h1>
-                    {user !== null &&
-                        <>
-                            <Link to={`/odinbook${user.url}`}>{user.fullName} @{user.username}</Link>
-                            <NewPost token={token} user={user} posts={posts} setPosts={setPosts} />
-                        </>
-                    }
-                    <button onClick={() => setView('friends')}>Friends</button>
-                    <button onClick={() => setView('recent')}>Recent</button>
-                    <button onClick={() => setView('popular')}>Popular</button>
                     <div className='feed' onScroll={handleScroll}>
                         <h4>Friends Feed</h4>
                         {(posts !== null && posts.length !== 0)

@@ -51,19 +51,9 @@ export const PopularFeed = (props) => {
 
     return (
         <>
+            {console.log(posts)}
             {token !== null &&
                 <>
-                    <Link to='/odinbook/users/index'>User Index</Link>
-                    <h1>Home Page</h1>
-                    {user !== null &&
-                        <>
-                            <Link to={`/odinbook${user.url}`}>{user.fullName} @{user.username}</Link>
-                            <NewPost token={token} user={user} posts={posts} setPosts={setPosts} />
-                        </>
-                    }   
-                    <button onClick={() => {setView('friends')}}>Friends</button>
-                    <button onClick={() => {setView('recent')}}>Recent</button>
-                    <button onClick={() => setView('popular')}>Popular</button>
                     <div className='feed' onScroll={handleScroll}>
                         <h4>Popular Feed</h4>
                         {(posts !== null && posts.length !== 0)

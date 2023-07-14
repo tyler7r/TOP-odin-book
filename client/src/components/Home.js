@@ -14,62 +14,34 @@ export const Home = (props) => {
     const [view, setView] = useState('recent');
     const [skip, setSkip] = useState(0);
     // const [errors, setErrors] = useState(null);
-    
-    // const fetchHome = async () => {
-    //     try {
-    //         await fetch(`/odinbook?skip=${skip}`, {
-    //             method: 'get',
-    //             headers: {
-    //                 'Authorization': token,
-    //                 'Content-Type': 'application/json',
-    //             },
-    //         }).then(res => res.json())
-    //             .then(data => {
-    //                 if (posts !== null) {
-    //                     if (view === 'recent') setPosts([...posts, ...data.posts])
-    //                     else {
-    //                         let friendPosts = data.posts.filter(post => data.friends.includes(post.author._id))
-    //                         setPosts([...posts, ...friendPosts]);
-    //                     }
-    //                 } else {
-    //                     if (view === 'recent') setPosts(data.posts)
-    //                     else {
-    //                         let friendPosts = data.posts.filter(post => data.friends.includes(post.author._id))
-    //                         setPosts(friendPosts);
-    //                     }
-    //                 }
-    //             })
-    //     } catch (err){
-    //         console.log(err)
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     if (token !== null) {
-    //         fetchHome();
-    //     }
-    // }, [token, skip, view]);
-
-    // const handleScroll = (e) => {
-    //     const { offsetHeight, scrollTop, scrollHeight } = e.target;
-
-    //     if (offsetHeight + scrollTop >= scrollHeight) {
-    //         setSkip(posts.length)
-    //     }
-    // }
 
     return (
         <>
             {token !== null &&
-                (isGuest === false
-                    ? (view === 'recent' 
-                            ? <RecentFeed setView={setView} view={view} token={token} user={user} posts={posts} setPosts={setPosts} />
-                            : (view === 'friends'
-                                ? <FriendsFeed setView={setView} view={view} token={token} user={user} posts={posts} setPosts={setPosts} />
-                                : <PopularFeed setView={setView} view={view} token={token} user={user} posts={posts} setPosts={setPosts} />) 
-                        )
-                    : <GuestHome token={token} user={user} posts={posts} setPosts={setPosts}></GuestHome>
-                )
+                <>
+                    <Link to='/odinbook/users/index'>User Index</Link>
+                    <h1>Home Page</h1>
+                    {user !== null &&
+                        <>
+                            <Link to={`/odinbook${user.url}`}>{user.fullName} @{user.username}</Link>
+                            <NewPost token={token} user={user} posts={posts} setPosts={setPosts} />
+                        </>
+                    }
+                    {isGuest === false
+                        ? <>
+                            <button onClick={() => {setView('friends')}}>Friends</button>
+                            <button onClick={() => {setView('recent')}}>Recent</button>
+                            <button onClick={() => setView('popular')}>Popular</button>
+                                {view === 'recent' 
+                                    ? <RecentFeed setView={setView} view={view} token={token} user={user} />
+                                    : (view === 'friends'
+                                        ? <FriendsFeed setView={setView} view={view} token={token} user={user} />
+                                        : <PopularFeed setView={setView} view={view} token={token} user={user} />) 
+                                }
+                        </>
+                        : <GuestHome token={token} user={user} posts={posts} setPosts={setPosts}></GuestHome>
+                    }
+                </>
             }
         </>
     )
