@@ -40,7 +40,6 @@ export const Home = (props) => {
                     <h1>Home Page</h1>
                     {isGuest === false
                         ? <>
-                            <NewPost token={token} user={user} posts={posts} setPosts={setPosts} />
                             <button onClick={() => {setView('friends')}}>Friends</button>
                             <button onClick={() => {setView('recent')}}>Recent</button>
                             <button onClick={() => setView('popular')}>Popular</button>

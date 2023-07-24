@@ -29,6 +29,7 @@ export const Profile = (props) => {
             }
         }).then(res => res.json())
             .then(data => {
+                console.log(user);
                 if (user) {
                     if (user._id === data.data._id) setIsCurrentUserProfile(true)
                 };
@@ -126,9 +127,6 @@ export const Profile = (props) => {
             {isGuest === false ? 
             <div className='feed' onScroll={handleScroll}>
                 <Header user={user} />
-                {user !== null &&
-                    <Link style={{margin: '8px'}} to={`/odinbook${user.url}`}>{user.fullName}</Link>
-                }
                 {profilePosts !== null &&
                     <>
                         {profileData.profilePic === undefined ? '' : <img src={profileData.profilePic} height={100} width={100} alt='profilePic'/>}

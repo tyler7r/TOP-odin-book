@@ -53,6 +53,7 @@ export const FriendsFeed = (props) => {
         <>
             {token !== null &&
                 <div className='feed' onScroll={handleScroll}>
+                    <NewPost token={token} user={user} posts={posts} setPosts={setPosts} />
                     <h4>Friends Feed</h4>
                     {(posts !== null && posts.length !== 0)
                         ? <DisplayPosts token={token} user={user} posts={posts} setPosts={setPosts} />

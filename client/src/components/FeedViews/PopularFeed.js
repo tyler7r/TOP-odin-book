@@ -51,9 +51,9 @@ export const PopularFeed = (props) => {
 
     return (
         <>
-            {console.log(posts)}
             {token !== null &&
                 <div className='feed' onScroll={handleScroll}>
+                    <NewPost token={token} user={user} posts={posts} setPosts={setPosts} />
                     <h4>Popular Feed</h4>
                     {(posts !== null && posts.length !== 0)
                         ? <DisplayPosts token={token} user={user} posts={posts} setPosts={setPosts} />

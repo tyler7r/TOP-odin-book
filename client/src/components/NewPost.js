@@ -2,16 +2,16 @@ import React, { useState, useEffect, token, user } from 'react';
 
 export const NewPost = (props) => {
     const { token, posts, setPosts } = props;
-    const [postText, setPostText] = useState('');
+    const [postData, setPostData] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target
-        setPostText({...postText, [name]: value});
+        setPostData({...postData, [name]: value});
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const data = JSON.stringify(postText);
+        const data = JSON.stringify(postData);
         
         await fetch(`/odinbook/create/post`, {
             method: 'post',
@@ -23,14 +23,24 @@ export const NewPost = (props) => {
             }
         }).then(res => res.json())
             .then(data => {
-                setPostText('');
+                setPostData('');
                 setPosts([data.post, ...posts])
             })
     }
 
+    const convertToBase64 = (e) => {
+        const { name } = e.target
+        const reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0]);
+        reader.onload = () => {
+            setPostData({...postData, [name]: reader.result})
+        }
+    }
+
     return (
         <form>
-            <input type='text' name='postText' value={postText.postText === undefined ? '' : postText.postText} onChange={(e) => handleChange(e)} placeholder={`What's on your mind, ${props.user.first_name}?`} />
+            <input type='text' name='postText' value={postData.postText === undefined ? '' : postData.postText} onChange={(e) => handleChange(e)} placeholder={`What's on your mind, ${props.user.first_name}?`} />
+            <input accept='image/' type='file' onChange={(e) => convertToBase64(e)} name='image' />
             <button type='submit' onClick={(e) => handleSubmit(e)}>Post</button>
         </form>
     )

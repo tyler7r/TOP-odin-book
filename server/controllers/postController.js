@@ -11,6 +11,7 @@ exports.create_post = [
         const post = new Post({
             text: req.body.postText,
             author: req.user._id,
+            image: req.body.image,
         })
         if (!errors.isEmpty()) {
             return res.status(403).json({
