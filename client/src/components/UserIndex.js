@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Header } from './Header';
+import { GuestHeader } from './GuestViews/GuestHeader';
 
 export const UserIndex = (props) => {
     const { token, user, updateUser, setUpdateUser, isGuest } = props;
@@ -97,8 +99,12 @@ export const UserIndex = (props) => {
 
     return (
         <div>
-            <Link to='/odinbook'>Back Home</Link>
-            {index !== null && 
+            {isGuest === false 
+                ? <Header user={user} />
+                : <GuestHeader user={user} />
+            }
+            <h2>Users</h2>
+            {index !== null &&
                 index.map(user => {
                     return (
                         <div key={user._id}>

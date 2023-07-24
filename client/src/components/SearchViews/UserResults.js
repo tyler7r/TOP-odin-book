@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 export const UserResults = (props) => {
     const search = useParams();
@@ -54,7 +54,7 @@ export const UserResults = (props) => {
                         ? (users.map(user => {
                             return (
                                 <div key={user._id}>
-                                    {user.fullName}: {user.username}
+                                    <Link to={`/odinbook${user.url}`}>{user.fullName} @{user.username}</Link>
                                 </div>
                             )
                         }))

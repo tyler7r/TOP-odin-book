@@ -123,9 +123,9 @@ export const Profile = (props) => {
 
     return (
         <>
-            <Header user={user} />
             {isGuest === false ? 
             <div className='feed' onScroll={handleScroll}>
+                <Header user={user} />
                 {user !== null &&
                     <Link style={{margin: '8px'}} to={`/odinbook${user.url}`}>{user.fullName}</Link>
                 }

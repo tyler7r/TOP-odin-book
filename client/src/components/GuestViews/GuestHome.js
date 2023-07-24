@@ -9,7 +9,7 @@ export const GuestHome = (props) => {
     
     const fetchHome = async () => {
         try {
-            await fetch('/odinbook', {
+            await fetch(`/odinbook?skip=${skip}`, {
                 method: 'get',
                 headers: {
                     'Authorization': token,
@@ -46,8 +46,6 @@ export const GuestHome = (props) => {
         <>
             {token !== null && 
             <div className='feed' onScroll={handleScroll}>
-                <Link to='/odinbook/users/index'>User Index</Link>
-                <h1>Home Page</h1>
                 {posts !== null &&
                     <GuestDisplayPosts token={token} user={user} posts={posts} setPosts={setPosts}></GuestDisplayPosts>
                 }

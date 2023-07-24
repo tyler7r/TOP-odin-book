@@ -9,6 +9,7 @@ import './Home.css'
 import { PopularFeed } from './FeedViews/PopularFeed';
 import { SearchBar } from './SearchBar';
 import { Header } from './Header';
+import { GuestHeader } from './GuestViews/GuestHeader';
 
 export const Home = (props) => {
     const { user, token, isGuest } = props;
@@ -30,15 +31,16 @@ export const Home = (props) => {
         <>
             {token !== null &&
                 <>
-                    <Header user={user} />
+                    {isGuest === false 
+                        ? <Header user={user} />
+                        : <GuestHeader user={user} />
+                    }
                     <Link to='/odinbook/users/index'>User Index</Link>
                     <SearchBar token={token} user={user} />
                     <h1>Home Page</h1>
-                    {user !== null &&
-                        <NewPost token={token} user={user} posts={posts} setPosts={setPosts} />
-                    }
                     {isGuest === false
                         ? <>
+                            <NewPost token={token} user={user} posts={posts} setPosts={setPosts} />
                             <button onClick={() => {setView('friends')}}>Friends</button>
                             <button onClick={() => {setView('recent')}}>Recent</button>
                             <button onClick={() => setView('popular')}>Popular</button>
