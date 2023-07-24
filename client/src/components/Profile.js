@@ -19,7 +19,7 @@ export const Profile = (props) => {
 
     useEffect(() => {
         fetchProfile();
-    }, [userId, skip])
+    }, [userId, skip, user])
 
     const fetchProfile = async () => {
         await fetch(`/odinbook/users/${userId}?skip=${skip}`, {
@@ -29,7 +29,6 @@ export const Profile = (props) => {
             }
         }).then(res => res.json())
             .then(data => {
-                console.log(user);
                 if (user) {
                     if (user._id === data.data._id) setIsCurrentUserProfile(true)
                 };

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Header } from './Header';
-import { GuestHeader } from './GuestViews/GuestHeader';
+import { GuestUserIndex } from './GuestViews/GuestUserIndex';
 
 export const UserIndex = (props) => {
-    const { token, user, updateUser, setUpdateUser, isGuest } = props;
+    const { token, user, isGuest } = props;
     const [index, setIndex] = useState(null);
 
     useEffect(() => {
@@ -26,25 +26,37 @@ export const UserIndex = (props) => {
             })
     }
 
-    const isFriendWithUser = (userCheck) => {
-        let friends = userCheck.friends;
+    const isFriendWithUser = (currentUserIndex) => {
+        let friends = currentUserIndex.friends;
         if (friends.some(friend => friend._id === user._id)) {
             return true
         } else return false
     }
 
-    const friendStatus = (userCheck) => {
-        let receivedRequests = userCheck.receivedRequests;
+    const requestReceivedFromIndexedUser = (currentUserIndex) => {
+        let sentRequests = currentUserIndex.sentRequests;
+        if (sentRequests.some(request => request.receiver === user._id)) {
+            return true
+        }
+    }
 
+    const requestSentByCurrentUser = (currentUserIndex) => {
+        let receivedRequests = currentUserIndex.receivedRequests;
+        if (receivedRequests.some(request => request.sender === user._id)) {
+            return true
+        }
+    }
+
+    const statusWithCurrentUser = (currentUserIndex) => {
         if (isGuest === true) {
             return 'Guest Status'
         }
-        if (isFriendWithUser(userCheck) === true) {
+        if (isFriendWithUser(currentUserIndex) === true) {
             return 'Friend'
         }
-        if (receivedRequests.some(request => request.sender === user._id)) {
+        if (requestSentByCurrentUser(currentUserIndex) === true) {
             return 'Pending Request'
-        } else if (checkPendingRequest(userCheck) === true) {
+        } else if (requestReceivedFromIndexedUser(currentUserIndex) === true) {
             return 'Request Received'
         } else {
             return 'Not Friend'
@@ -65,15 +77,7 @@ export const UserIndex = (props) => {
                 let updatedUser = copy.findIndex(user => user._id === data.receivingUser._id);
                 copy[updatedUser] = data.receivingUser;
                 setIndex(copy);
-                setUpdateUser(true);
             })
-    }
-
-    const checkPendingRequest = (userCheck) => {
-        let sentRequests = userCheck.sentRequests
-        if (sentRequests.some(request => request.receiver === user._id)) {
-            return true
-        }
     }
 
     const handleRequest = async (e, action, user) => {
@@ -93,43 +97,44 @@ export const UserIndex = (props) => {
                 let userIndex = copy.findIndex(user => user._id === data.sender._id);
                 copy[userIndex] = data.sender;
                 setIndex(copy);
-                setUpdateUser(true);
             })
     }
 
     return (
         <div>
-            {isGuest === false 
-                ? <Header user={user} />
-                : <GuestHeader user={user} />
-            }
-            <h2>Users</h2>
-            {index !== null &&
-                index.map(user => {
-                    return (
-                        <div key={user._id}>
-                            <Link to={`/odinbook${user.url}`}>{user.fullName} @{user.username}</Link>
-                            {friendStatus(user) === 'Guest Status' && 
-                                <></>
-                            }
-                            {friendStatus(user) === 'Friend' && 
-                                <button id={user._id} onClick={(e) => requestButton(e, 'unfriend')}>Unfriend</button>
-                            }
-                            {friendStatus(user) === 'Pending Request' &&
-                                <button id={user._id} onClick={(e) => requestButton(e, 'request')}>Pending Request</button>
-                            }
-                            {friendStatus(user) === 'Not Friend' &&
-                                <button id={user._id} onClick={(e) => requestButton(e, 'request')}>Send Friend Request</button>
-                            }
-                            {friendStatus(user) === 'Request Received' && 
-                                <>
-                                    <button id={user._id} onClick={(e) => handleRequest(e, 'accept', user)}>Accept</button>
-                                    <button id={user._id} onClick={(e) => handleRequest(e, 'reject', user)}>Reject</button>
-                                </>
-                            }
-                        </div>
-                    )
-                })
+            {isGuest === true 
+            ? <GuestUserIndex token={token} user={user} />
+            : <>
+                <Header user={user} />
+                <h2>Users</h2>
+                {index !== null &&
+                    index.map(indexedUser => {
+                        return (
+                            <div key={indexedUser._id}>
+                                <Link to={`/odinbook${indexedUser.url}`}>{indexedUser.fullName} @{indexedUser.username}</Link>
+                                {statusWithCurrentUser(indexedUser) === 'Guest Status' && 
+                                    <></>
+                                }
+                                {statusWithCurrentUser(indexedUser) === 'Friend' && 
+                                    <button id={indexedUser._id} onClick={(e) => requestButton(e, 'unfriend')}>Unfriend</button>
+                                }
+                                {statusWithCurrentUser(indexedUser) === 'Pending Request' &&
+                                    <button id={indexedUser._id} onClick={(e) => requestButton(e, 'request')}>Pending Request</button>
+                                }
+                                {statusWithCurrentUser(indexedUser) === 'Not Friend' &&
+                                    <button id={indexedUser._id} onClick={(e) => requestButton(e, 'request')}>Send Friend Request</button>
+                                }
+                                {statusWithCurrentUser(indexedUser) === 'Request Received' && 
+                                    <>
+                                        <button id={indexedUser._id} onClick={(e) => handleRequest(e, 'accept', indexedUser)}>Accept</button>
+                                        <button id={indexedUser._id} onClick={(e) => handleRequest(e, 'reject', indexedUser)}>Reject</button>
+                                    </>
+                                }
+                            </div>
+                        )
+                    })
+                }
+            </>
             }
         </div>
     )

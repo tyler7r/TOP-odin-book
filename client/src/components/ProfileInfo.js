@@ -37,12 +37,6 @@ export const ProfileInfo = (props) => {
                     profilePic: data.user.profilePic,
                     profileBio: data.user.profileBio,
                 })
-                // setUser({
-                //     ...user,
-                //     profilePic: data.user.profilePic,
-                //     profileBio: data.user.profileBio,
-                // })
-                // setUpdateUser(true);
             });
     }
 
