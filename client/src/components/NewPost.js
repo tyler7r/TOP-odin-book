@@ -41,6 +41,7 @@ export const NewPost = (props) => {
 
     return (
         <form>
+            {postData.image === undefined ? '' : <img src={postData.image} width={100} height={100} alt='imagePreview' />}
             <input type='text' name='postText' value={postData.postText === undefined ? '' : postData.postText} onChange={(e) => handleChange(e)} placeholder={`What's on your mind, ${props.user.first_name}?`} />
             <input accept='image/' type='file' onChange={(e) => convertToBase64(e)} name='image' id='picUpload' />
             <button type='submit' onClick={(e) => handleSubmit(e)}>Post</button>

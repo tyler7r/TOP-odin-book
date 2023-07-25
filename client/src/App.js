@@ -40,6 +40,7 @@ function App() {
           <Route path='/odinbook/signup' element={<Signup isGuest={isGuest} />} />
           <Route path='/odinbook/users/:userId' element={<Profile isGuest={isGuest} user={user} setUser={setUser} token={token} />} />
           <Route path='/odinbook/users/index' element={<UserIndex isGuest={isGuest} token={token} user={user} />} />
+          <Route path='/odinbook/users/:userId/friends' element={<></>} />
           <Route path='/odinbook/search/:topic' element={<SearchHome isGuest={isGuest} token={token} user={user} />} />
         </Routes>
       </div>

@@ -1,35 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { ProfileInfo } from './ProfileInfo';
-import { DisplayPosts } from './DisplayPosts';
-import { NewPost } from './NewPost';
+import { DisplayPosts } from '../DisplayPosts';
+import { NewPost } from '../NewPost';
 
 export const CurrentUserProfile = (props) => {
-    // currently working on getting handleScroll to only be on DisplayPosts component
     const { userId } = useParams();
-    const { token, user } = props;
-    const [profileData, setProfileData] = useState(null);
+    const { token, user, setProfileData, profileData } = props;
     const [profilePosts, setProfilePosts] = useState(null);
     const [requests, setRequests] = useState(null);
     const [editProfileModal, setEditProfileModal] = useState(false);
     const [formData, setFormData] = useState('');
     const [skip, setSkip] = useState(0);
 
-    const fetchProfile = async () => {
-        await fetch(`/odinbook/users/${userId}`, {
-            method: 'get',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json())
-            .then(data => {
-                setProfileData(data.data);
-                setRequests(data.receivedRequests);
-                setFormData({...formData, bio: data.data.profileBio });
-            })
-    }
-
-    const fetchPosts = async () => {
+    const fetchCurrentUserProfile = async () => {
         await fetch(`/odinbook/users/${userId}?skip=${skip}`, {
             method: 'get',
             headers: {
@@ -37,6 +21,8 @@ export const CurrentUserProfile = (props) => {
             }
         }).then(res => res.json())
             .then(data => {
+                setRequests(data.receivedRequests);
+                setFormData({...formData, bio: data.data.profileBio });
                 if (profilePosts === null) {
                     setProfilePosts(data.posts);
                 } else {
@@ -45,13 +31,30 @@ export const CurrentUserProfile = (props) => {
             })
     }
 
-    useEffect(() => {
-        fetchProfile();
-    }, [userId, user])
+    // const fetchPosts = async () => {
+    //     console.log('fetchPosts');
+    //     await fetch(`/odinbook/users/${userId}?skip=${skip}`, {
+    //         method: 'get',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         }
+    //     }).then(res => res.json())
+    //         .then(data => {
+    //             if (profilePosts === null) {
+    //                 setProfilePosts(data.posts);
+    //             } else {
+    //                 setProfilePosts([...profilePosts, ...data.posts])
+    //             }
+    //         })
+    // }
 
     useEffect(() => {
-        fetchPosts()
-    }, [skip])
+        fetchCurrentUserProfile();
+    }, [userId, user, skip])
+
+    // useEffect(() => {
+    //     fetchPosts()
+    // }, [skip])
 
     const handleRequest = async (e, action) => {
         const requestId = e.target.id;
@@ -94,7 +97,7 @@ export const CurrentUserProfile = (props) => {
                     }
                     <h3>New Post</h3>
                     <NewPost token={token} user={user} posts={profilePosts} setPosts={setProfilePosts}/>
-                    <DisplayPosts token={token} user={user} posts={profilePosts} setPosts={setProfilePosts} />
+                    <DisplayPosts token={token} user={user} posts={profilePosts} setPosts={setProfilePosts} setSkip={setSkip} />
                 </>
             }
             {profilePosts === null &&

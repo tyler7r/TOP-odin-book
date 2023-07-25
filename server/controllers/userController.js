@@ -38,7 +38,7 @@ exports.profile = asyncHandler(async (req, res, next) => {
     const skip = req.query.skip && /^\d+$/.test(req.query.skip) ? Number(req.query.skip) : 0;
 
     let userData = await User.findById(req.params.userId).populate('friends posts receivedRequests sentRequests').exec();
-    let userPosts = await Post.find({ author: req.params.userId }, undefined, { skip, limit: 3 }).populate('author').populate({ path: 'comments', populate: { path: 'author'} }).sort({'time': -1}).exec();
+    let userPosts = await Post.find({ author: req.params.userId }, undefined, { skip, limit: 2 }).populate('author').populate({ path: 'comments', populate: { path: 'author'} }).sort({'time': -1}).exec();
     let receivedRequests = await Request.find({ receiver: req.params.userId, status: 'Pending' }).populate('sender').exec();
 
     res.status(200).json({
@@ -78,5 +78,13 @@ exports.index = asyncHandler(async (req, res, next) => {
 
     res.status(200).json({
         users,
+    })
+})
+
+exports.userFriends = asyncHandler(async (req, res, next) => {
+    let friends = await User.findById(req.params.id).populate('friends').exec();
+
+    res.status(200).json({
+        friends,
     })
 })

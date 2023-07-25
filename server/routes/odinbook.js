@@ -26,6 +26,8 @@ router.get('/info/:userId', user_controller.getUser);
 
 router.get('/users/:userId', user_controller.profile);
 
+router.get('/users/:userId/friends', passport.authenticate('jwt', { session: false }), user_controller.userFriends);
+
 router.post('/users/:userId/edit-profile', passport.authenticate('jwt', { session: false }), user_controller.profileInfo);
 
 /// GUEST ROUTES ///
