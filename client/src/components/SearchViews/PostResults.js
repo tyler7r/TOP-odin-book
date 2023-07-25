@@ -39,23 +39,15 @@ export const PostResults = (props) => {
         setSkip(0)
     }, [])
 
-    const handleScroll = (e) => {
-        const { offsetHeight, scrollTop, scrollHeight } = e.target;
-
-        if (offsetHeight + scrollTop >= scrollHeight) {
-            setSkip(posts.length)
-        }
-    }
-
     return (
         <>
             {token !== null &&
-                <div className='feed' onScroll={handleScroll}>
+                <>
                     {(posts !== null && posts.length !== 0) 
-                        ? <DisplayPosts token={token} posts={posts} setPosts={setPosts} user={user} />
+                        ? <DisplayPosts setSkip={setSkip} token={token} posts={posts} setPosts={setPosts} user={user} />
                         : <div>No posts results</div>
                     }
-                </div>
+                </>
             }
         </>
     )

@@ -41,25 +41,17 @@ export const RecentFeed = (props) => {
         setSkip(0)
     }, [])
 
-    const handleScroll = (e) => {
-        const { offsetHeight, scrollTop, scrollHeight } = e.target;
-
-        if (offsetHeight + scrollTop >= scrollHeight) {
-            setSkip(posts.length)
-        }
-    }
-
     return (
         <>
             {token !== null &&
-                <div className='feed' onScroll={handleScroll}>
+                <>
                     <NewPost token={token} user={user} posts={posts} setPosts={setPosts} />
                     <h4>Recent Feed</h4>
                     {(posts !== null && posts.length !== 0)
-                        ? <DisplayPosts token={token} user={user} posts={posts} setPosts={setPosts} />
+                        ? <DisplayPosts setSkip={setSkip} token={token} user={user} posts={posts} setPosts={setPosts} />
                         : <div>No recent posts</div>
                     }
-                </div>
+                </>
             }
         </>
     )

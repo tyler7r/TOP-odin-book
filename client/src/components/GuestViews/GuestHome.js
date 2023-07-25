@@ -34,22 +34,14 @@ export const GuestHome = (props) => {
         }
     }, [token, skip]);
 
-    const handleScroll = (e) => {
-        const { offsetHeight, scrollTop, scrollHeight } = e.target;
-
-        if (offsetHeight + scrollTop >= scrollHeight) {
-            setSkip(posts.length)
-        }
-    }
-
     return (
         <>
             {token !== null && 
-            <div className='feed' onScroll={handleScroll}>
+            <>
                 {posts !== null &&
-                    <GuestDisplayPosts token={token} user={user} posts={posts} setPosts={setPosts}></GuestDisplayPosts>
+                    <GuestDisplayPosts setSkip={setSkip} token={token} user={user} posts={posts} setPosts={setPosts}></GuestDisplayPosts>
                 }
-            </div>
+            </>
             }
         </>
     )

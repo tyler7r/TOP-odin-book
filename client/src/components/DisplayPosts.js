@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import { DisplayComments } from './DisplayComments';
 import isSameWeek from 'date-fns/isSameISOWeek';
 import './post.css'
+import './Home.css';
 
 export const DisplayPosts = (props) => {
-    const { setPosts, posts, token, user, isGuest } = props;
+    const { setPosts, posts, token, user, setSkip } = props;
 
     const handleLike = async (e) => {
         const postId = e.target.id;
@@ -74,9 +75,17 @@ export const DisplayPosts = (props) => {
         }
         return formatted.toLocaleString('en-us', options);
     }
+
+    const handleScroll = (e) => {
+        const { offsetHeight, scrollTop, scrollHeight } = e.target;
+
+        if (offsetHeight + scrollTop >= scrollHeight) {
+            setSkip(posts.length)
+        }
+    }
  
     return (
-        <>
+        <div className='feed' onScroll={handleScroll}>
             <h2>Feed</h2>
             {/* {console.log(posts)} */}
             {posts.map(post => {
@@ -99,6 +108,6 @@ export const DisplayPosts = (props) => {
                     </div>
                 )
             })}
-        </>
+        </div>
     )
 }

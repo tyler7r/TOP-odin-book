@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 export const ProfileInfo = (props) => {
-    const { setUpdateUser, setEditProfileModal, token, setProfileData, profileData, formData, setFormData, user, setUser } = props;
+    const { setEditProfileModal, token, setProfileData, profileData, formData, setFormData } = props;
     const { userId } = useParams();
 
     const handleChange = (e) => {

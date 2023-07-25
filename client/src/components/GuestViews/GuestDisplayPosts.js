@@ -4,7 +4,7 @@ import { GuestDisplayComments } from './GuestDisplayComments';
 import isSameWeek from 'date-fns/isSameISOWeek';
 
 export const GuestDisplayPosts = (props) => {
-    const { setPosts, posts, token, user, isGuest } = props;
+    const { setPosts, posts, token, user, isGuest, setSkip } = props;
 
     const formatDate = (date) => {
         const formatted = new Date(date);
@@ -36,10 +36,19 @@ export const GuestDisplayPosts = (props) => {
         }
         return formatted.toLocaleString('en-us', options);
     }
+
+    const handleScroll = (e) => {
+        const { offsetHeight, scrollTop, scrollHeight } = e.target;
+
+        if (offsetHeight + scrollTop >= scrollHeight) {
+            setSkip(posts.length)
+        }
+    }
  
     return (
         <>
             <h2>Feed</h2>
+            <div className='feed' onScroll={handleScroll}>
             {posts.map(post => {
                 return (
                     <div key={post._id}>
@@ -55,6 +64,7 @@ export const GuestDisplayPosts = (props) => {
                     </div>
                 )
             })}
+            </div>
         </>
     )
 }

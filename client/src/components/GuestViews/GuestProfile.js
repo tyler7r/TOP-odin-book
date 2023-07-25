@@ -27,16 +27,8 @@ export const GuestProfile = (props) => {
             })
     }
 
-    const handleScroll = (e) => {
-        const { offsetHeight, scrollTop, scrollHeight } = e.target;
-
-        if (offsetHeight + scrollTop >= scrollHeight) {
-            setSkip(profilePosts.length)
-        }
-    }
-
     return (
-        <div className='feed' onScroll={handleScroll}>
+        <>
             <GuestHeader user={user} />
             {profilePosts !== null &&
                 <>
@@ -44,13 +36,13 @@ export const GuestProfile = (props) => {
                     {profileData.profileBio === undefined ? '' : <div>{profileData.profileBio}</div>}
                     <h1>{profileData.fullName}</h1>
                     <div>Friends: {profileData.friends.length}</div>
-                    <GuestDisplayPosts token={token} user={user} posts={profilePosts} setPosts={setProfilePosts} />
+                    <GuestDisplayPosts setSkip={setSkip} token={token} user={user} posts={profilePosts} setPosts={setProfilePosts} />
                 </>
             }
             {profilePosts === null &&
                 <div>No user data found</div>
             }
-        </div>
+        </>
     )
 }
 
