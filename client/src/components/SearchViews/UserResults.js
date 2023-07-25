@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom';
+import { DisplayUsers } from '../DisplayUsers';
 
 export const UserResults = (props) => {
     const search = useParams();
-    const { token, user, view } = props;
+    const { token, user, view, isGuest } = props;
     const [users, setUsers] = useState(null);
     const [skip, setSkip] = useState(0);
 
@@ -34,33 +35,14 @@ export const UserResults = (props) => {
         }
     }, [token, skip]);
 
-    useEffect(() => {
-        setSkip(0)
-    }, [])
-
-    const handleScroll = (e) => {
-        const { offsetHeight, scrollTop, scrollHeight } = e.target;
-
-        if (offsetHeight + scrollTop >= scrollHeight) {
-            setSkip(users.length)
-        }
-    }
-
     return (
         <>
-            {token !== null &&
-                <div className='feed' onScroll={handleScroll}>
-                    {(users !== null && users.length !== 0) 
-                        ? (users.map(user => {
-                            return (
-                                <div key={user._id}>
-                                    <Link to={`/odinbook${user.url}`}>{user.fullName} @{user.username}</Link>
-                                </div>
-                            )
-                        }))
-                        : <div>No users results</div>
-                    }
-                </div>
+            {users !== null 
+            ? (isGuest === false
+                ? <DisplayUsers user={user} token={token} setSkip={setSkip} users={users} setUsers={setUsers} />
+                : <div>Guest Display Users</div>
+            )
+            : <div>No users found</div>
             }
         </>
     )

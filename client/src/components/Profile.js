@@ -108,14 +108,6 @@ export const Profile = (props) => {
             })
     }
 
-    const handleScroll = (e) => {
-        const { offsetHeight, scrollTop, scrollHeight } = e.target;
-
-        if (offsetHeight + scrollTop >= scrollHeight) {
-            setSkip(profilePosts.length)
-        }
-    }
-
     return (
         <>
             {isGuest === false 

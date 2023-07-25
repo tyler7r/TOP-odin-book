@@ -14,7 +14,7 @@ import { GuestHeader } from './GuestViews/GuestHeader';
 export const Home = (props) => {
     const { user, token, isGuest } = props;
     const [posts, setPosts] = useState(null);
-    const [view, setView] = useState('recent');
+    const [view, setView] = useState('friends');
     // const [errors, setErrors] = useState(null);
 
     const viewSelector = (view) => {
@@ -40,8 +40,8 @@ export const Home = (props) => {
                     <h1>Home Page</h1>
                     {isGuest === false
                         ? <>
-                            <button onClick={() => {setView('friends')}}>Friends</button>
-                            <button onClick={() => {setView('recent')}}>Recent</button>
+                            <button onClick={() => setView('friends')}>Friends</button>
+                            <button onClick={() => setView('recent')}>Recent</button>
                             <button onClick={() => setView('popular')}>Popular</button>
                             {viewSelector(view)}
                         </>

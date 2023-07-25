@@ -1,4 +1,4 @@
-import React, { useState, useEffect, token, user } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export const NewPost = (props) => {
     const { token, posts, setPosts } = props;
@@ -25,6 +25,8 @@ export const NewPost = (props) => {
             .then(data => {
                 setPostData('');
                 setPosts([data.post, ...posts])
+                let picUpload = document.querySelector('#picUpload');
+                picUpload.value = '';
             })
     }
 
@@ -40,7 +42,7 @@ export const NewPost = (props) => {
     return (
         <form>
             <input type='text' name='postText' value={postData.postText === undefined ? '' : postData.postText} onChange={(e) => handleChange(e)} placeholder={`What's on your mind, ${props.user.first_name}?`} />
-            <input accept='image/' type='file' onChange={(e) => convertToBase64(e)} name='image' />
+            <input accept='image/' type='file' onChange={(e) => convertToBase64(e)} name='image' id='picUpload' />
             <button type='submit' onClick={(e) => handleSubmit(e)}>Post</button>
         </form>
     )

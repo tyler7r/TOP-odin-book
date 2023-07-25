@@ -37,10 +37,6 @@ export const FriendsFeed = (props) => {
         }
     }, [token, skip]);
 
-    useEffect(() => {
-        setSkip(0)
-    }, [])
-
     return (
         <>
             {token !== null &&

@@ -37,10 +37,6 @@ export const PopularFeed = (props) => {
         }
     }, [token, skip]);
 
-    useEffect(() => {
-        setSkip(0)
-    }, [])
-
     return (
         <>
             {token !== null &&

@@ -68,14 +68,6 @@ export const CurrentUserProfile = (props) => {
             })
     }
 
-    const handleScroll = (e) => {
-        const { offsetHeight, scrollTop, scrollHeight } = e.target;
-
-        if (offsetHeight + scrollTop >= scrollHeight) {
-            setSkip(profilePosts.length)
-        }
-    }
-
     return (
         <>
             {profilePosts !== null &&
@@ -102,7 +94,7 @@ export const CurrentUserProfile = (props) => {
                     }
                     <h3>New Post</h3>
                     <NewPost token={token} user={user} posts={profilePosts} setPosts={setProfilePosts}/>
-                    <DisplayPosts token={token} user={user} posts={profilePosts} setPosts={setProfilePosts} handleScroll={handleScroll} />
+                    <DisplayPosts token={token} user={user} posts={profilePosts} setPosts={setProfilePosts} />
                 </>
             }
             {profilePosts === null &&

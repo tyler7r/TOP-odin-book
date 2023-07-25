@@ -25,7 +25,7 @@ export const SearchHome = (props) => {
                     <button onClick={() => setView('users')}>Users</button>
                     {view === 'posts' 
                         ? <PostResults token={token} user={user} view={view} />
-                        : <UserResults token={token} user={user} view={view} />
+                        : <UserResults token={token} user={user} view={view} isGuest={isGuest} />
                     }
                 </>
             }
