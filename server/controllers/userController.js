@@ -84,13 +84,26 @@ exports.index = asyncHandler(async (req, res, next) => {
 exports.userFriends = asyncHandler(async (req, res, next) => {
     const skip = req.query.skip && /^\d+$/.test(req.query.skip) ? Number(req.query.skip) : 0;
 
+    let viewedUser = await User.findById(req.params.userId).populate('friends sentRequests receivedRequests').exec()
+
+    let friends;
+
     let mutuals = await User.find({ $and: [{ friends: req.params.userId }, { friends: req.user._id }] }, undefined, { skip, limit: 3 }).populate('friends sentRequests receivedRequests').exec()
 
-    let nonmutuals = await User.find({ $and: [{ friends: req.params.userId }, { friends: { $nin: [req.user._id] } }] }, undefined, { skip, limit: 3 }).populate('friends sentRequests receivedRequests').exec();
+    let nonmutuals = await User.find({ $and: [{ friends: req.params.userId }, { friends: { $nin: [req.user._id] } }, { _id: { $nin: [req.user._id]}}] }, undefined, { skip, limit: 3 }).populate('friends sentRequests receivedRequests').exec();
 
-    let friends = [...mutuals, ...nonmutuals];
+    let currentUser = await User.findById(req.user._id).exec();
+
+    let currentUserFriends = currentUser.friends
+
+    if (currentUserFriends.includes(req.params.userId)) {
+        friends = [currentUser, ...mutuals, ...nonmutuals]; 
+    } else {
+        friends = [...mutuals, ...nonmutuals];
+    }
 
     res.status(200).json({
+        viewedUser,
         friends,
     })
 })

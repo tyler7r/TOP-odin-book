@@ -31,6 +31,7 @@ export const GuestDisplayUsers = (props) => {
                 index.map(indexedUser => {
                     return (
                         <div key={indexedUser._id}>
+                            <Link to={`/odinbook${indexedUser.url}`}>{indexedUser.profilePic === null ? '' : <img src={indexedUser.profilePic} alt='profile pic' height={50} width={50} />}</Link>
                             <Link to={`/odinbook${indexedUser.url}`}>{indexedUser.fullName} @{indexedUser.username}</Link>
                         </div>
                     )

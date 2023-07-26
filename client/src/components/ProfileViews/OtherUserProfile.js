@@ -8,8 +8,6 @@ export const OtherUserProfile = (props) => {
     const [profilePosts, setProfilePosts] = useState(null);
     const [skip, setSkip] = useState(0);
 
-    // SHOULD ONLY FETCH POSTS.... MAIN PROFILE PAGE SHOULD FETCH THE WHOLE USER
-
     const fetchPosts = async() => {
         await fetch(`/odinbook/users/${userId}?skip=${skip}`, {
             method: 'get',

@@ -9,6 +9,7 @@ import { FriendSearch } from './FriendSearch';
 export const FriendIndex = (props) => {
     const { userId } = useParams();
     const { user, token, isGuest } = props;
+    const [viewedUser, setViewedUser] = useState(null);
     const [friends, setFriends] = useState(null);
     const [view, setView] = useState('all');
     const [clearSearch, setClearSearch] = useState(false);
@@ -33,6 +34,7 @@ export const FriendIndex = (props) => {
                 } else {
                     setFriends([...friends, ...data.friends])
                 }
+                setViewedUser(data.viewedUser);
             })
     }
 
@@ -53,16 +55,16 @@ export const FriendIndex = (props) => {
             {isGuest === false
             ? <>
                 <Header token={token} user={user} />
-                {user !== null &&
-                    <h2>{user.fullName}'s Friends List</h2>
+                {viewedUser !== null &&
+                    <h2>{viewedUser.fullName}'s Friends List</h2>
                 }
                 <FriendSearch setUsers={setFriends} token={token} user={user} userId={userId} setClearSearch={setClearSearch} view={view} setView={setView} />
                 <DisplayUsers user={user} token={token} users={friends} setUsers={setFriends} setSkip={setSkip} />
             </>
-            : <> 
+            : <>
                 <GuestHeader token={token} />
-                {user !== null &&
-                    <h2>{user.fullName}'s Friends List</h2>
+                {viewedUser !== null &&
+                    <h2>{viewedUser.fullName}'s Friends List</h2>
                 }
                 <FriendSearch setUsers={setFriends} token={token} user={user} userId={userId} setClearSearch={setClearSearch} view={view} setView={setView} />
                 <GuestDisplayUsers token={token} user={user} />
