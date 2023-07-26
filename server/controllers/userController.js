@@ -82,7 +82,9 @@ exports.index = asyncHandler(async (req, res, next) => {
 })
 
 exports.userFriends = asyncHandler(async (req, res, next) => {
-    let friends = await User.findById(req.params.id).populate('friends').exec();
+    const skip = req.query.skip && /^\d+$/.test(req.query.skip) ? Number(req.query.skip) : 0;
+
+    let friends = await User.find({ friends: req.params.userId }, undefined, { skip, limit: 3 }).populate('friends sentRequests receivedRequests').exec();
 
     res.status(200).json({
         friends,

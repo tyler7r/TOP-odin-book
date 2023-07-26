@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom';
 import { DisplayUsers } from '../DisplayUsers';
+import { GuestDisplayUsers } from '../GuestViews/GuestDisplayUsers';
 
 export const UserResults = (props) => {
     const search = useParams();
@@ -40,7 +41,7 @@ export const UserResults = (props) => {
             {users !== null 
             ? (isGuest === false
                 ? <DisplayUsers user={user} token={token} setSkip={setSkip} users={users} setUsers={setUsers} />
-                : <div>Guest Display Users</div>
+                : <GuestDisplayUsers user={user} token={token} setSkip={setSkip} users={users} setUsers={setUsers} />
             )
             : <div>No users found</div>
             }

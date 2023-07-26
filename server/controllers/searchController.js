@@ -19,3 +19,19 @@ exports.search = asyncHandler(async (req, res, next) => {
         users
     })
 })
+
+exports.friendSearch = asyncHandler(async (req, res, next) => {
+    let results = await User.find({ $and: [ { friends: req.params.userId }, {  $or: [ { 'username': { $regex: req.params.topic }}, { 'first_name' : { $regex: req.params.topic }}, { 'last_name' : { $regex: req.params.topic }}]}]}).populate('friends').exec();
+
+    res.status(200).json({
+        results,
+    })
+})
+
+exports.indexSearch = asyncHandler(async (req, res, next) => {
+    let results = await User.find({ $or: [ { 'username': { $regex: req.params.topic }}, { 'first_name' : { $regex: req.params.topic }}, { 'last_name' : { $regex: req.params.topic }}]}).populate('friends').exec();
+
+    res.status(200).json({
+        results
+    })
+})

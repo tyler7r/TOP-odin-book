@@ -6,6 +6,7 @@ import { Home } from './components/Home';
 import { Profile } from './components/Profile';
 import { UserIndex } from './components/UserIndex';
 import { SearchHome } from './components/SearchViews/SearchHome';
+import { FriendIndex } from './components/FriendIndex';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -40,7 +41,7 @@ function App() {
           <Route path='/odinbook/signup' element={<Signup isGuest={isGuest} />} />
           <Route path='/odinbook/users/:userId' element={<Profile isGuest={isGuest} user={user} setUser={setUser} token={token} />} />
           <Route path='/odinbook/users/index' element={<UserIndex isGuest={isGuest} token={token} user={user} />} />
-          <Route path='/odinbook/users/:userId/friends' element={<></>} />
+          <Route path='/odinbook/users/:userId/friends' element={<FriendIndex user={user} token={token} isGuest={isGuest} />} />
           <Route path='/odinbook/search/:topic' element={<SearchHome isGuest={isGuest} token={token} user={user} />} />
         </Routes>
       </div>

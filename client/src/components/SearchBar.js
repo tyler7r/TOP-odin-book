@@ -20,5 +20,4 @@ export const SearchBar = (props) => {
             <button type='submit' onClick={(e) => handleSubmit(e)}>Search</button>
         </form>
     )
-
 }

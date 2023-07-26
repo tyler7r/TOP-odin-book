@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { GuestHeader } from './GuestHeader';
 
-export const GuestUserIndex = (props) => {
+export const GuestDisplayUsers = (props) => {
     const { token, user, updateUser, setUpdateUser, isGuest } = props;
     const [index, setIndex] = useState(null);
 
@@ -27,7 +27,6 @@ export const GuestUserIndex = (props) => {
 
     return (
         <div>
-            <GuestHeader user={user} />
             <h2>Users</h2>
             {index !== null &&
                 index.map(indexedUser => {
