@@ -84,7 +84,11 @@ exports.index = asyncHandler(async (req, res, next) => {
 exports.userFriends = asyncHandler(async (req, res, next) => {
     const skip = req.query.skip && /^\d+$/.test(req.query.skip) ? Number(req.query.skip) : 0;
 
-    let friends = await User.find({ friends: req.params.userId }, undefined, { skip, limit: 3 }).populate('friends sentRequests receivedRequests').exec();
+    let mutuals = await User.find({ $and: [{ friends: req.params.userId }, { friends: req.user._id }] }, undefined, { skip, limit: 3 }).populate('friends sentRequests receivedRequests').exec()
+
+    let nonmutuals = await User.find({ $and: [{ friends: req.params.userId }, { friends: { $nin: [req.user._id] } }] }, undefined, { skip, limit: 3 }).populate('friends sentRequests receivedRequests').exec();
+
+    let friends = [...mutuals, ...nonmutuals];
 
     res.status(200).json({
         friends,

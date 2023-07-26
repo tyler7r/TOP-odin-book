@@ -82,7 +82,6 @@ export const DisplayPosts = (props) => {
         if (offsetHeight + scrollTop >= scrollHeight) {
             setSkip(posts.length)
         }
-        console.log(offsetHeight + scrollTop, scrollHeight);
     }
  
     return (

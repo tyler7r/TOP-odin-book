@@ -10,6 +10,8 @@ export const FriendIndex = (props) => {
     const { userId } = useParams();
     const { user, token, isGuest } = props;
     const [friends, setFriends] = useState(null);
+    const [view, setView] = useState('all');
+    const [clearSearch, setClearSearch] = useState(false);
     const [skip, setSkip] = useState(0);
 
     const fetchFriends = async() => {
@@ -21,6 +23,11 @@ export const FriendIndex = (props) => {
             }
         }).then(res => res.json())
             .then(data => {
+                if (clearSearch === true) {
+                    setFriends(data.friends)
+                    setClearSearch(false)
+                    return
+                }
                 if (friends === null) {
                     setFriends(data.friends)
                 } else {
@@ -35,17 +42,29 @@ export const FriendIndex = (props) => {
         }
     }, [token, skip])
 
+    useEffect(() => {
+        if (clearSearch === true) {
+            fetchFriends()
+        }
+    }, [clearSearch])
+
     return (
         <>
             {isGuest === false
             ? <>
                 <Header token={token} user={user} />
-                <FriendSearch setUsers={setFriends} token={token} user={user} userId={userId} />
+                {user !== null &&
+                    <h2>{user.fullName}'s Friends List</h2>
+                }
+                <FriendSearch setUsers={setFriends} token={token} user={user} userId={userId} setClearSearch={setClearSearch} view={view} setView={setView} />
                 <DisplayUsers user={user} token={token} users={friends} setUsers={setFriends} setSkip={setSkip} />
             </>
             : <> 
                 <GuestHeader token={token} />
-                <FriendSearch setUsers={setFriends} token={token} user={user} userId={userId} />
+                {user !== null &&
+                    <h2>{user.fullName}'s Friends List</h2>
+                }
+                <FriendSearch setUsers={setFriends} token={token} user={user} userId={userId} setClearSearch={setClearSearch} view={view} setView={setView} />
                 <GuestDisplayUsers token={token} user={user} />
             </>
             }

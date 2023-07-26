@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { GuestHeader } from './GuestHeader';
 
 export const GuestDisplayUsers = (props) => {
-    const { token, user, updateUser, setUpdateUser, isGuest } = props;
+    const { token } = props;
     const [index, setIndex] = useState(null);
 
     useEffect(() => {
@@ -36,6 +35,9 @@ export const GuestDisplayUsers = (props) => {
                         </div>
                     )
                 })
+            }
+            {(index === null || index.length === 0) && 
+                <div>No users to display</div>
             }
         </div>
     )

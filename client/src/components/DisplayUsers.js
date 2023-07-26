@@ -116,7 +116,7 @@ export const DisplayUsers = (props) => {
                     )
                 })
             }
-            {users === null &&
+            {(users === null || users.length === 0) &&
                 <div>No users to display</div>
             }
         </div>

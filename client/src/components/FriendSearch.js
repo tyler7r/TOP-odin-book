@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 export const FriendSearch = (props) => {
-    const { token, setUsers, userId } = props;
+    const { token, setUsers, userId, setClearSearch, view, setView } = props;
     const [search, setSearch] = useState('')
 
     const handleChange = (e) => {
@@ -22,12 +22,18 @@ export const FriendSearch = (props) => {
                 setUsers(data.results)
             })
         setSearch('');
+        setView('search');
     }
 
     return (
-        <form>
-            <input type='text' placeholder='Search index...' value={search.topic === undefined ? '' : search.topic} name='topic' onChange={(e) => handleChange(e)} />
-            <button type='submit' onClick={(e) => handleSubmit(e)}>Search</button>
-        </form>
+        <>
+            <form>
+                <input type='text' placeholder='Search index...' value={search.topic === undefined ? '' : search.topic} name='topic' onChange={(e) => handleChange(e)} />
+                <button type='submit' onClick={(e) => handleSubmit(e)}>Search</button>
+            </form>
+            {view === 'search' &&
+                <button onClick={() => {setView('all'); setClearSearch(true)}}>Clear Search</button>
+            }
+        </>
     )
 }
