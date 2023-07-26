@@ -51,7 +51,7 @@ export const GuestDisplayPosts = (props) => {
             <div className='feed' onScroll={handleScroll}>
             {posts.map(post => {
                 return (
-                    <div key={post._id}>
+                    <div key={post._id} className='post'>
                         <Link to={`/odinbook${post.author.url}`}>{post.author.profilePic === null ? '' : <img src={post.author.profilePic} alt='profile pic' height={50} width={50} />}</Link>
                         <Link to={`/odinbook${post.author.url}`}>{post.author.fullName} @{post.author.username}</Link>
                         <div>Post Details: {post.text}</div>

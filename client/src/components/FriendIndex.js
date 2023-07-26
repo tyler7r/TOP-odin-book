@@ -16,7 +16,7 @@ export const FriendIndex = (props) => {
     const [skip, setSkip] = useState(0);
 
     const fetchFriends = async() => {
-        await fetch(`/odinbook/users/${userId}/friends?skip=${skip}`, {
+        await fetch(`/odinbook/users/${userId}/friends?skip=${skip - 1}`, {
             method: 'get',
             headers: {
                 'Content-Type': 'application/json',
@@ -67,7 +67,7 @@ export const FriendIndex = (props) => {
                     <h2>{viewedUser.fullName}'s Friends List</h2>
                 }
                 <FriendSearch setUsers={setFriends} token={token} user={user} userId={userId} setClearSearch={setClearSearch} view={view} setView={setView} />
-                <GuestDisplayUsers token={token} user={user} />
+                <GuestDisplayUsers token={token} user={user} users={friends} setUsers={setFriends} setSkip={setSkip} />
             </>
             }
         </>

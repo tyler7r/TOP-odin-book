@@ -14,7 +14,7 @@ export const UserIndex = (props) => {
     const [skip, setSkip] = useState(0);
 
     const getUsers = async () => {
-        await fetch(`/odinbook/users/index?skip=${skip}`, {
+        await fetch(`/odinbook/users/index?skip=${skip - 1}`, {
             method: 'get',
             headers: {
                 'Authorization': token,
@@ -39,7 +39,7 @@ export const UserIndex = (props) => {
         if (token !== null) {
             getUsers()
         }
-    }, [token])
+    }, [token, skip])
 
     useEffect(() => {
         if (clearSearch === true) {
@@ -53,7 +53,7 @@ export const UserIndex = (props) => {
             ? <>
                 <GuestHeader token={token} />
                 <IndexSearch user={user} token={token} setUsers={setIndex} setClearSearch={setClearSearch} view={view} setView={setView} />
-                <GuestDisplayUsers token={token} user={user} />
+                <GuestDisplayUsers token={token} user={user} setSkip={setSkip} users={index} setUsers={setIndex} />
             </>
             : <>
                 <Header user={user} />

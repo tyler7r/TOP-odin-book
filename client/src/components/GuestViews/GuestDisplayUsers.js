@@ -1,43 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import '../Home.css'
 
 export const GuestDisplayUsers = (props) => {
-    const { token } = props;
-    const [index, setIndex] = useState(null);
+    const { token, users, setUsers, setSkip } = props;
 
-    useEffect(() => {
-        if (token !== null) {
-            getUsers()
+    const handleScroll = (e) => {
+        const { offsetHeight, scrollTop, scrollHeight } = e.target;
+
+        if (offsetHeight + scrollTop >= scrollHeight) {
+            setSkip(users.length + 1);
         }
-    }, [token])
-
-    const getUsers = async () => {
-        await fetch(`/odinbook/users/index`, {
-            method: 'get',
-            headers: {
-                'Authorization': token,
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json())
-            .then(data => {
-                setIndex(data.users);
-            })
+        console.log(offsetHeight + scrollTop, scrollHeight)
     }
 
     return (
-        <div>
+        <div className='feed' onScroll={handleScroll}>
             <h2>Users</h2>
-            {index !== null &&
-                index.map(indexedUser => {
+            {users !== null &&
+                users.map(indexedUser => {
                     return (
-                        <div key={indexedUser._id}>
+                        <div key={indexedUser._id} className='user'>
                             <Link to={`/odinbook${indexedUser.url}`}>{indexedUser.profilePic === null ? '' : <img src={indexedUser.profilePic} alt='profile pic' height={50} width={50} />}</Link>
                             <Link to={`/odinbook${indexedUser.url}`}>{indexedUser.fullName} @{indexedUser.username}</Link>
                         </div>
                     )
                 })
             }
-            {(index === null || index.length === 0) && 
+            {(users === null || users.length === 0) && 
                 <div>No users to display</div>
             }
         </div>

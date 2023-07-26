@@ -74,7 +74,22 @@ exports.profileInfo = [
 ]
 
 exports.index = asyncHandler(async (req, res, next) => {
-    let users = await User.find({ _id: { $nin: [req.user._id] }, username: { $ne: 'guest' }}).populate('friends sentRequests receivedRequests').exec();
+    const skip = req.query.skip && /^\d+$/.test(req.query.skip) ? Number(req.query.skip) : 0;
+
+    let users;
+
+    let currentUser = await User.find({ $and: [{ _id: req.user._id }, { _id: { $ne: '646e739ca07755b95ac0bea4' }}] }).populate('friends').exec()
+    let otherUsers = await User.find({ $and: [{ _id: { $nin: [req.user._id] }}, {_id: { $ne: '646e739ca07755b95ac0bea4' }}]}, undefined, { skip , limit: 1 }).populate('friends sentRequests receivedRequests').sort({ last_name: 1 }).exec();
+
+    if (skip <= 0) {
+        if (currentUser.length === 0) {
+            users = [...otherUsers];
+        } else {
+            users = [...currentUser, ...otherUsers]
+        }
+    } else {
+        users = [...otherUsers]
+    }
 
     res.status(200).json({
         users,
@@ -88,18 +103,20 @@ exports.userFriends = asyncHandler(async (req, res, next) => {
 
     let friends;
 
-    let mutuals = await User.find({ $and: [{ friends: req.params.userId }, { friends: req.user._id }] }, undefined, { skip, limit: 3 }).populate('friends sentRequests receivedRequests').exec()
-
-    let nonmutuals = await User.find({ $and: [{ friends: req.params.userId }, { friends: { $nin: [req.user._id] } }, { _id: { $nin: [req.user._id]}}] }, undefined, { skip, limit: 3 }).populate('friends sentRequests receivedRequests').exec();
+    let allFriends = await User.find({ $and: [{ friends: req.params.userId }, { _id: { $ne: [req.user._id] } }] }, undefined, { skip, limit: 1 }).populate('friends sentRequests receivedRequests').sort({ last_name: 1 }).exec()
 
     let currentUser = await User.findById(req.user._id).exec();
 
     let currentUserFriends = currentUser.friends
 
     if (currentUserFriends.includes(req.params.userId)) {
-        friends = [currentUser, ...mutuals, ...nonmutuals]; 
+        if (skip <= 0) {
+            friends = [currentUser, ...allFriends]; 
+        } else {
+            friends = [...allFriends]
+        }
     } else {
-        friends = [...mutuals, ...nonmutuals];
+        friends = [...allFriends];
     }
 
     res.status(200).json({

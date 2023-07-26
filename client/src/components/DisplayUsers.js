@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css'
+import './user.css'
 
 export const DisplayUsers = (props) => {
     const { token, user, users, setUsers, setSkip } = props;
@@ -85,6 +86,7 @@ export const DisplayUsers = (props) => {
         if (offsetHeight + scrollTop >= scrollHeight) {
             setSkip(users.length)
         }
+        console.log(offsetHeight + scrollTop, scrollHeight)
     }
 
     return (
@@ -92,7 +94,7 @@ export const DisplayUsers = (props) => {
             {users !== null &&
                 users.map(indexedUser => {
                     return (
-                        <div key={indexedUser._id}>
+                        <div key={indexedUser._id} className='user'>
                             <Link to={`/odinbook${indexedUser.url}`}>{indexedUser.profilePic === null ? '' : <img src={indexedUser.profilePic} alt='profile pic' height={50} width={50} />}</Link>
                             <Link to={`/odinbook${indexedUser.url}`}>{indexedUser.fullName} @{indexedUser.username}</Link>
                             {statusWithCurrentUser(indexedUser) === 'Current User' && 

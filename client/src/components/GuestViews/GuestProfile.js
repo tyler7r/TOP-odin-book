@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { GuestDisplayPosts } from './GuestDisplayPosts';
 import { GuestHeader } from './GuestHeader';
+import { ProfileHeader } from '../ProfileViews/ProfileHeader';
 
 export const GuestProfile = (props) => {
     const { userId } = useParams();
@@ -32,10 +33,7 @@ export const GuestProfile = (props) => {
             <GuestHeader user={user} />
             {profilePosts !== null &&
                 <>
-                    {profileData.profilePic === undefined ? '' : <img src={profileData.profilePic} height={100} width={100} alt='profilePic'/>}
-                    {profileData.profileBio === undefined ? '' : <div>{profileData.profileBio}</div>}
-                    <h1>{profileData.fullName}</h1>
-                    <div>Friends: {profileData.friends.length}</div>
+                    <ProfileHeader profileData={profileData} />
                     <GuestDisplayPosts setSkip={setSkip} token={token} user={user} posts={profilePosts} setPosts={setProfilePosts} />
                 </>
             }
