@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom';
 import { DisplayPosts } from './DisplayPosts';
-import { Header } from './Header';
-import { SearchBar } from './SearchBar';
 
-export const Home = (props) => {
-    const { } = props;
+export const PostResults = (props) => {
+    const search = useParams();
+    const { view } = props;
     const [posts, setPosts] = useState(null);
-    const [skip, setSkip] = useState(0);
-    
-    const fetchHome = async () => {
+    const [skip, setSkip] = useState(0)
+
+    const fetchPosts = async () => {
         try {
-            await fetch(`/odinbook/g?skip=${skip}`, {
+            await fetch(`/odinbook/g/search/${search.topic}?skip=${skip}&view=${view}`, {
                 method: 'get',
                 headers: {
                     'Content-Type': 'application/json',
@@ -21,7 +20,7 @@ export const Home = (props) => {
                     if (posts !== null) {
                         setPosts([...posts, ...data.posts])
                     } else {
-                        setPosts(data.posts);
+                        setPosts(data.posts)
                     }
                 })
         } catch (err){
@@ -30,16 +29,14 @@ export const Home = (props) => {
     }
 
     useEffect(() => {
-        fetchHome();
+        fetchPosts();
     }, [skip]);
 
     return (
         <>
-            <Header />
-            <Link to='/odinbook/g/users/index'>User Index</Link>
-            <SearchBar />
-            {posts !== null &&
-                <DisplayPosts posts={posts} setSkip={setSkip} />
+            {(posts !== null && posts.length !== 0) 
+                ? <DisplayPosts setSkip={setSkip} posts={posts} />
+                : <div>No posts results</div>
             }
         </>
     )

@@ -6,7 +6,7 @@ import { ProfileHeader } from './ProfileHeader';
 
 export const Profile = (props) => {
     const { userId } = useParams();
-    const { token, user } = props;
+    const { } = props;
     const [profileData, setProfileData] = useState(null);
     const [profilePosts, setProfilePosts] = useState(null);
     const [skip, setSkip] = useState(0)
@@ -16,7 +16,7 @@ export const Profile = (props) => {
     }, [userId, skip])
 
     const fetchProfile = async () => {
-        await fetch(`/odinbook/users/${userId}?skip=${skip}`, {
+        await fetch(`/odinbook/g/users/${userId}?skip=${skip}`, {
             method: 'get',
             headers: {
                 'Content-Type': 'application/json'
@@ -30,11 +30,11 @@ export const Profile = (props) => {
 
     return (
         <>
-            <Header user={user} />
+            <Header />
             {profilePosts !== null &&
                 <>
                     <ProfileHeader profileData={profileData} />
-                    <DisplayPosts setSkip={setSkip} token={token} user={user} posts={profilePosts} setPosts={setProfilePosts} />
+                    <DisplayPosts setSkip={setSkip} posts={profilePosts} />
                 </>
             }
             {profilePosts === null &&

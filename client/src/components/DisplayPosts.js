@@ -91,7 +91,7 @@ export const DisplayPosts = (props) => {
             {posts.map(post => {
                 return (
                     <div key={post._id} className='post'>
-                        <Link to={`/odinbook${post.author.url}`}>{post.author.profilePic === null ? '' : <img src={post.author.profilePic} alt='profile pic' height={50} width={50} />}</Link>
+                        <Link to={`/odinbook${post.author.url}`}>{post.author.profilePic === undefined ? '' : <img src={post.author.profilePic} alt='profile pic' height={50} width={50} />}</Link>
                         <Link to={`/odinbook${post.author.url}`}>{post.author.fullName} @{post.author.username}</Link>
                         <div>{(post.image !== undefined && post.image !== '') ? <img src={post.image} alt='postImage' height={100} width={100} /> : ''} </div>
                         <div>Post Details: {post.text}</div>

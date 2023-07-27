@@ -28,7 +28,6 @@
     "passport": "^0.6.0",
     "passport-facebook": "^3.0.0",
     "passport-jwt": "^4.0.1",
-    "passport-local": "^1.0.0",
-    "@babel": "plugin-proposal-private-property-in-object"
+    "passport-local": "^1.0.0"
   }
 }

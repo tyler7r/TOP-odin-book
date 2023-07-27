@@ -86,42 +86,44 @@ export const DisplayUsers = (props) => {
         if (offsetHeight + scrollTop >= scrollHeight) {
             setSkip(users.length)
         }
-        console.log(offsetHeight + scrollTop, scrollHeight)
     }
 
     return (
-        <div className='feed' onScroll={handleScroll}>
-            {users !== null &&
-                users.map(indexedUser => {
-                    return (
-                        <div key={indexedUser._id} className='user'>
-                            <Link to={`/odinbook${indexedUser.url}`}>{indexedUser.profilePic === null ? '' : <img src={indexedUser.profilePic} alt='profile pic' height={50} width={50} />}</Link>
-                            <Link to={`/odinbook${indexedUser.url}`}>{indexedUser.fullName} @{indexedUser.username}</Link>
-                            {statusWithCurrentUser(indexedUser) === 'Current User' && 
-                                <></>
-                            }
-                            {statusWithCurrentUser(indexedUser) === 'Friend' && 
-                                <button id={indexedUser._id} onClick={(e) => requestButton(e, 'unfriend')}>Unfriend</button>
-                            }
-                            {statusWithCurrentUser(indexedUser) === 'Pending Request' &&
-                                <button id={indexedUser._id} onClick={(e) => requestButton(e, 'request')}>Pending Request</button>
-                            }
-                            {statusWithCurrentUser(indexedUser) === 'Not Friend' &&
-                                <button id={indexedUser._id} onClick={(e) => requestButton(e, 'request')}>Send Friend Request</button>
-                            }
-                            {statusWithCurrentUser(indexedUser) === 'Request Received' && 
-                                <>
-                                    <button id={indexedUser._id} onClick={(e) => handleRequest(e, 'accept', indexedUser)}>Accept</button>
-                                    <button id={indexedUser._id} onClick={(e) => handleRequest(e, 'reject', indexedUser)}>Reject</button>
-                                </>
-                            }
-                        </div>
-                    )
-                })
-            }
-            {(users === null || users.length === 0) &&
-                <div>No users to display</div>
-            }
-        </div>
+        <>
+            <h2>Users</h2>
+            <div className='feed' onScroll={handleScroll}>
+                {users !== null &&
+                    users.map(indexedUser => {
+                        return (
+                            <div key={indexedUser._id} className='user'>
+                                <Link to={`/odinbook${indexedUser.url}`}>{indexedUser.profilePic === undefined ? '' : <img src={indexedUser.profilePic} alt='profile pic' height={50} width={50} />}</Link>
+                                <Link to={`/odinbook${indexedUser.url}`}>{indexedUser.fullName} @{indexedUser.username}</Link>
+                                {statusWithCurrentUser(indexedUser) === 'Current User' &&
+                                    <></>
+                                }
+                                {statusWithCurrentUser(indexedUser) === 'Friend' && 
+                                    <button id={indexedUser._id} onClick={(e) => requestButton(e, 'unfriend')}>Unfriend</button>
+                                }
+                                {statusWithCurrentUser(indexedUser) === 'Pending Request' &&
+                                    <button id={indexedUser._id} onClick={(e) => requestButton(e, 'request')}>Pending Request</button>
+                                }
+                                {statusWithCurrentUser(indexedUser) === 'Not Friend' &&
+                                    <button id={indexedUser._id} onClick={(e) => requestButton(e, 'request')}>Send Friend Request</button>
+                                }
+                                {statusWithCurrentUser(indexedUser) === 'Request Received' && 
+                                    <>
+                                        <button id={indexedUser._id} onClick={(e) => handleRequest(e, 'accept', indexedUser)}>Accept</button>
+                                        <button id={indexedUser._id} onClick={(e) => handleRequest(e, 'reject', indexedUser)}>Reject</button>
+                                    </>
+                                }
+                            </div>
+                        )
+                    })
+                }
+                {(users === null || users.length === 0) &&
+                    <div>No users to display</div>
+                }
+            </div>
+        </>
     )
 }

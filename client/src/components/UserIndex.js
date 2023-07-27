@@ -58,7 +58,6 @@ export const UserIndex = (props) => {
             : <>
                 <Header user={user} />
                 <IndexSearch user={user} token={token} setUsers={setIndex} setClearSearch={setClearSearch} view={view} setView={setView} />
-                <h2>Users</h2>
                 {index !== null
                     ? <DisplayUsers token={token} user={user} setUsers={setIndex} users={index} setSkip={setSkip} />
                     : <div>No users found</div>

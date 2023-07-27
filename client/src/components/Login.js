@@ -55,7 +55,7 @@ export const Login = () => {
     // }
 
     const handleGuest = async() => {
-        window.location.href = '/odinbook/g'
+        window.location.href = 'http://localhost:3001/odinbook/g'
     }
 
     return (
@@ -69,7 +69,7 @@ export const Login = () => {
                 <button type='submit' onClick={(e) => handleSubmit(e)}>Log In</button>
             </form>
             <Link to='/odinbook/signup'>Sign Up</Link>
-            <div onClick={(e) => handleGuest(e)}>Continue as Guest</div>
+            <div onClick={() => handleGuest()}>Continue as Guest</div>
         </>
     )
 }

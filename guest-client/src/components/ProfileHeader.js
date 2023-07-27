@@ -10,7 +10,7 @@ export const ProfileHeader = (props) => {
             {profileData.profilePic === undefined ? '' : <img src={profileData.profilePic} height={100} width={100} alt='profilePic'/>}
             {profileData.profileBio === undefined ? '' : <div>{profileData.profileBio}</div>}
             <h1>{profileData.fullName}</h1>
-            <Link to={`/odinbook/users/${userId}/friends`}>Friends: {profileData.friends.length}</Link>
+            <Link to={`/odinbook/g/users/${userId}/friends`}>Friends: {profileData.friends.length}</Link>
         </>
     )
 }
