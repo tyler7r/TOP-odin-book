@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Header } from './Header';
-import { GuestDisplayUsers } from './GuestViews/GuestDisplayUsers';
-import { GuestHeader } from './GuestViews/GuestHeader';
 import { DisplayUsers } from './DisplayUsers';
 import { IndexSearch } from './IndexSearch';
 
 export const UserIndex = (props) => {
-    const { token, user, isGuest } = props;
+    const { token, user } = props;
     const [index, setIndex] = useState(null);
     const [view, setView] = useState('all');
     const [clearSearch, setClearSearch] = useState(false);
@@ -48,22 +46,13 @@ export const UserIndex = (props) => {
     }, [clearSearch])
 
     return (
-        <div>
-            {isGuest === true 
-            ? <>
-                <GuestHeader token={token} />
-                <IndexSearch user={user} token={token} setUsers={setIndex} setClearSearch={setClearSearch} view={view} setView={setView} />
-                <GuestDisplayUsers token={token} user={user} setSkip={setSkip} users={index} setUsers={setIndex} />
-            </>
-            : <>
-                <Header user={user} />
-                <IndexSearch user={user} token={token} setUsers={setIndex} setClearSearch={setClearSearch} view={view} setView={setView} />
-                {index !== null
-                    ? <DisplayUsers token={token} user={user} setUsers={setIndex} users={index} setSkip={setSkip} />
-                    : <div>No users found</div>
-                }
-            </>
+        <>
+            <Header user={user} />
+            <IndexSearch user={user} token={token} setUsers={setIndex} setClearSearch={setClearSearch} view={view} setView={setView} />
+            {index !== null
+                ? <DisplayUsers token={token} user={user} setUsers={setIndex} users={index} setSkip={setSkip} />
+                : <div>No users found</div>
             }
-        </div>
+        </>
     )
 }

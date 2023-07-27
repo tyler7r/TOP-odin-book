@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { NewComment } from './NewComment';
 import { Link } from 'react-router-dom';
+import { formatDate } from './HelperFunctions/FormatDate'
 
 export const DisplayComments = (props) => {
-    const { posts, setPosts, postId, token, user, formatDate } = props;
+    const { posts, setPosts, postId, token, user } = props;
     const [postComments, setPostComments] = useState([]);
 
     useEffect(() => {

@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { GuestProfile } from './GuestViews/GuestProfile';
-import { DisplayPosts } from './DisplayPosts';
 import { CurrentUserProfile } from './ProfileViews/CurrentUserProfile';
 import { Header } from './Header';
 import { ProfileHeader } from './ProfileViews/ProfileHeader';
@@ -9,9 +7,8 @@ import { OtherUserProfile } from './ProfileViews/OtherUserProfile';
 
 export const Profile = (props) => {
     const { userId } = useParams();
-    const { token, user, isGuest } = props;
+    const { token, user } = props;
     const [profileData, setProfileData] = useState(null);
-    // const [profilePosts, setProfilePosts] = useState(null);
     const [isCurrentUserProfile, setIsCurrentUserProfile] = useState(false);
 
     const fetchProfile = async () => {
@@ -37,18 +34,13 @@ export const Profile = (props) => {
 
     return (
         <>
-            {isGuest === false 
-            ? <>
-                <Header user={user} />
-                {profileData !== null &&
-                    <ProfileHeader profileData={profileData} />
-                }
-                {isCurrentUserProfile === true 
-                ? <CurrentUserProfile token={token} user={user} profileData={profileData} setProfileData={setProfileData} />
-                : <OtherUserProfile token={token} user={user} profileData={profileData} setProfileData={setProfileData} />
-                }
-            </>
-            : <GuestProfile token={token} user={user} />
+            <Header user={user} />
+            {profileData !== null &&
+                <ProfileHeader profileData={profileData} />
+            }
+            {isCurrentUserProfile === true 
+            ? <CurrentUserProfile token={token} user={user} profileData={profileData} setProfileData={setProfileData} />
+            : <OtherUserProfile token={token} user={user} profileData={profileData} setProfileData={setProfileData} />
             }
         </>
     )

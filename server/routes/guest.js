@@ -23,8 +23,4 @@ router.get('/users/:userId/friends', user_controller.userFriends);
 
 router.get('/search/:topic', search_controller.search)
 
-router.get('/search/index/:topic', search_controller.indexSearch);
-
-router.get('/search/:userId/friends/:topic', search_controller.friendSearch);
-
 module.exports = router;

@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { DisplayUsers } from './DisplayUsers';
-import { GuestDisplayUsers } from './GuestViews/GuestDisplayUsers';
 import { Header } from './Header';
-import { GuestHeader } from './GuestViews/GuestHeader';
 import { FriendSearch } from './FriendSearch';
 
 export const FriendIndex = (props) => {
     const { userId } = useParams();
-    const { user, token, isGuest } = props;
+    const { user, token } = props;
     const [viewedUser, setViewedUser] = useState(null);
     const [friends, setFriends] = useState(null);
     const [view, setView] = useState('all');
@@ -52,24 +50,12 @@ export const FriendIndex = (props) => {
 
     return (
         <>
-            {isGuest === false
-            ? <>
-                <Header token={token} user={user} />
-                {viewedUser !== null &&
-                    <h2>{viewedUser.fullName}'s Friends List</h2>
-                }
-                <FriendSearch setUsers={setFriends} token={token} user={user} userId={userId} setClearSearch={setClearSearch} view={view} setView={setView} />
-                <DisplayUsers user={user} token={token} users={friends} setUsers={setFriends} setSkip={setSkip} />
-            </>
-            : <>
-                <GuestHeader token={token} />
-                {viewedUser !== null &&
-                    <h2>{viewedUser.fullName}'s Friends List</h2>
-                }
-                <FriendSearch setUsers={setFriends} token={token} user={user} userId={userId} setClearSearch={setClearSearch} view={view} setView={setView} />
-                <GuestDisplayUsers token={token} user={user} users={friends} setUsers={setFriends} setSkip={setSkip} />
-            </>
+            <Header token={token} user={user} />
+            {viewedUser !== null &&
+                <h2>{viewedUser.fullName}'s Friends List</h2>
             }
+            <FriendSearch setUsers={setFriends} token={token} user={user} userId={userId} setClearSearch={setClearSearch} view={view} setView={setView} />
+            <DisplayUsers user={user} token={token} users={friends} setUsers={setFriends} setSkip={setSkip} />
         </>
     )
 }

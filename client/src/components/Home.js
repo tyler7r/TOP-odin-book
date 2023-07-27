@@ -1,21 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
-import { NewPost } from './NewPost';
-import { DisplayPosts } from './DisplayPosts';
-import { GuestHome } from './GuestViews/GuestHome';
 import { FriendsFeed } from './FeedViews/FriendsFeed';
 import { RecentFeed } from './FeedViews/RecentFeed';
 import './Home.css'
 import { PopularFeed } from './FeedViews/PopularFeed';
 import { SearchBar } from './SearchBar';
 import { Header } from './Header';
-import { GuestHeader } from './GuestViews/GuestHeader';
 
 export const Home = (props) => {
-    const { user, token, isGuest } = props;
-    const [posts, setPosts] = useState(null);
+    const { user, token } = props;
     const [view, setView] = useState('friends');
-    // const [errors, setErrors] = useState(null);
 
     const viewSelector = (view) => {
         if (view === 'recent') {
@@ -31,22 +25,14 @@ export const Home = (props) => {
         <>
             {token !== null &&
                 <>
-                    {isGuest === false 
-                        ? <Header user={user} />
-                        : <GuestHeader user={user} />
-                    }
+                    <Header user={user} />
                     <Link to='/odinbook/users/index'>User Index</Link>
                     <SearchBar token={token} user={user} />
                     <h1>Home Page</h1>
-                    {isGuest === false
-                        ? <>
-                            <button onClick={() => setView('friends')}>Friends</button>
-                            <button onClick={() => setView('recent')}>Recent</button>
-                            <button onClick={() => setView('popular')}>Popular</button>
-                            {viewSelector(view)}
-                        </>
-                        : <GuestHome token={token} user={user} posts={posts} setPosts={setPosts}></GuestHome>
-                    }
+                    <button onClick={() => setView('friends')}>Friends</button>
+                    <button onClick={() => setView('recent')}>Recent</button>
+                    <button onClick={() => setView('popular')}>Popular</button>
+                    {viewSelector(view)}
                 </>
             }
         </>

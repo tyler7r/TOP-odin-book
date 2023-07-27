@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { userInitials } from './HelperFunctions/UserInitials';
 import './Home.css'
 import './user.css'
 
@@ -96,7 +97,7 @@ export const DisplayUsers = (props) => {
                     users.map(indexedUser => {
                         return (
                             <div key={indexedUser._id} className='user'>
-                                <Link to={`/odinbook${indexedUser.url}`}>{indexedUser.profilePic === undefined ? '' : <img src={indexedUser.profilePic} alt='profile pic' height={50} width={50} />}</Link>
+                                <Link to={`/odinbook${indexedUser.url}`}>{indexedUser.profilePic === undefined ? userInitials(indexedUser) : <img src={indexedUser.profilePic} alt='profile pic' height={50} width={50} />}</Link>
                                 <Link to={`/odinbook${indexedUser.url}`}>{indexedUser.fullName} @{indexedUser.username}</Link>
                                 {statusWithCurrentUser(indexedUser) === 'Current User' &&
                                     <></>

@@ -22,7 +22,6 @@ export const DisplayUsers = (props) => {
                     users.map(indexedUser => {
                         return (
                             <div key={indexedUser._id} className='user'>
-                                {console.log(indexedUser.profilePic)}
                                 <Link to={`/odinbook${indexedUser.url}`}>{indexedUser.profilePic === undefined ? '' : <img src={indexedUser.profilePic} alt='profile pic' height={50} width={50} />}</Link>
                                 <Link to={`/odinbook${indexedUser.url}`}>{indexedUser.fullName} @{indexedUser.username}</Link>
                             </div>
