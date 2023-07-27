@@ -30,28 +30,32 @@ export const Login = () => {
         }
     }
 
-    const handleGuest = async (e) => {
-        e.preventDefault();
-        try {
-            let guestInfo = {
-                username: 'guest',
-                password: 'guest',
-            }
-            let data = JSON.stringify(guestInfo);
-            let res = await fetch('/odinbook/login', {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: data
-            })
-            let myJson = await res.json();
-            localStorage.setItem('user', JSON.stringify(myJson.user));
-            localStorage.setItem('token', JSON.stringify(myJson.token));
-            window.location.href = '/odinbook';
-        } catch (err) {
-            console.error(err);
-        }
+    // const handleGuest = async (e) => {
+    //     e.preventDefault();
+    //     try {
+    //         let guestInfo = {
+    //             username: 'guest',
+    //             password: 'guest',
+    //         }
+    //         let data = JSON.stringify(guestInfo);
+    //         let res = await fetch('/odinbook/login', {
+    //             method: 'post',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: data
+    //         })
+    //         let myJson = await res.json();
+    //         localStorage.setItem('user', JSON.stringify(myJson.user));
+    //         localStorage.setItem('token', JSON.stringify(myJson.token));
+    //         window.location.href = '/odinbook';
+    //     } catch (err) {
+    //         console.error(err);
+    //     }
+    // }
+
+    const handleGuest = async() => {
+        window.location.href = '/odinbook/g'
     }
 
     return (

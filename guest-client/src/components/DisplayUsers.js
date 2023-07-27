@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import '../Home.css'
+import '../styles/home.css'
 
-export const GuestDisplayUsers = (props) => {
+export const DisplayUsers = (props) => {
     const { token, users, setUsers, setSkip } = props;
 
     const handleScroll = (e) => {

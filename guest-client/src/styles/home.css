@@ -1,0 +1,7 @@
+.feed {
+    width: 80vw;
+    height: 100vh;
+    overflow-y: scroll;
+    display: grid;
+    gap: 8px;
+}

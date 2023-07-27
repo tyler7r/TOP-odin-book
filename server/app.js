@@ -10,6 +10,7 @@ const cors = require('cors');
 
 var indexRouter = require('./routes/index');
 const odinRouter = require('./routes/odinbook');
+const guestRouter = require('./routes/guest');
 
 var app = express();
 
@@ -37,6 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/odinbook', odinRouter);
+app.use('/odinbook/g', guestRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
