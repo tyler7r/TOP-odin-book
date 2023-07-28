@@ -19,23 +19,3 @@ exports.search = asyncHandler(async (req, res, next) => {
         users
     })
 })
-
-exports.friendSearch = asyncHandler(async (req, res, next) => {
-    const skip = req.query.skip && /^\d+$/.test(req.query.skip) ? Number(req.query.skip) : 0;
-
-    let results = await User.find({ $and: [ { friends: req.params.userId }, { $or: [ { $and: [{ 'username': { $regex: req.params.topic }}, { '_id': { $ne: ['646e739ca07755b95ac0bea4']}}]}, { 'first_name' : { $regex: req.params.topic }}, { 'last_name' : { $regex: req.params.topic }}]}]}, undefined, { skip, limit: 3 }).populate('friends').exec();
-
-    res.status(200).json({
-        results,
-    })
-})
-
-exports.indexSearch = asyncHandler(async (req, res, next) => {
-    const skip = req.query.skip && /^\d+$/.test(req.query.skip) ? Number(req.query.skip) : 0;
-
-    let results = await User.find({ $or: [ { $and: [{ 'username': { $regex: req.params.topic }}, { '_id': { $ne: ['646e739ca07755b95ac0bea4'] } }]}, { 'first_name' : { $regex: req.params.topic }}, { 'last_name' : { $regex: req.params.topic }}]}, undefined, { skip, limit: 3 }).populate('friends').exec();
-
-    res.status(200).json({
-        results
-    })
-})

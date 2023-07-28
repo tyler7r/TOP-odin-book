@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Header } from './Header';
 import { DisplayUsers } from './DisplayUsers';
-import { IndexSearch } from './IndexSearch';
+import { SearchIndexes } from './SearchIndexes';
 
 export const UserIndex = (props) => {
     const { token, user } = props;
     const [index, setIndex] = useState(null);
-    const [view, setView] = useState('all');
-    const [clearSearch, setClearSearch] = useState(false);
+    const [mode, setMode] = useState('all');
+    const [search, setSearch] = useState('')
     const [skip, setSkip] = useState(0);
 
     const getUsers = async () => {
-        await fetch(`/odinbook/users/index?skip=${skip - 1}`, {
+        await fetch(`/odinbook/users/index?skip=${skip}&mode=${mode}&search=${search}`, {
             method: 'get',
             headers: {
                 'Authorization': token,
@@ -20,11 +20,6 @@ export const UserIndex = (props) => {
             }
         }).then(res => res.json())
             .then(data => {
-                if (clearSearch === true) {
-                    setIndex(data.users)
-                    setClearSearch(false)
-                    return
-                }
                 if (index === null) {
                     setIndex(data.users);
                 } else {
@@ -40,15 +35,14 @@ export const UserIndex = (props) => {
     }, [token, skip])
 
     useEffect(() => {
-        if (clearSearch === true) {
-            getUsers()
-        }
-    }, [clearSearch])
+        setIndex(null);
+        setSkip(0)
+    }, [search])
 
     return (
         <>
             <Header user={user} />
-            <IndexSearch user={user} token={token} setUsers={setIndex} setClearSearch={setClearSearch} view={view} setView={setView} />
+            <SearchIndexes mode={mode} setMode={setMode} setSearch={setSearch} token={token} />
             {index !== null
                 ? <DisplayUsers token={token} user={user} setUsers={setIndex} users={index} setSkip={setSkip} />
                 : <div>No users found</div>

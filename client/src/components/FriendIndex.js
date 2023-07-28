@@ -2,19 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { DisplayUsers } from './DisplayUsers';
 import { Header } from './Header';
-import { FriendSearch } from './FriendSearch';
+import { SearchIndexes } from './SearchIndexes';
 
 export const FriendIndex = (props) => {
     const { userId } = useParams();
     const { user, token } = props;
     const [viewedUser, setViewedUser] = useState(null);
     const [friends, setFriends] = useState(null);
-    const [view, setView] = useState('all');
-    const [clearSearch, setClearSearch] = useState(false);
+    const [search, setSearch] = useState('')
+    const [mode, setMode] = useState('all');
     const [skip, setSkip] = useState(0);
 
     const fetchFriends = async() => {
-        await fetch(`/odinbook/users/${userId}/friends?skip=${skip - 1}`, {
+        await fetch(`/odinbook/users/${userId}/friends?skip=${skip}&mode=${mode}&search=${search}`, {
             method: 'get',
             headers: {
                 'Content-Type': 'application/json',
@@ -22,11 +22,6 @@ export const FriendIndex = (props) => {
             }
         }).then(res => res.json())
             .then(data => {
-                if (clearSearch === true) {
-                    setFriends(data.friends)
-                    setClearSearch(false)
-                    return
-                }
                 if (friends === null) {
                     setFriends(data.friends)
                 } else {
@@ -43,10 +38,9 @@ export const FriendIndex = (props) => {
     }, [token, skip])
 
     useEffect(() => {
-        if (clearSearch === true) {
-            fetchFriends()
-        }
-    }, [clearSearch])
+        setFriends(null)
+        setSkip(0);
+    }, [search])
 
     return (
         <>
@@ -54,7 +48,7 @@ export const FriendIndex = (props) => {
             {viewedUser !== null &&
                 <h2>{viewedUser.fullName}'s Friends List</h2>
             }
-            <FriendSearch setUsers={setFriends} token={token} user={user} userId={userId} setClearSearch={setClearSearch} view={view} setView={setView} />
+            <SearchIndexes mode={mode} setMode={setMode} setSearch={setSearch} token={token} />
             <DisplayUsers user={user} token={token} users={friends} setUsers={setFriends} setSkip={setSkip} />
         </>
     )
