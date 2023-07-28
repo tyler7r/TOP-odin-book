@@ -17,7 +17,7 @@ export const OtherUserProfile = (props) => {
             }
         }).then(res => res.json())
             .then(data => {
-                if (profilePosts === null) {
+                if (skip === 0) {
                     setProfilePosts(data.posts)
                 } else {
                     setProfilePosts([...profilePosts, ...data.posts])

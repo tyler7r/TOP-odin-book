@@ -9,7 +9,7 @@ export const DisplayUsers = (props) => {
     const handleScroll = (e) => {
         const { offsetHeight, scrollTop, scrollHeight } = e.target;
 
-        if (offsetHeight + scrollTop >= scrollHeight) {
+        if ((offsetHeight + scrollTop + 50) >= scrollHeight) {
             setSkip(users.length);
         }
     }

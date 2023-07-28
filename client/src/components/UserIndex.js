@@ -20,7 +20,7 @@ export const UserIndex = (props) => {
             }
         }).then(res => res.json())
             .then(data => {
-                if (index === null) {
+                if (skip === 0) {
                     setIndex(data.users);
                 } else {
                     setIndex([...index, ...data.users])

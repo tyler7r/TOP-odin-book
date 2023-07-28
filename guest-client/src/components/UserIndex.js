@@ -40,6 +40,9 @@ export const UserIndex = (props) => {
         <div>
             <Header />
             <SearchIndexes mode={mode} setMode={setMode} setSearch={setSearch} />
+            {/* {mode === 'search' &&
+            <h3>{`Search results for ${search}`}</h3>
+            } */}
             {index !== null
                 ? <DisplayUsers users={index} setSkip={setSkip} />
                 : <div>No users found</div>

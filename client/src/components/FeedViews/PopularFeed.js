@@ -20,7 +20,7 @@ export const PopularFeed = (props) => {
                 },
             }).then(res => res.json())
                 .then(data => {
-                    if (posts !== null) {
+                    if (skip !== 0) {
                         setPosts([...posts, ...data.posts])
                     } else {
                         setPosts(data.posts)

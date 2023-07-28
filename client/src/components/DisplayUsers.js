@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { userInitials } from './HelperFunctions/UserInitials';
+import { userInitials } from '../HelperFunctions/UserInitials';
 import './Home.css'
 import './user.css'
 
@@ -84,7 +84,7 @@ export const DisplayUsers = (props) => {
     const handleScroll = (e) => {
         const { offsetHeight, scrollTop, scrollHeight } = e.target;
 
-        if (offsetHeight + scrollTop >= scrollHeight) {
+        if ((offsetHeight + scrollTop + 50) >= scrollHeight) {
             setSkip(users.length)
         }
     }

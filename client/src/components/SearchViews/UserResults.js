@@ -18,7 +18,7 @@ export const UserResults = (props) => {
                 },
             }).then(res => res.json())
                 .then(data => {
-                    if (users !== null) {
+                    if (skip !== 0) {
                         setUsers([...users, ...data.users])
                     } else {
                         setUsers(data.users)

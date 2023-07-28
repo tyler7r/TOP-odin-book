@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { NewComment } from './NewComment';
 import { Link } from 'react-router-dom';
-import { formatDate } from './HelperFunctions/FormatDate'
+import { formatDate } from '../HelperFunctions/FormatDate'
+import { userInitials } from '../HelperFunctions/UserInitials';
 
 export const DisplayComments = (props) => {
     const { posts, setPosts, postId, token, user } = props;
@@ -55,7 +56,7 @@ export const DisplayComments = (props) => {
                 postComments.map(comment => {
                     return (
                         <div key={comment._id}>
-                            <Link to={`/odinbook${comment.author.url}`}>{comment.author.profilePic === null ? '' : <img src={comment.author.profilePic} alt='profilePic' height={30} width={30} />}</Link>
+                            <Link to={`/odinbook${comment.author.url}`}>{comment.author.profilePic === undefined ? userInitials(comment.author) : <img src={comment.author.profilePic} alt='profilePic' height={30} width={30} />}</Link>
                             <Link to={`/odinbook${comment.author.url}`}><div>{comment.author.fullName}</div></Link>
                             <div>{comment.text}</div>
                             <div>{formatDate(comment.time)}</div>

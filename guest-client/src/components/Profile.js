@@ -24,7 +24,11 @@ export const Profile = (props) => {
         }).then(res => res.json())
             .then(data => {
                 setProfileData(data.data);
-                setProfilePosts(data.posts);
+                if (profilePosts === null) {
+                    setProfilePosts(data.posts);
+                } else {
+                    setProfilePosts([...profilePosts, ...data.posts])
+                }
             })
     }
 

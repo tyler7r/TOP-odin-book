@@ -9,9 +9,9 @@ exports.home = asyncHandler(async (req, res, next) => {
 
     let posts;
 
-    if (req.query.feed === 'popular') {
+    if (req.query.view === 'popular') {
         posts = await Post.find({}, undefined, { skip, limit: 5 }).populate('author').populate({ path: 'comments', populate: { path: 'author'} }).sort({ 'interactions' : -1, '_id': 1 }).exec();
-    } else {    
+    } else {
         posts = await Post.find({}, undefined, { skip, limit: 5 }).populate('author').populate({ path: 'comments', populate: { path: 'author'} }).sort({ 'time' : -1 }).exec();
     }
 

@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { DisplayComments } from './DisplayComments';
-import { userInitials } from './HelperFunctions/UserInitials';
-import { formatDate } from './HelperFunctions/FormatDate'
+import { userInitials } from '../HelperFunctions/UserInitials';
+import { formatDate } from '../HelperFunctions/FormatDate'
 import './post.css'
 import './Home.css';
 
@@ -49,7 +49,7 @@ export const DisplayPosts = (props) => {
     const handleScroll = (e) => {
         const { offsetHeight, scrollTop, scrollHeight } = e.target;
 
-        if (offsetHeight + scrollTop >= scrollHeight) {
+        if ((offsetHeight + scrollTop + 50) >= scrollHeight) {
             setSkip(posts.length)
         }
     }

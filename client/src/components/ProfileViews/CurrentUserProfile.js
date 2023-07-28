@@ -23,7 +23,7 @@ export const CurrentUserProfile = (props) => {
             .then(data => {
                 setRequests(data.receivedRequests);
                 setFormData({...formData, bio: data.data.profileBio });
-                if (profilePosts === null) {
+                if (skip === 0) {
                     setProfilePosts(data.posts);
                 } else {
                     setProfilePosts([...profilePosts, ...data.posts])

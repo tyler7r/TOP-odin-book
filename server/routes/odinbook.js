@@ -64,8 +64,4 @@ router.get('/:requestId/reject', passport.authenticate('jwt', { session: false }
 
 router.get('/search/:topic', passport.authenticate('jwt', { session: false }), search_controller.search)
 
-router.get('/search/index/:topic', passport.authenticate('jwt', { session: false }), search_controller.indexSearch);
-
-router.get('/search/:userId/friends/:topic', passport.authenticate('jwt', { session: false }), search_controller.friendSearch);
-
 module.exports = router;
