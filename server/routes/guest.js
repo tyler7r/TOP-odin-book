@@ -6,6 +6,7 @@ var router = express.Router();
 // const auth_controller = require('../guest_controllers/authController');
 const user_controller = require('../guest_controllers/userController');
 const search_controller = require('../guest_controllers/searchController');
+const post_controller = require('../guest_controllers/postController');
 
 router.get('/', user_controller.home);
 
@@ -13,11 +14,13 @@ router.get('/', user_controller.home);
 
 router.get('/users/index', user_controller.index)
 
-// router.get('/info/:userId', user_controller.getUser);
-
 router.get('/users/:userId', user_controller.profile);
 
 router.get('/users/:userId/friends', user_controller.userFriends);
+
+/// POST ROUTES ///
+
+router.get('/:postId', post_controller.expand_post);
 
 /// SEARCH ROUTES ///
 

@@ -5,6 +5,7 @@ import { Profile } from './components/Profile';
 import { FriendIndex } from './components/FriendIndex';
 import { UserIndex } from './components/UserIndex';
 import { SearchHome } from './components/SearchHome';
+import { ExpandPost } from './components/ExpandPost';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path='/odinbook/g/users/index' element={<UserIndex />} />
           <Route path='/odinbook/g/users/:userId/friends' element={<FriendIndex />} />
           <Route path='/odinbook/g/search/:topic' element={<SearchHome />} />
+          <Route path='/odinbook/g/:postId' element={<ExpandPost />} />
         </Routes>
       </div>
     </BrowserRouter>
