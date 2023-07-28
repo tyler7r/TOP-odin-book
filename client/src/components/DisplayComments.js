@@ -3,73 +3,38 @@ import { NewComment } from './NewComment';
 import { Link } from 'react-router-dom';
 import { formatDate } from '../HelperFunctions/FormatDate'
 import { userInitials } from '../HelperFunctions/UserInitials';
+import { Comment } from './Comment';
+import './Home.css'
+import './comment.css'
 
 export const DisplayComments = (props) => {
-    const { posts, setPosts, postId, token, user } = props;
-    const [postComments, setPostComments] = useState([]);
+    const { token, user, postId, posts, setPosts, comments, view, setSkip } = props;
 
-    useEffect(() => {
-        let post = posts.find(post => post._id === postId);
-        setPostComments(post.comments);
-    }, [])
+    const handleScroll = (e) => {
+        const { offsetHeight, scrollTop, scrollHeight } = e.target;
 
-    const handleLike = async (e) => {
-        const commentId = e.target.id;
-
-        await fetch(`/odinbook/${postId}/${commentId}/like`, {
-            method: 'get',
-            headers: {
-                'Authorization': token,
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json())
-            .then(data => {
-                setPostComments(data.post.comments);
-            })
-    }
-
-    const handleDelete = async (e) => {
-        const commentId = e.target.id;
-
-        await fetch(`/odinbook/${postId}/${commentId}/delete`, {
-            method: 'get',
-            headers: {
-                'Authorization': token,
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json())
-            .then(data => {
-                setPostComments(data.comments);
-                let copy = [...posts];
-                let index = posts.findIndex(post => post._id === postId);
-                copy[index] = data.post;
-                setPosts(copy);
-            })
+        if ((offsetHeight + scrollTop + 50) >= scrollHeight) {
+            setSkip(comments.length)
+        }
+        console.log(offsetHeight + scrollTop, scrollHeight)
     }
 
     return (
         <>
-            {postComments.length === 0 && 
-                <div>No Comments</div>
-            }
-            {postComments.length > 0 &&
-                postComments.map(comment => {
-                    return (
-                        <div key={comment._id}>
-                            <Link to={`/odinbook${comment.author.url}`}>{comment.author.profilePic === undefined ? userInitials(comment.author) : <img src={comment.author.profilePic} alt='profilePic' height={30} width={30} />}</Link>
-                            <Link to={`/odinbook${comment.author.url}`}><div>{comment.author.fullName}</div></Link>
-                            <div>{comment.text}</div>
-                            <div>{formatDate(comment.time)}</div>
-                            <div>Likes: {comment.likes.length}</div> 
-                            <button id={comment._id} onClick={(e) => handleLike(e)}>Like Comment</button>
-                            {comment.author._id === user._id &&
-                                <button id={comment._id} onClick={(e) => handleDelete(e)}>Delete Comment</button>
-                            }
-                        </div>
-                    )
-                })
-            }
-            <NewComment user={user} postId={postId} token={token} posts={posts} setPosts={setPosts} setPostComments={setPostComments} postComments={postComments} />
+            <NewComment user={user} postId={postId} token={token} posts={posts} setPosts={setPosts} comments={comments} />
+            <h3>Comments</h3>
+            <div className={view} onScroll={handleScroll}>
+                {comments.length > 0 &&
+                    comments.map(comment => {
+                        return (
+                            <Comment key={comment._id} token={token} user={user} postId={postId} posts={posts} setPosts={setPosts} comment={comment} />
+                        )
+                    })
+                }
+                {comments.length === 0 && 
+                    <div>No Comments</div>
+                }
+            </div>
         </>
     )
 }

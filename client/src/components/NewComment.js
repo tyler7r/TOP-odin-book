@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 export const NewComment = (props) => {
-    const { setPosts, posts, setPostComments, postComments, postId, token, user } = props;
+    const { setPosts, posts, postId, token, user } = props;
     const [comment, setComment] = useState('')
 
     const handleChange = (e) => {
@@ -24,7 +24,6 @@ export const NewComment = (props) => {
         }).then(res => res.json())
             .then(data => {
                 setComment('');
-                setPostComments([...postComments, data.comment]);
                 let copy = [...posts];
                 let index = posts.findIndex(post => post._id === postId);
                 copy[index] = data.post;

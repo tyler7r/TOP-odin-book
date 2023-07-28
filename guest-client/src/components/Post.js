@@ -21,7 +21,6 @@ export const Post = (props) => {
             <div>Likes: {post.likes.length}</div>
             <div>Comments: {post.comments.length}</div>
             <h3>Comments</h3>
-            {/* <DisplayComments posts={posts} postId={postId} /> */}
             <div>=============================</div>
         </div>
     )

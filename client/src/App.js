@@ -7,6 +7,7 @@ import { Profile } from './components/Profile';
 import { UserIndex } from './components/UserIndex';
 import { SearchHome } from './components/SearchViews/SearchHome';
 import { FriendIndex } from './components/FriendIndex';
+import { ExpandPost } from './components/ExpandPost';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -37,6 +38,7 @@ function App() {
           <Route path='/odinbook/users/index' element={<UserIndex token={token} user={user} />} />
           <Route path='/odinbook/users/:userId/friends' element={<FriendIndex user={user} token={token} />} />
           <Route path='/odinbook/search/:topic' element={<SearchHome token={token} user={user} />} />
+          <Route path='/odinbook/:postId' element={<ExpandPost token={token} user={user} />} />
         </Routes>
       </div>
     </BrowserRouter>

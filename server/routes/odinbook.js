@@ -42,6 +42,8 @@ router.get('/:postId/like', passport.authenticate('jwt', { session: false }), po
 
 router.get('/:postId/delete', passport.authenticate('jwt', { session: false }), post_controller.delete_post);
 
+router.get('/:postId', passport.authenticate('jwt', { session: false }), post_controller.expand_post);
+
 /// COMMENT ROUTES ///
 
 router.post('/:postId/create/comment', passport.authenticate('jwt', { session: false }), comment_controller.create_comment);
