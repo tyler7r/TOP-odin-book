@@ -13,7 +13,7 @@ export const SearchHome = (props) => {
     return (
         <>
             {token !== null &&
-                <>
+                <div>
                     <Header user={user} />
                     <h1>Search Results for {search.topic}</h1>
                     <SearchBar token={token} />
@@ -23,7 +23,7 @@ export const SearchHome = (props) => {
                         ? <PostResults token={token} user={user} view={view} />
                         : <UserResults token={token} user={user} view={view} />
                     }
-                </>
+                </div>
             }
         </>
     )

@@ -3,11 +3,11 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Login } from './components/Login';
 import { Signup } from './components/Signup';
 import { Home } from './components/Home';
-import { Profile } from './components/Profile';
-import { UserIndex } from './components/UserIndex';
+import { Profile } from './components/ProfileComponents/Profile';
+import { UserIndex } from './components/UserComponents/UserIndex';
 import { SearchHome } from './components/SearchViews/SearchHome';
-import { FriendIndex } from './components/FriendIndex';
-import { ExpandPost } from './components/ExpandPost';
+import { FriendIndex } from './components/UserComponents/FriendIndex';
+import { ExpandPost } from './components/PostComponents/ExpandPost';
 
 function App() {
   const [user, setUser] = useState(null);

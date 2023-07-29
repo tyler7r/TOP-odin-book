@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom';
-import { NewPost } from '../NewPost';
-import { DisplayPosts } from '../DisplayPosts';
-import '../Home.css';
+import { NewPost } from '../PostComponents/NewPost';
+import { DisplayPosts } from '../PostComponents/DisplayPosts';
+import '../../styles/home.css';
 
 export const FriendsFeed = (props) => {
     const { user, token, view } = props;
     const [posts, setPosts] = useState(null);
     const [skip, setSkip] = useState(0);
-    // const [errors, setErrors] = useState(null);
     
     const fetchPosts = async () => {
         try {
@@ -40,14 +38,14 @@ export const FriendsFeed = (props) => {
     return (
         <>
             {token !== null &&
-                <>
+                <div>
                     <NewPost token={token} user={user} posts={posts} setPosts={setPosts} />
                     <h4>Friends Feed</h4>
                     {(posts !== null && posts.length !== 0)
                         ? <DisplayPosts setSkip={setSkip} token={token} user={user} posts={posts} setPosts={setPosts} />
                         : <div>No Friend Posts</div>
                     }
-                </>
+                </div>
             }
         </>
     )

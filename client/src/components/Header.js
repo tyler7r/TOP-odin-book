@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { userInitials } from '../HelperFunctions/UserInitials';
-import './header.css'
+import '../styles/header.css'
 
 export const Header = (props) => {
     const { user } = props;

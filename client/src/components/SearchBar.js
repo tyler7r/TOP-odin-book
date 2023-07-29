@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
-export const SearchBar = (props) => {
-    const { setPosts, posts, setPostComments, postComments, postId, token, user } = props;
+export const SearchBar = () => {
     const [search, setSearch] = useState('')
 
     const handleChange = (e) => {

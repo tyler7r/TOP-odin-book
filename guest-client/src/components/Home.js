@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useLayoutEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DisplayPosts } from './DisplayPosts';
 import { Header } from './Header';
@@ -41,7 +41,7 @@ export const Home = (props) => {
     }, [view])
 
     return (
-        <>
+        <div>
             <Header />
             <Link to='/odinbook/g/users/index'>User Index</Link>
             <SearchBar />
@@ -50,6 +50,6 @@ export const Home = (props) => {
             {posts !== null &&
                 <DisplayPosts posts={posts} setSkip={setSkip} />
             }
-        </>
+        </div>
     )
 }

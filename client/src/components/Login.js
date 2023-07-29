@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 export const Login = () => {
@@ -35,7 +35,7 @@ export const Login = () => {
     }
 
     return (
-        <>
+        <div>
             <h1>Welcome to the OdinBook</h1>
             <form>
                 <label htmlFor='username'>Username: </label>
@@ -46,6 +46,6 @@ export const Login = () => {
             </form>
             <Link to='/odinbook/signup'>Sign Up</Link>
             <div onClick={() => handleGuest()}>Continue as Guest</div>
-        </>
+        </div>
     )
 }
