@@ -4,6 +4,7 @@ import '../styles/login.css';
 
 export const Login = () => {
     const [formData, setFormData] = useState('');
+    const [errors, setErrors] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -22,9 +23,14 @@ export const Login = () => {
                 body: data,
             }).then(res => res.json())
                 .then(data => {
-                    localStorage.setItem('user', JSON.stringify(data.user))
-                    localStorage.setItem('token', JSON.stringify(data.token))
-                    window.location.href = '/odinbook'
+                    if (data.errors) {
+                        setErrors(data.errors.message);
+                        return
+                    } else {
+                        localStorage.setItem('user', JSON.stringify(data.user))
+                        localStorage.setItem('token', JSON.stringify(data.token))
+                        window.location.href = '/odinbook'
+                    }
                 })
         } catch (err) {
             console.error(err);
@@ -51,6 +57,9 @@ export const Login = () => {
                     <label htmlFor='password'>Password</label>
                     <input type='text' name='password' value={formData.password === undefined ? '' : formData.password} onChange={(e) => handleChange(e)} required/>
                 </div>
+                {errors !== '' &&
+                    <div id='error-msg'>{errors}</div>
+                }
                 <button id='submit' type='submit' onClick={(e) => handleSubmit(e)}>Log In</button>
             </form>
             <div id='signup-message'>Don't have an account?</div>

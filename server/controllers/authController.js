@@ -8,10 +8,10 @@ const jwt = require('jsonwebtoken');
 
 exports.login = asyncHandler(async (req, res, next) => {
     try {
-        passport.authenticate('local', { session: false}, (err, user, info) => {
+        passport.authenticate('local', { session: false }, (err, user, info) => {
             if (err || !user) {
                 return res.status(400).json({
-                    info: info,
+                    errors: info,
                 })
             }
             req.login(user, { session: false }, (err) => {
