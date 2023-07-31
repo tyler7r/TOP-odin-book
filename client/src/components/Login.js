@@ -13,28 +13,24 @@ export const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            let data = JSON.stringify(formData);
-            await fetch(`/odinbook/login`, {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: data,
-            }).then(res => res.json())
-                .then(data => {
-                    if (data.errors) {
-                        setErrors(data.errors.message);
-                        return
-                    } else {
-                        localStorage.setItem('user', JSON.stringify(data.user))
-                        localStorage.setItem('token', JSON.stringify(data.token))
-                        window.location.href = '/odinbook'
-                    }
-                })
-        } catch (err) {
-            console.error(err);
-        }
+        let data = JSON.stringify(formData);
+        await fetch(`/odinbook/login`, {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: data,
+        }).then(res => res.json())
+            .then(data => {
+                if (data.errors) {
+                    setErrors(data.errors.message);
+                    return
+                } else {
+                    localStorage.setItem('user', JSON.stringify(data.user))
+                    localStorage.setItem('token', JSON.stringify(data.token))
+                    window.location.href = '/odinbook'
+                }
+            })
     }
 
     const handleGuest = async() => {
@@ -42,12 +38,12 @@ export const Login = () => {
     }
 
     return (
-        <div id='container'>
+        <div id='login-container'>
             <div id='title'>
                 <div id='the'>The</div>
                 <h1 id='odinbook'>ODINBOOK</h1>
             </div>
-            <div id='login-message'>Log in to your account</div>
+            <div id='login-msg'>Log in to your account</div>
             <form id='login-form'>
                 <div className="form-group">
                     <label htmlFor='username'>Username</label>

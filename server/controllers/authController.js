@@ -41,6 +41,9 @@ exports.signup = [
         .custom(async (confirmPassword, { req }) => {
             const password = req.body.password;
             if (password !== confirmPassword) {
+                // res.status(500).json({
+                //     errors: 'Passwords do not match'
+                // })
                 throw new Error('Passwords do not match')
             }
         }).escape(),
@@ -61,11 +64,15 @@ exports.signup = [
         } else {
             const userExists = await User.findOne({ username: req.body.username }).exec();
             if (userExists) {
-                throw new Error('Username already exists')
+                return res.status(403).json({
+                    errors: 'Username not available'
+                })
             } else {
                 bcrypt.hash(user.password, 10, async(err, hashedPassword) => {
                     if (err) {
-                        return new Error('Hashing error')
+                        return res.status(403).json({
+                            errors: 'Password hashing error'
+                        })
                     } else {
                         user.password = hashedPassword;
                         await user.save();

@@ -1,0 +1,38 @@
+#signup-container {
+    color: rgb(66, 66, 66);
+    font-family: 'Kanit';
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+    gap: 8px;
+}
+
+#signup-form {
+    width: 80vw;
+    display: grid;
+    gap: 8px;
+}
+
+#username-signup {
+    grid-column: 1 / 3;
+}
+
+#signup-msg {
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: rgb(250, 158, 20);
+}
+
+#back-to-login {
+    text-decoration: none;
+    color:rgb(66, 66, 66);
+}
+
+#back-to-login:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
