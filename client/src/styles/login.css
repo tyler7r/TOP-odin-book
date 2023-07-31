@@ -1,0 +1,112 @@
+* {
+    margin: 0;
+    padding: 0;
+    /* font-family: 'Kanit'; */
+}
+
+#container {
+    color: rgb(66, 66, 66);
+    font-family: 'Kanit';
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+}
+
+#title {
+    font-family: 'Montserrat';
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+#the {
+    margin-bottom: -12px;
+    font-size: 18px;
+}
+
+#odinbook {
+    font-size: 64px;
+}
+
+#login-message {
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: rgb(250, 158, 20);
+}
+
+#login-form {
+    width: 80vw;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 8px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    padding: 4px;
+}
+
+#submit {
+    grid-column: 1 / 3;
+    font-weight: bold;
+    justify-self: center;
+    width: 20%;
+    background-color: rgb(250, 158, 20);
+    border: 1px solid rgb(66, 66, 66);
+    padding: 4px;
+}
+
+#submit:hover {
+    cursor: pointer;
+    background-color: rgb(249, 172, 55);
+    border-radius: 4px;
+    width: 18%;
+}
+
+#no-account-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    justify-items: center;
+}
+
+#signup {
+    text-decoration: none;
+    color: rgb(250, 158, 20);
+    font-weight: bold;
+}
+
+#signup:hover {
+    text-decoration: underline;
+}
+
+#or {
+    font-size: 14px;
+    font-weight: bold;
+    justify-self: center;
+    align-self: center;
+}
+
+#guest-button {
+    grid-column: 1 / 3;
+    justify-self: center;
+}
+
+#guest-button:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+

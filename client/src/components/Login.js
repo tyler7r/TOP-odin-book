@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import '../styles/login.css';
 
 export const Login = () => {
     const [formData, setFormData] = useState('');
@@ -35,17 +36,29 @@ export const Login = () => {
     }
 
     return (
-        <div>
-            <h1>Welcome to the OdinBook</h1>
-            <form>
-                <label htmlFor='username'>Username: </label>
-                <input type='text' name='username' value={formData.username === undefined ? '' : formData.username} onChange={(e) => handleChange(e)} required/>
-                <label htmlFor='password'>Password: </label>
-                <input type='text' name='password' value={formData.password === undefined ? '' : formData.password} onChange={(e) => handleChange(e)} required/>
-                <button type='submit' onClick={(e) => handleSubmit(e)}>Log In</button>
+        <div id='container'>
+            <div id='title'>
+                <div id='the'>The</div>
+                <h1 id='odinbook'>ODINBOOK</h1>
+            </div>
+            <div id='login-message'>Log in to your account</div>
+            <form id='login-form'>
+                <div className="form-group">
+                    <label htmlFor='username'>Username</label>
+                    <input type='text' name='username' value={formData.username === undefined ? '' : formData.username} onChange={(e) => handleChange(e)} required/>
+                </div>
+                <div className="form-group">
+                    <label htmlFor='password'>Password</label>
+                    <input type='text' name='password' value={formData.password === undefined ? '' : formData.password} onChange={(e) => handleChange(e)} required/>
+                </div>
+                <button id='submit' type='submit' onClick={(e) => handleSubmit(e)}>Log In</button>
             </form>
-            <Link to='/odinbook/signup'>Sign Up</Link>
-            <div onClick={() => handleGuest()}>Continue as Guest</div>
+            <div id='signup-message'>Don't have an account?</div>
+            <div id='no-account-options'>
+                <Link id='signup' to='/odinbook/signup'>Sign Up</Link>
+                <div id='or'>OR</div>
+                <div id='guest-button' onClick={() => handleGuest()}>Continue as Guest</div>
+            </div>
         </div>
     )
 }
