@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-import { DisplayPosts } from './DisplayPosts';
+import { DisplayPosts } from '../Post/DisplayPosts';
 
 export const PostResults = (props) => {
     const search = useParams();

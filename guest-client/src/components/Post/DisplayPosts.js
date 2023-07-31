@@ -1,6 +1,6 @@
 import React from 'react'
 import { Post } from './Post';
-import { DisplayComments } from './DisplayComments';
+import { DisplayComments } from '../Comment/DisplayComments';
 import '../../styles/home.css';
 import '../../styles/post.css'
 

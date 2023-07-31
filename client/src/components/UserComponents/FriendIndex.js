@@ -35,7 +35,7 @@ export const FriendIndex = (props) => {
         if (token !== null) {
             fetchFriends()
         }
-    }, [token, skip])
+    }, [token, skip, mode])
 
     useEffect(() => {
         setFriends(null)

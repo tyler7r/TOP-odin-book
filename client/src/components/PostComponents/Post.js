@@ -1,15 +1,16 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { formatDate } from '../../HelperFunctions/FormatDate'
 import { userInitials } from '../../HelperFunctions/UserInitials';
 
 export const Post = (props) => {
-    const { post, postId, posts, setPosts, token, user } = props;
+    const { postId } = useParams();
+    const { post, pId, posts, setPosts, token, user } = props;
 
     const handleLike = async (e) => {
-        const postId = e.target.id;
+        const pId = e.target.id;
 
-        await fetch(`/odinbook/${postId}/like`, {
+        await fetch(`/odinbook/${pId}/like`, {
             method: 'get',
             headers: {
                 'Authorization': token,
@@ -18,7 +19,7 @@ export const Post = (props) => {
         }).then(res => res.json())
             .then(data => {
                 let copy = [...posts];
-                let index = copy.findIndex(post => post._id === postId);
+                let index = copy.findIndex(post => post._id === pId);
                 copy[index] = data.post;
                 setPosts([...copy]);
             })
@@ -26,9 +27,9 @@ export const Post = (props) => {
     }
 
     const handleDelete = async (e) => {
-        const postId = e.target.id
+        const pId = e.target.id
 
-        await fetch(`/odinbook/${postId}/delete`, {
+        await fetch(`/odinbook/${pId}/delete`, {
             method: 'get',
             headers: {
                 'Authorization': token,
@@ -37,14 +38,17 @@ export const Post = (props) => {
         }).then(res => res.json())
             .then(() => {
                 let copy = [...posts];
-                let index = copy.findIndex(post => post._id === postId);
+                let index = copy.findIndex(post => post._id === pId);
                 copy.splice(index, 1);
                 setPosts([...copy]);
+                if (postId === pId) {
+                    window.location.href = '/odinbook'
+                }
             })
     }
 
     const handleClick = () => {
-        window.location.href = `/odinbook/${postId}`
+        window.location.href = `/odinbook/${pId}`
     }
 
     return (

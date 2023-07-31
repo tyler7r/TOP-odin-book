@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import { ProfileHeader } from './ProfileHeader';
 import { ProfileInfo } from './ProfileInfo';
 import { DisplayPosts } from '../PostComponents/DisplayPosts';
 import { NewPost } from '../PostComponents/NewPost';
 
 export const CurrentUserProfile = (props) => {
     const { userId } = useParams();
-    const { token, user, setProfileData, profileData } = props;
+    const { token, user } = props;
+    const [profileData, setProfileData] = useState(null)
     const [profilePosts, setProfilePosts] = useState(null);
     const [requests, setRequests] = useState(null);
     const [editProfileModal, setEditProfileModal] = useState(false);
@@ -17,10 +19,12 @@ export const CurrentUserProfile = (props) => {
         await fetch(`/odinbook/users/${userId}?skip=${skip}`, {
             method: 'get',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': token,
             }
         }).then(res => res.json())
             .then(data => {
+                setProfileData(data.data);
                 setRequests(data.receivedRequests);
                 setFormData({...formData, bio: data.data.profileBio });
                 if (skip === 0) {
@@ -33,7 +37,7 @@ export const CurrentUserProfile = (props) => {
 
     useEffect(() => {
         fetchCurrentUserProfile();
-    }, [userId, user, skip])
+    }, [skip])
 
     const handleRequest = async (e, action) => {
         const requestId = e.target.id;
@@ -52,6 +56,9 @@ export const CurrentUserProfile = (props) => {
 
     return (
         <div>
+            {profileData !== null &&
+                <ProfileHeader profileData={profileData} />
+            }
             {profilePosts !== null &&
                 <>
                     {editProfileModal === false &&

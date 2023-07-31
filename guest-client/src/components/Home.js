@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { DisplayPosts } from './DisplayPosts';
+import { DisplayPosts } from './Post/DisplayPosts';
 import { Header } from './Header';
 import { SearchBar } from './SearchBar';
 
@@ -12,7 +12,7 @@ export const Home = (props) => {
     
     const fetchHome = async () => {
         try {
-            await fetch(`/odinbook/g?skip=${skip}&view=${view}`, {
+            await fetch(`/odinbook/g/home?skip=${skip}&view=${view}`, {
                 method: 'get',
                 headers: {
                     'Content-Type': 'application/json',

@@ -1,32 +1,31 @@
 import React from 'react'
 
 export const Relationship = (props) => {
-    const { token, user, setUsers, users } = props;
+    const { token, user, setUsers, users, currentUser } = props;
 
     const isFriendWithUser = (currentUserIndex) => {
         let friends = currentUserIndex.friends;
-        if (friends.some(friend => friend._id === user._id)) {
+        if (friends.some(friend => friend._id === currentUser._id)) {
             return true
         } else return false
     }
 
     const requestReceivedFromIndexedUser = (currentUserIndex) => {
         let sentRequests = currentUserIndex.sentRequests;
-        if (sentRequests.some(request => request.receiver === user._id)) {
+        if (sentRequests.some(request => request.receiver === currentUser._id)) {
             return true
         }
     }
 
     const requestSentByCurrentUser = (currentUserIndex) => {
         let receivedRequests = currentUserIndex.receivedRequests;
-        if (receivedRequests.some(request => request.sender === user._id)) {
+        if (receivedRequests.some(request => request.sender === currentUser._id)) {
             return true
         }
     }
 
     const statusWithCurrentUser = (currentUserIndex) => {
-        console.log('run')
-        if (currentUserIndex._id === user._id) {
+        if (currentUserIndex._id === currentUser._id) {
             return 'Current User'
         }
         if (isFriendWithUser(currentUserIndex) === true) {
@@ -80,7 +79,6 @@ export const Relationship = (props) => {
 
     return (
         <div>
-            {console.log(user)}
             {statusWithCurrentUser(user) === 'Current User' &&
                 <></>
             }

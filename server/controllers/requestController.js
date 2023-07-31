@@ -4,7 +4,7 @@ const User = require('../models/user');
 const Post = require('../models/post');
 const Request = require('../models/request');
 
-exports.sendRequest = asyncHandler(async (req, res, next) => {
+exports.sendRequest = asyncHandler(async (req, res, next) => { 
     let requestPending = await Request.findOne({ sender: req.user._id, receiver: req.params.userId, status: 'Pending' }).exec();
 
     const sendingUser = async() => {

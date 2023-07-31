@@ -7,7 +7,7 @@ export const Header = (props) => {
 
     return (
         <div className='header'>
-            <Link to='/odinbook/g' id='logo'>ODINBOOK</Link>
+            <Link to='/odinbook/g/home' id='logo'>ODINBOOK</Link>
             <Link to='http://localhost:3000/odinbook/login'>Log In</Link>
             <Link to='http://localhost:3000/odinbook/signup'>Sign Up</Link>
         </div>

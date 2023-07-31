@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { Header } from '../Header';
 import { Post } from './Post';
-import { DisplayComments } from './DisplayComments';
+import { DisplayComments } from '../Comment/DisplayComments';
 import '../../styles/home.css'
 
 export const ExpandPost = (props) => {

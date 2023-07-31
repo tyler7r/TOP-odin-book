@@ -28,7 +28,7 @@ export const UserIndex = (props) => {
 
     useEffect(() => {
         getUsers()
-    }, [skip])
+    }, [skip, mode])
 
     useEffect(() => {
         setIndex(null);

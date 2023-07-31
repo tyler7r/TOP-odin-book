@@ -31,7 +31,7 @@ export const Login = () => {
     }
 
     const handleGuest = async() => {
-        window.location.href = 'http://localhost:3001/odinbook/g'
+        window.location.href = 'http://localhost:3001/odinbook/g/home'
     }
 
     return (

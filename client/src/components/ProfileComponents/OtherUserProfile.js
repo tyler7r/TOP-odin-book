@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { ProfileHeader } from './ProfileHeader';
 import { DisplayPosts } from '../PostComponents/DisplayPosts';
 
 export const OtherUserProfile = (props) => {
     const { userId } = useParams();
-    const { token, user, setProfileData, profileData } = props;
+    const { token, user } = props;
+    const [profileData, setProfileData] = useState(null);
     const [profilePosts, setProfilePosts] = useState(null);
     const [skip, setSkip] = useState(0);
 
@@ -17,6 +19,7 @@ export const OtherUserProfile = (props) => {
             }
         }).then(res => res.json())
             .then(data => {
+                setProfileData(data.data);
                 if (skip === 0) {
                     setProfilePosts(data.posts)
                 } else {
@@ -86,6 +89,7 @@ export const OtherUserProfile = (props) => {
         <div>
             {profileData !== null
             ? <>
+                <ProfileHeader profileData={profileData} />
                 {friendStatus() === 'Not Friend' && 
                     <button onClick={() => friendRequestButton()}>Send Friend Request</button>
                 }

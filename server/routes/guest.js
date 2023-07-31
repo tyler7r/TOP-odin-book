@@ -8,7 +8,7 @@ const user_controller = require('../guest_controllers/userController');
 const search_controller = require('../guest_controllers/searchController');
 const post_controller = require('../guest_controllers/postController');
 
-router.get('/', user_controller.home);
+router.get('/home', user_controller.home);
 
 /// USER ROUTES ///
 

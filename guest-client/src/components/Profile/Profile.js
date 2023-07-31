@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { DisplayPosts } from './DisplayPosts';
+import { DisplayPosts } from '../Post/DisplayPosts';
 import { Header } from '../Header';
 import { ProfileHeader } from './ProfileHeader';
 

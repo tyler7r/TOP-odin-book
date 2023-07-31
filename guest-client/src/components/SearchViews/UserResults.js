@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-import { DisplayUsers } from './DisplayUsers';
+import { DisplayUsers } from '../User/DisplayUsers';
 
 export const UserResults = (props) => {
     const search = useParams();

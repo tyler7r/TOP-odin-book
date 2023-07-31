@@ -5,6 +5,7 @@ const Post = require('../models/post');
 const Request = require('../models/request')
 
 exports.home = asyncHandler(async (req, res, next) => {
+    console.log('here');
     const skip = req.query.skip && /^\d+$/.test(req.query.skip) ? Number(req.query.skip) : 0;
 
     let posts;

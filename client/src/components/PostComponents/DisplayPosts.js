@@ -22,7 +22,7 @@ export const DisplayPosts = (props) => {
                     <div key={post._id}>
                         <h3>Posts</h3>
                         <div className='post'>
-                            <Post token={token} user={user} post={post} postId={post._id} posts={posts} setPosts={setPosts} />
+                            <Post token={token} user={user} post={post} pId={post._id} posts={posts} setPosts={setPosts} />
                             <DisplayComments token={token} user={user} post={post} postId={post._id} posts={posts} setPosts={setPosts} comments={post.comments} setSkip={setSkip} />
                         </div>
                     </div>
