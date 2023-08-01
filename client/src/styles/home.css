@@ -1,3 +1,31 @@
+#home-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    gap: 12px;
+}
+
+.view-select {
+    font-family: 'Montserrat';
+    color: rgb(66, 66, 66);
+    width: 100%;
+    padding: 4px;
+    border: 4px double rgb(250, 158, 20);
+    background-color: white;
+    border-radius: 4px;
+}
+
+.view-select:hover {
+    border: 4px solid rgb(250, 158, 20);
+    cursor: pointer;
+    font-size: 24px;
+}
+
+.selected {
+    font-size: 24px;
+}
+
 .feed {
     width: 80vw;
     height: 100vh;

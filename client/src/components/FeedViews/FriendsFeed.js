@@ -40,7 +40,6 @@ export const FriendsFeed = (props) => {
             {token !== null &&
                 <div>
                     <NewPost token={token} user={user} posts={posts} setPosts={setPosts} />
-                    <h4>Friends Feed</h4>
                     {(posts !== null && posts.length !== 0)
                         ? <DisplayPosts setSkip={setSkip} token={token} user={user} posts={posts} setPosts={setPosts} />
                         : <div>No Friend Posts</div>

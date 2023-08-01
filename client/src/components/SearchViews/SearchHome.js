@@ -19,7 +19,7 @@ export const SearchHome = (props) => {
                     <SearchBar token={token} />
                     <button onClick={() => setView('posts')}>Posts</button>
                     <button onClick={() => setView('users')}>Users</button>
-                    {view === 'posts' 
+                    {view === 'posts'
                         ? <PostResults token={token} user={user} view={view} />
                         : <UserResults token={token} user={user} view={view} />
                     }

@@ -1,4 +1,102 @@
 .header {
     display: flex;
     justify-content: space-between;
+    padding: 6px 12px 6px 12px;
+}
+
+#logo {
+    font-family: 'Montserrat';
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    color: rgb(66, 66, 66);
+}
+
+#logo:hover {
+    cursor: pointer;
+}
+
+#logo-the {
+    margin-bottom: -4px;
+    font-size: 10px;
+}
+
+#logo-odinbook {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+#logo-odinbook:hover {
+    text-decoration: underline;
+}
+
+#header-nav {
+    display: flex;
+    gap: 16px;
+}
+
+#user-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#header-links {
+    font-size: 14px;
+    font-family: 'Montserrat';
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: light;
+}
+
+#user-index {
+    align-self: center;
+    justify-self: center;
+    text-decoration: none;
+    font-weight: light;
+    color: rgb(250, 158, 20);
+}
+
+#user-index:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#open-search:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#header-user-link {
+    font-family: 'Ysabeau SC';
+    color: rgb(66, 66, 66);
+    font-weight: bold;
+    font-size: 24px;
+    text-decoration: none;
+    border: 4px double rgb(250, 158, 20);
+    border-radius: 50%;
+    padding: 6px;
+}
+
+#header-user-link:hover {
+    border: 4px solid rgb(250, 158, 20);
+    background-color: rgb(238, 238, 238)
+}
+
+#logout-btn {
+    background-color: white;
+    font-weight: bold;
+    border: none;
+}
+
+#logout-btn:hover {
+    text-decoration: underline;
+    cursor: pointer;
+    /* font-family: 'Kanit'; */
+    font-weight: lighter;
 }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
-export const SearchBar = () => {
+export const SearchBar = (props) => {
+    const { setSearchOpen } = props;
     const [search, setSearch] = useState('')
 
     const handleChange = (e) => {
@@ -10,6 +11,7 @@ export const SearchBar = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setSearchOpen(false)
         window.location.href = `/odinbook/search/${search.topic}`;
     }
 

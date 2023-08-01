@@ -9,6 +9,7 @@ import '../styles/home.css'
 
 export const Home = (props) => {
     const { user, token } = props;
+    const [searchOpen, setSearchOpen] = useState(false)
     const [view, setView] = useState('friends');
 
     const viewSelector = (view) => {
@@ -21,17 +22,27 @@ export const Home = (props) => {
         }
     }
 
+    const checkView = (buttonView) => {
+        if (view === buttonView) {
+            return 'view-select selected'
+        } else {
+            return 'view-select'
+        }
+    }
+
     return (
         <>
             {token !== null &&
                 <div>
-                    <Header user={user} />
-                    <Link to='/odinbook/users/index'>User Index</Link>
-                    <SearchBar token={token} user={user} />
-                    <h1>Home Page</h1>
-                    <button onClick={() => setView('friends')}>Friends</button>
-                    <button onClick={() => setView('recent')}>Recent</button>
-                    <button onClick={() => setView('popular')}>Popular</button>
+                    <Header user={user} searchOpen={searchOpen} setSearchOpen={setSearchOpen} searchBtn={true} />
+                    {searchOpen &&
+                        <SearchBar token={token} user={user} setSearchOpen={setSearchOpen} />
+                    }
+                    <div id="home-menu">
+                        <button className={checkView('friends')} onClick={() => setView('friends')}>Friends</button>
+                        <button className={checkView('recent')} onClick={() => setView('recent')}>Recent</button>
+                        <button className={checkView('popular')} onClick={() => setView('popular')}>Popular</button>
+                    </div>
                     {viewSelector(view)}
                 </div>
             }
