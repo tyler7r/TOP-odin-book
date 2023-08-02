@@ -26,6 +26,10 @@
     font-size: 24px;
 }
 
+.home-page {
+    position: relative;
+}
+
 .feed {
     width: 80vw;
     height: 100vh;

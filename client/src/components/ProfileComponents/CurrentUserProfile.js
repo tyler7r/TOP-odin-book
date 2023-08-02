@@ -81,8 +81,8 @@ export const CurrentUserProfile = (props) => {
                     {editProfileModal === true && 
                         <ProfileInfo setEditProfileModal={setEditProfileModal} token={token} setProfileData={setProfileData} profileData={profileData} formData={formData} setFormData={setFormData} />
                     }
-                    <h3>New Post</h3>
-                    <NewPost token={token} user={user} posts={profilePosts} setPosts={setProfilePosts}/>
+                    {/* <h3>New Post</h3>
+                    <NewPost token={token} user={user} posts={profilePosts} setPosts={setProfilePosts}/> */}
                     <DisplayPosts token={token} user={user} posts={profilePosts} setPosts={setProfilePosts} setSkip={setSkip} />
                 </>
             }

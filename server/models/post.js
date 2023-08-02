@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const PostSchema = new Schema({
-    text: { type: String, maxLength: 160 },
+    text: { type: String, maxLength: 250 },
     author: { type: Schema.Types.ObjectId, ref: 'User' },
     time: { type: Date, default: Date.now() },
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],

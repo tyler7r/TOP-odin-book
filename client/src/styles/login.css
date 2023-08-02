@@ -70,15 +70,17 @@ input {
     font-weight: bold;
     justify-self: center;
     width: 20%;
-    background-color: rgb(250, 158, 20);
-    border: 1px solid rgb(66, 66, 66);
+    background-color: white;
+    border: 4px double rgb(250, 158, 20);
+    border-radius: 4px;
     padding: 4px;
 }
 
 #submit:hover {
     cursor: pointer;
-    background-color: rgb(249, 172, 55);
     border-radius: 4px;
+    background-color: rgb(238, 238, 238); 
+    border: 4px solid rgb(250, 158, 20);
     width: 18%;
 }
 

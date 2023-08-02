@@ -1,0 +1,35 @@
+#main-search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    gap: 12px;
+    width: 100%;
+}
+
+#main-search {
+    font-family: 'Kanit';
+    border: 1px solid #424242;
+    width: 90%;
+    border-radius: 4px;
+}
+
+#main-search:focus {
+    padding: 6px;
+    font-size: 16px;
+    border: 2px solid rgb(66, 66, 66);
+    outline: none;
+}
+
+#search-icon {
+    filter: invert(22%) sepia(1%) saturate(0%) hue-rotate(184deg) brightness(96%) contrast(83%);
+    height: 30px;
+    width: 30px;
+}
+
+#search-icon:hover {
+    filter: invert(94%) sepia(0%) saturate(770%) hue-rotate(153deg) brightness(95%) contrast(72%);
+    cursor: pointer;
+    height: 35px;
+    width: 35px;
+}

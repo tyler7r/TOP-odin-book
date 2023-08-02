@@ -4,7 +4,7 @@ import { DisplayPosts } from '../PostComponents/DisplayPosts';
 import '../../styles/home.css';
 
 export const FriendsFeed = (props) => {
-    const { user, token, view } = props;
+    const { user, token, view, newPostOpen, setNewPostOpen } = props;
     const [posts, setPosts] = useState(null);
     const [skip, setSkip] = useState(0);
     
@@ -33,13 +33,15 @@ export const FriendsFeed = (props) => {
         if (token !== null) {
             fetchPosts();
         }
-    }, [token, skip]);
+    }, [token, skip, newPostOpen]);
 
     return (
         <>
             {token !== null &&
-                <div>
-                    <NewPost token={token} user={user} posts={posts} setPosts={setPosts} />
+                <div className='home-page'>
+                    {newPostOpen === true &&
+                        <NewPost token={token} user={user} posts={posts} setPosts={setPosts} setNewPostOpen={setNewPostOpen} setSkip={setSkip} />
+                    }
                     {(posts !== null && posts.length !== 0)
                         ? <DisplayPosts setSkip={setSkip} token={token} user={user} posts={posts} setPosts={setPosts} />
                         : <div>No Friend Posts</div>

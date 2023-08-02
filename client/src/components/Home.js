@@ -9,16 +9,17 @@ import '../styles/home.css'
 
 export const Home = (props) => {
     const { user, token } = props;
-    const [searchOpen, setSearchOpen] = useState(false)
+    const [searchOpen, setSearchOpen] = useState(false);
+    const [newPostOpen, setNewPostOpen] = useState(false)
     const [view, setView] = useState('friends');
 
     const viewSelector = (view) => {
         if (view === 'recent') {
-            return <RecentFeed setView={setView} view={view} token={token} user={user} />
+            return <RecentFeed setView={setView} view={view} token={token} user={user} newPostOpen={newPostOpen} setNewPostOpen={setNewPostOpen} />
         } else if (view === 'friends') {
-            return <FriendsFeed setView={setView} view={view} token={token} user={user} />
+            return <FriendsFeed setView={setView} view={view} token={token} user={user} newPostOpen={newPostOpen} setNewPostOpen={setNewPostOpen} />
         } else if (view === 'popular') {
-            return <PopularFeed setView={setView} view={view} token={token} user={user} />
+            return <PopularFeed setView={setView} view={view} token={token} user={user} newPostOpen={newPostOpen} setNewPostOpen={setNewPostOpen} />
         }
     }
 
@@ -34,7 +35,7 @@ export const Home = (props) => {
         <>
             {token !== null &&
                 <div>
-                    <Header user={user} searchOpen={searchOpen} setSearchOpen={setSearchOpen} searchBtn={true} />
+                    <Header user={user} searchOpen={searchOpen} setSearchOpen={setSearchOpen} searchBtnVisible={true} newPostOpen={newPostOpen} setNewPostOpen={setNewPostOpen} newPostVisible={true} />
                     {searchOpen &&
                         <SearchBar token={token} user={user} setSearchOpen={setSearchOpen} />
                     }

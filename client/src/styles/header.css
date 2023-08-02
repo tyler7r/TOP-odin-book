@@ -55,19 +55,14 @@
 }
 
 #user-index {
-    align-self: center;
-    justify-self: center;
-    text-decoration: none;
-    font-weight: light;
     color: rgb(250, 158, 20);
 }
 
-#user-index:hover {
-    cursor: pointer;
-    text-decoration: underline;
+.open-modal-btn {
+    text-decoration: none;
 }
 
-#open-search:hover {
+.open-modal-btn:hover {
     cursor: pointer;
     text-decoration: underline;
 }

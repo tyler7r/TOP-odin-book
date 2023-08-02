@@ -4,7 +4,7 @@ import { userInitials } from '../HelperFunctions/UserInitials';
 import '../styles/header.css'
 
 export const Header = (props) => {
-    const { user, searchOpen, setSearchOpen, searchBtn } = props;
+    const { user, searchOpen, setSearchOpen, searchBtnVisible, newPostOpen, setNewPostOpen, newPostVisible } = props;
 
     const logout = async() => {
         await fetch('/odinbook/logout', {
@@ -20,9 +20,13 @@ export const Header = (props) => {
         window.location.href = '/odinbook/login';
     }
 
-    const checkBtnFunctionality = () => {
-        if (searchBtn === true) {
-            return <div id='open-search' onClick={() => setSearchOpen(!searchOpen)}>Search</div>
+    const checkBtnFunctionality = (status, btn) => {
+        if (status === true) {
+            if (btn === 'search') {
+                return <div id='open-search' className='open-modal-btn' onClick={() => setSearchOpen(!searchOpen)}>Search</div>
+            } else if (btn === 'new-post') {
+                return <div id='open-new-post' className='open-modal-btn' onClick={() => setNewPostOpen(!newPostOpen)}>New Post</div>
+            }
         } else {
             return
         }
@@ -37,8 +41,9 @@ export const Header = (props) => {
             {user !== null &&
                 <div id='header-nav'>
                     <div id="header-links">
-                        <Link id='user-index' to='/odinbook/users/index'>User Index</Link>
-                        {checkBtnFunctionality()}
+                        {checkBtnFunctionality(newPostVisible, 'new-post')}
+                        <Link id='user-index' className='open-modal-btn' to='/odinbook/users/index'>User Index</Link>
+                        {checkBtnFunctionality(searchBtnVisible, 'search')}
                     </div>
                     <div id="user-header">
                         <Link id='header-user-link' to={`/odinbook${user.url}`}>{userInitials(user)}</Link>
