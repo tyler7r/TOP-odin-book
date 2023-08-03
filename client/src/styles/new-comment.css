@@ -1,0 +1,42 @@
+.new-comment {
+    display: flex;
+    gap: 4px;
+    width: 95%;
+}
+
+.new-comment-text {
+    width: 100%;
+    font-family: 'Kanit';
+    font-size: 18px;
+    resize: none;
+    padding: 4px;
+}
+
+.submit-comment {
+    font-family: 'Montserrat';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    border-radius: 4px;
+    background-color: rgb(233, 233, 233);
+    align-self: center;
+    padding: 4px;
+}
+
+.submit-comment.valid {
+    border: 4px double rgb(250, 158, 20);
+    cursor: pointer;
+    color: rgb(250, 158, 20);
+}
+
+.submit-comment.valid:hover {
+    border: 4px solid rgb(250, 158, 20);
+    background-color: rgb(243, 243, 243)
+}
+
+.submit-comment.invalid {
+    cursor: default;
+    color: rgb(66, 66, 66);
+    border: 4px double rgb(66, 66, 66);
+} 

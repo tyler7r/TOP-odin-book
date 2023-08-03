@@ -19,6 +19,8 @@
     grid-column: 1 / 2;
     height: 50px;
     width: 50px;
+    text-decoration: none;
+    color: rgb(66, 66, 66);
 }
 
 .post-author-pfp {
@@ -52,6 +54,18 @@
     font-weight: lighter;
     color: rgb(66, 66, 66);
     font-size: 16px;
+}
+
+.user-initials {
+    border: 4px double #fa9e14;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px;
+    margin-right: 4px;
+    font-weight: bold;
+    font-family: 'Ysabeau SC';
 }
 
 .post-details {

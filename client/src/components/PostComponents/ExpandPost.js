@@ -10,10 +10,9 @@ export const ExpandPost = (props) => {
     const { postId } = useParams()
     const [post, setPost] = useState(null)
     const [comments, setComments] = useState(null)
-    const [skip, setSkip] = useState(0)
 
     const getPost = async () => {
-        await fetch(`/odinbook/${postId}?skip=${skip}`, {
+        await fetch(`/odinbook/${postId}`, {
             method: 'get',
             headers: {
                 'Content-Type': 'application/json',
@@ -21,12 +20,14 @@ export const ExpandPost = (props) => {
             }
         }).then(res => res.json())
             .then(data => {
-                if (skip === 0) {
-                    setComments(data.comments)
-                } else {
-                    setComments([...comments, ...data.comments])
-                }
+                // console.log(data.post)
+                // if (skip === 0) {
+                //     setComments(data.comments)
+                // } else {
+                //     setComments([...comments, ...data.comments])
+                // }
                 setPost(data.post);
+                setComments(data.comments);
             })
     }
 
@@ -34,7 +35,7 @@ export const ExpandPost = (props) => {
         if (token !== null) {
             getPost()
         }
-    }, [skip, token])
+    }, [token])
 
     return (
         <div>
@@ -43,7 +44,7 @@ export const ExpandPost = (props) => {
             <div className='post'>
                 <Post token={token} user={user} post={post} postId={post._id} posts={[post]} setPosts={getPost} />
                 {comments !== null &&
-                    <DisplayComments token={token} user={user} postId={postId} posts={[post]} setPosts={getPost} comments={comments} view={'feed'} setSkip={setSkip} />
+                    <DisplayComments token={token} user={user} postId={postId} posts={[post]} setPosts={getPost} comments={comments} view={'feed'} />
                 }
             </div>
             }

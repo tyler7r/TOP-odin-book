@@ -5,21 +5,13 @@ import '../../styles/home.css'
 import '../../styles/comment.css'
 
 export const DisplayComments = (props) => {
-    const { token, user, postId, posts, setPosts, comments, view, setSkip } = props;
-
-    const handleScroll = (e) => {
-        const { offsetHeight, scrollTop, scrollHeight } = e.target;
-
-        if ((offsetHeight + scrollTop + 50) >= scrollHeight) {
-            setSkip(comments.length)
-        }
-    }
+    const { token, user, postId, posts, setPosts, comments, view } = props;
 
     return (
-        <div>
+        <div className='comment-container'>
             <NewComment user={user} postId={postId} token={token} posts={posts} setPosts={setPosts} comments={comments} />
             <h3>Comments</h3>
-            <div className={view} onScroll={handleScroll}>
+            <div className='comment-section'>
                 {comments.length > 0 &&
                     comments.map(comment => {
                         return (

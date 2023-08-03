@@ -28,27 +28,6 @@ export const Post = (props) => {
 
     }
 
-    const handleDelete = async (e) => {
-        const pId = e.target.id
-
-        await fetch(`/odinbook/${pId}/delete`, {
-            method: 'get',
-            headers: {
-                'Authorization': token,
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json())
-            .then(() => {
-                let copy = [...posts];
-                let index = copy.findIndex(post => post._id === pId);
-                copy.splice(index, 1);
-                setPosts([...copy]);
-                if (postId === pId) {
-                    window.location.href = '/odinbook'
-                }
-            })
-    }
-
     const expandThePost = () => {
         window.location.href = `/odinbook/${pId}`
     }
@@ -69,7 +48,7 @@ export const Post = (props) => {
 
     return (
         <div className='post-info'>
-            <Link className='post-author-pfp-container' to={`/odinbook${post.author.url}`}>{post.author.profilePic === undefined ? userInitials(post.author) : <img src={post.author.profilePic} alt='profile pic' className='post-author-pfp' />}</Link>
+            <Link className='post-author-pfp-container' to={`/odinbook${post.author.url}`}>{post.author.profilePic === undefined ? <div className='user-initials'>{userInitials(post.author)}</div> : <img src={post.author.profilePic} alt='profile pic' className='post-author-pfp' />}</Link>
             <Link to={`/odinbook${post.author.url}`} className="post-author-container">
                 <div className='post-author-name'>{post.author.fullName}</div>
                 <div className='post-author-username'>@{post.author.username} // {formatDate(post.time)}</div>

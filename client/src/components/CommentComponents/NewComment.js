@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../../styles/new-comment.css'
 
 export const NewComment = (props) => {
     const { setPosts, posts, postId, token } = props;
@@ -7,6 +8,15 @@ export const NewComment = (props) => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setComment({...comment, [name]: value})
+    }
+
+    const checkValidComment = () => {
+        const cmt = comment.comment
+        if (cmt !== '' && cmt !== undefined) {
+            return <button type='submit' className='submit-comment valid' onClick={(e) => handleSubmit(e)}>Comment</button>
+        } else {
+            return <div type='submit' className='submit-comment invalid'>Comment</div>
+        }
     }
 
     const handleSubmit = async (e) => {
@@ -32,9 +42,9 @@ export const NewComment = (props) => {
     }
 
     return (
-        <form>
-            <input type='text' placeholder='Write your reply...' value={comment.comment === undefined ? '' : comment.comment} name='comment' onChange={(e) => handleChange(e)} />
-            <button type='submit' onClick={(e) => handleSubmit(e)}>Comment</button>
+        <form className='new-comment'>
+            <textarea className='new-comment-text' placeholder='Write your reply...' value={comment.comment === undefined ? '' : comment.comment} name='comment' onChange={(e) => handleChange(e)} maxLength={160} />
+            {checkValidComment()}
         </form>
     )
 }
