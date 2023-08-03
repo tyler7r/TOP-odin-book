@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { DeleteCommentModal } from './DeleteCommentModal'
 import { formatDate } from '../../HelperFunctions/FormatDate'
 import { userInitials } from '../../HelperFunctions/UserInitials'
+import { isProfilePicAvailable } from '../../HelperFunctions/CheckForProfilePic'
 import '../../styles/comment.css';
 
 export const Comment = (props) => {
@@ -43,7 +44,7 @@ export const Comment = (props) => {
 
     return (
         <div className='comment'>
-            <Link className='comment-author-pfp-container' to={`/odinbook${comment.author.url}`}>{comment.author.profilePic === undefined ? <div className='user-initials'>{userInitials(comment.author)}</div> : <img src={comment.author.profilePic} className='comment-author-pfp' alt='profilePic' />}</Link>
+            <Link className='comment-author-pfp-container' to={`/odinbook${comment.author.url}`}>{isProfilePicAvailable(comment.author) === false ? <div className='user-initials'>{userInitials(comment.author)}</div> : <img src={comment.author.profilePic} className='comment-author-pfp' alt='profilePic' />}</Link>
             <Link to={`/odinbook${comment.author.url}`} className='comment-author-container'>
                 <div className='comment-author-name'>{comment.author.fullName}</div>
                 <div className='comment-author-username'>@{comment.author.username} // {formatDate(comment.time)}</div>

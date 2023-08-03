@@ -1,0 +1,49 @@
+.modal-header {
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-title {
+    font-family: 'Montserrat';
+    font-style: italic;
+    font-weight: bold;
+    font-size: 32px;
+    color: rgb(66, 66, 66);
+}
+
+.close-modal-btn {
+    font-family: 'Montserrat';
+    font-style: italic;
+    background-color: white;
+    border: none;
+    font-weight: bold;
+    margin-right: 8px;
+    font-size: 28px;
+    color: rgb(66, 66, 66);
+}
+
+.close-modal-btn:hover {
+    color: rgb(223, 1, 1);
+    cursor: pointer;
+    font-size: 32px;
+}
+
+.submit-modal-btn {
+    font-family: 'Montserrat';
+    font-style: italic;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    border-radius: 4px;
+    background-color: rgb(233, 233, 233);
+    border: 4px double rgb(250, 158, 20);
+    color: rgb(250, 158, 20);
+}
+
+.submit-modal-btn:hover {
+    border: 4px solid rgb(250, 158, 20);
+    font-size: 30px;
+    cursor: pointer;
+}

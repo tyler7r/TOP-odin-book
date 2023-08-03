@@ -8,7 +8,21 @@
 }
 
 .profile-pic {
+    height: 100px;
+    width: 100px;
+}
 
+.profile-user-initials {
+    height: 100px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 8px double rgb(250, 158, 20);
+    border-radius: 50%;
+    font-family: 'Ysabeau SC';
+    font-weight: bolder;
+    font-size: 54px;
 }
 
 .profile-header-name {

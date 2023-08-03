@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import { formatDate } from '../../HelperFunctions/FormatDate'
 import { userInitials } from '../../HelperFunctions/UserInitials';
+import { isProfilePicAvailable } from '../../HelperFunctions/CheckForProfilePic';
 import { DeleteModal } from './DeletePostModal';
 
 export const Post = (props) => {
@@ -48,7 +49,7 @@ export const Post = (props) => {
 
     return (
         <div className='post-info'>
-            <Link className='post-author-pfp-container' to={`/odinbook${post.author.url}`}>{post.author.profilePic === undefined ? <div className='user-initials'>{userInitials(post.author)}</div> : <img src={post.author.profilePic} alt='profile pic' className='post-author-pfp' />}</Link>
+            <Link className='post-author-pfp-container' to={`/odinbook${post.author.url}`}>{isProfilePicAvailable(post.author) === false ? <div className='user-initials'>{userInitials(post.author)}</div> : <img src={post.author.profilePic} alt='profile pic' className='post-author-pfp' />}</Link>
             <Link to={`/odinbook${post.author.url}`} className="post-author-container">
                 <div className='post-author-name'>{post.author.fullName}</div>
                 <div className='post-author-username'>@{post.author.username} // {formatDate(post.time)}</div>

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { ProfileHeader } from './ProfileHeader';
-import { ProfileInfo } from './ProfileInfo';
+import { EditProfile } from './EditProfile';
 import { DisplayPosts } from '../PostComponents/DisplayPosts';
-import { NewPost } from '../PostComponents/NewPost';
 import { Header } from '../Header';
 
 export const CurrentUserProfile = (props) => {
@@ -28,7 +27,7 @@ export const CurrentUserProfile = (props) => {
             .then(data => {
                 setProfileData(data.data);
                 setRequests(data.receivedRequests);
-                setFormData({...formData, bio: data.data.profileBio });
+                setFormData({bio: data.data.profileBio, profilePic: data.data.profilePic });
                 if (skip === 0) {
                     setProfilePosts(data.posts);
                 } else {
@@ -81,7 +80,7 @@ export const CurrentUserProfile = (props) => {
                         </div>
                     }
                     {editProfileModalOpen === true && 
-                        <ProfileInfo setEditProfileModalOpen={setEditProfileModalOpen} token={token} setProfileData={setProfileData} profileData={profileData} formData={formData} setFormData={setFormData} />
+                        <EditProfile setEditProfileModalOpen={setEditProfileModalOpen} token={token} setProfileData={setProfileData} profileData={profileData} formData={formData} setFormData={setFormData} />
                     }
                     <DisplayPosts token={token} user={user} posts={profilePosts} setPosts={setProfilePosts} setSkip={setSkip} />
                 </>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../../styles/new-post.css'
+import '../../styles/modal.css'
 
 export const NewPost = (props) => {
     const { token, posts, setPosts, setNewPostOpen, setSkip } = props;
@@ -62,9 +63,9 @@ export const NewPost = (props) => {
 
     const submitPostValidityCheck = () => {
         if (invalidPostCheck() === true) {
-            return <div type='submit' className='submit-post invalid'>Post</div>
+            return <div type='submit' className='submit-modal-btn invalid'>Post</div>
         } else {
-            return <button type='submit' className='submit-post valid' onClick={(e) => handleSubmit(e)}>Post</button>
+            return <button type='submit' className='submit-modal-btn valid' onClick={(e) => handleSubmit(e)}>Post</button>
         }
     }
 
@@ -77,25 +78,25 @@ export const NewPost = (props) => {
     return (
         <div className='overlay'>
             <div id='new-post-container'>
-                <div id='new-post-header'>
-                    <h2 id='new-post-title'>New Post</h2>
-                    <button id='close-new-post' onClick={() => setNewPostOpen(false)}>X</button>
+                <div className='modal-header'>
+                    <h2 className='modal-title'>New Post</h2>
+                    <button className='close-modal-btn' onClick={() => setNewPostOpen(false)}>X</button>
                 </div>
                 <form id='new-post-form' className={previewModeCheck()}>
-                    {previewMode === true &&
-                        <div id='image-preview-container' onMouseEnter={() => setImageHover(true)} onMouseLeave={() => setImageHover(false)}>
-                            <img src={postData.image} alt='imagePreview' id='image-preview' />
+                    {previewMode &&
+                        <div className='image-preview-container' onMouseEnter={() => setImageHover(true)} onMouseLeave={() => setImageHover(false)}>
+                            <img src={postData.image} alt='imagePreview' className='image-preview' />
                             {imageHover === true &&
-                                <div onClick={() => removeImage()} id='image-preview-hover'>
-                                    <img src={require('../../images/trash.png')} alt='trash-preview' id='trash-image-preview' />
+                                <div onClick={() => removeImage()} className='image-preview-hover'>
+                                    <img src={require('../../images/trash.png')} alt='trash-preview' className='trash-image-preview' />
                                 </div>
                             }
                         </div>
                     }
                     <textarea className={previewModeCheck()} id='new-post-text' name='postText' value={postData.postText === undefined ? '' : postData.postText} onChange={(e) => handleChange(e)} placeholder={`What's on your mind, ${props.user.first_name}?`} maxLength={250} />
-                    <div id='file-upload' className={previewModeCheck()}>
-                        {previewMode === true && <div id='preview-image-msg'>Image Preview</div>}
-                        <img onClick={() => fileInput.current.click()} src={require('../../images/upload.png')} alt='file-upload' id='file-upload-image' />
+                    <div className={`file-upload ${previewModeCheck()}`}>
+                        {previewMode && <div className='preview-image-msg'>Image Preview</div>}
+                        <img onClick={() => fileInput.current.click()} src={require('../../images/upload.png')} alt='file-upload' className='file-upload-image' />
                         <input accept='image/' type='file' onChange={(e) => convertToBase64(e)} name='image' ref={fileInput} id='pic-input' />
                     </div>
                     {submitPostValidityCheck()}

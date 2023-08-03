@@ -56,6 +56,10 @@
     font-weight: light;
 }
 
+#open-edit-profile {
+    color: rgb(250, 158, 20);
+}
+
 #user-index {
     color: rgb(250, 158, 20);
 }

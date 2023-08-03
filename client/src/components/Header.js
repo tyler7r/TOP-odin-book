@@ -53,8 +53,8 @@ export const Header = (props) => {
                         {checkBtnFunctionality(newPostVisible, 'new-post')}
                         <Link id='user-index' className='open-modal-btn' to='/odinbook/users/index'>User Index</Link>
                         {checkBtnFunctionality(searchBtnVisible, 'search')}
-                        {checkBtnFunctionality(editProfileBtnVisible, 'edit-profile')}
                         {checkBtnFunctionality(requestBtnVisible, 'request')}
+                        {checkBtnFunctionality(editProfileBtnVisible, 'edit-profile')}
                     </div>
                     <div id="user-header">
                         <Link id='header-user-link' to={`/odinbook${user.url}`}>{userInitials(user)}</Link>
