@@ -40,7 +40,7 @@ export const ExpandPost = (props) => {
         <div>
             <Header user={user} />
             {post !== null &&
-            <div>
+            <div className='post'>
                 <Post token={token} user={user} post={post} postId={post._id} posts={[post]} setPosts={getPost} />
                 {comments !== null &&
                     <DisplayComments token={token} user={user} postId={postId} posts={[post]} setPosts={getPost} comments={comments} view={'feed'} setSkip={setSkip} />

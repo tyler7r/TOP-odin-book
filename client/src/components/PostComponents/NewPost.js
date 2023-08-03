@@ -75,7 +75,7 @@ export const NewPost = (props) => {
     }
 
     return (
-        <div id='overlay'>
+        <div className='overlay'>
             <div id='new-post-container'>
                 <div id='new-post-header'>
                     <h2 id='new-post-title'>New Post</h2>
@@ -94,6 +94,7 @@ export const NewPost = (props) => {
                     }
                     <textarea className={previewModeCheck()} id='new-post-text' name='postText' value={postData.postText === undefined ? '' : postData.postText} onChange={(e) => handleChange(e)} placeholder={`What's on your mind, ${props.user.first_name}?`} maxLength={250} />
                     <div id='file-upload' className={previewModeCheck()}>
+                        {previewMode === true && <div id='preview-image-msg'>Image Preview</div>}
                         <img onClick={() => fileInput.current.click()} src={require('../../images/upload.png')} alt='file-upload' id='file-upload-image' />
                         <input accept='image/' type='file' onChange={(e) => convertToBase64(e)} name='image' ref={fileInput} id='pic-input' />
                     </div>

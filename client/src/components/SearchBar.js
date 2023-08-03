@@ -13,8 +13,12 @@ export const SearchBar = (props) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setSearchOpen(false)
-        window.location.href = `/odinbook/search/${search.topic}`;
+        if (search.topic === undefined || search.topic === '') {
+            return
+        } else {
+            setSearchOpen(false);
+            window.location.href = `/odinbook/search/${search.topic}`;
+        }
     }
 
     return (

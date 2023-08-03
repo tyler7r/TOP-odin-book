@@ -22,13 +22,13 @@
 }
 
 #search-icon {
-    filter: invert(22%) sepia(1%) saturate(0%) hue-rotate(184deg) brightness(96%) contrast(83%);
+    filter: brightness(0) saturate(100%) invert(22%) sepia(1%) saturate(0%) hue-rotate(184deg) brightness(96%) contrast(83%);
     height: 30px;
     width: 30px;
 }
 
 #search-icon:hover {
-    filter: invert(94%) sepia(0%) saturate(770%) hue-rotate(153deg) brightness(95%) contrast(72%);
+    filter: brightness(0) saturate(100%) invert(94%) sepia(0%) saturate(770%) hue-rotate(153deg) brightness(95%) contrast(72%);
     cursor: pointer;
     height: 35px;
     width: 35px;

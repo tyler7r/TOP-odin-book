@@ -42,7 +42,6 @@ export const RecentFeed = (props) => {
                     {newPostOpen && 
                         <NewPost token={token} user={user} posts={posts} setPosts={setPosts} setNewPostOpen={setNewPostOpen} setSkip={setSkip} />
                     }
-                    <h4>Recent Feed</h4>
                     {(posts !== null && posts.length !== 0)
                         ? <DisplayPosts setSkip={setSkip} token={token} user={user} posts={posts} setPosts={setPosts} />
                         : <div>No recent posts</div>

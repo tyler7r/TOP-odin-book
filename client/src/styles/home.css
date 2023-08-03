@@ -27,11 +27,21 @@
 }
 
 .home-page {
-    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.feed-title {
+    font-family: 'Ysabeau SC';
+    font-weight: 400;
+    font-size: 24px;
+    color: rgb(66, 66, 66);
+    text-align: center;
 }
 
 .feed {
-    width: 80vw;
+    width: 90%;
     height: 100vh;
     overflow-y: scroll;
     display: grid;

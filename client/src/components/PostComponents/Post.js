@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import { formatDate } from '../../HelperFunctions/FormatDate'
 import { userInitials } from '../../HelperFunctions/UserInitials';
+import { DeleteModal } from './DeletePostModal';
 
 export const Post = (props) => {
     const { postId } = useParams();
     const { post, pId, posts, setPosts, token, user } = props;
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
     const handleLike = async (e) => {
         const pId = e.target.id;
@@ -47,25 +49,51 @@ export const Post = (props) => {
             })
     }
 
-    const handleClick = () => {
+    const expandThePost = () => {
         window.location.href = `/odinbook/${pId}`
     }
 
+    const checkIfAuthor = (post) => {
+        if (post.author._id === user._id) {
+            return true
+        }
+    }
+
+    const checkIfLiked = (post) => {
+        if (post.likes.includes(user._id)) {
+            return 'like-icon liked'
+        } else {
+            return 'like-icon'
+        }
+    }
+
     return (
-        <div>
-            <Link to={`/odinbook${post.author.url}`}>{post.author.profilePic === undefined ? userInitials(post.author) : <img src={post.author.profilePic} alt='profile pic' height={50} width={50} />}</Link>
-            <Link to={`/odinbook${post.author.url}`}>{post.author.fullName} @{post.author.username}</Link>
-            <div>{(post.image !== undefined && post.image !== '') ? <img src={post.image} alt='postImage' height={100} width={100} /> : ''} </div>
-            <div onClick={() => handleClick()}>
-                <div>Post Details: {post.text}</div>
-                <div>Post Date: {formatDate(post.time)}</div>
-                <div>Likes: {post.likes.length}</div>
-                <div>Comments: {post.comments.length}</div>
+        <div className='post-info'>
+            <Link className='post-author-pfp-container' to={`/odinbook${post.author.url}`}>{post.author.profilePic === undefined ? userInitials(post.author) : <img src={post.author.profilePic} alt='profile pic' className='post-author-pfp' />}</Link>
+            <Link to={`/odinbook${post.author.url}`} className="post-author-container">
+                <div className='post-author-name'>{post.author.fullName}</div>
+                <div className='post-author-username'>@{post.author.username} // {formatDate(post.time)}</div>
+            </Link>
+            <div className="post-details" onClick={() => expandThePost()}>
+                <div className='post-text'>{post.text}</div>
+                {(post.image !== undefined && post.image !== '') ? <img className='post-image' src={post.image} alt='postImage' /> : ''}
             </div>
-            <button id={post._id} onClick={(e) => handleLike(e)}>Like Post</button>
-            {post.author._id === user._id &&
-                <button id={post._id} onClick={(e) => handleDelete(e)}>Delete Post</button>
-            }
+            <div className="post-interaction-container">
+                <div className='like-post-container'>
+                    <img src={require('../../images/heart.png')} className={checkIfLiked(post)} id={post._id} onClick={(e) => handleLike(e)} />
+                    <div className='like-amount'>{post.likes.length}</div>
+                </div>
+                <div className='comment-post-container'>
+                    <img src={require('../../images/comment.png')} className='comment-icon' onClick={() => expandThePost()} />
+                    <div className='comment-amount'>{post.comments.length}</div>
+                </div>
+                {checkIfAuthor(post) &&
+                    <img className='delete-icon' src={require('../../images/trash.png')} id={post._id} onClick={() => setDeleteModalOpen(true)} />
+                }
+                {deleteModalOpen && 
+                    <DeleteModal posts={posts} setPosts={setPosts} post={post} postId={postId} deleteModalOpen={deleteModalOpen} setDeleteModalOpen={setDeleteModalOpen} token={token} />
+                }
+            </div>
         </div>
     )
 }

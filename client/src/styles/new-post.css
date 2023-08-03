@@ -1,4 +1,4 @@
-#overlay {
+.overlay {
     z-index: 2;
     position: fixed;
     top: 0;
@@ -13,14 +13,12 @@
 
 #new-post-container {
     z-index: 3;
-    border: 4px double darkorange;
+    border: 4px double #fa9e14;
     height: 400px;
     width: 600px;
     background-color: white;
     box-shadow: 1px 1px 10px black;
     padding: 8px;
-    /* display: grid;
-    grid-template-columns: 1fr 1fr; */
 }
 
 #new-post-header {
@@ -40,7 +38,7 @@
     background-color: white;
     border: none;
     font-weight: bold;
-    align-self: flex-start;
+    margin-right: 8px;
     font-size: 28px;
     color: rgb(66, 66, 66);
 }
@@ -62,6 +60,7 @@
 }
 
 /* Preview mode on */
+
 #new-post-form.preview {
     height: 80%;
     display: grid;
@@ -88,15 +87,26 @@
 }
 
 #file-upload.preview {
-    display: flex;
-    align-items: flex-end;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#preview-image-msg {
+    font-family: 'Kanit';
+    font-size: 24px;
+    color: rgb(66, 66, 66)
 }
 
 #file-upload-image {
     height: 50px;
     width: 50px;
     cursor: pointer;
-    filter: invert(17%) sepia(0%) saturate(1645%) hue-rotate(152deg) brightness(105%) contrast(76%);
+    filter: brightness(0) saturate(100%) invert(17%) sepia(0%) saturate(1645%) hue-rotate(152deg) brightness(105%) contrast(76%);
+}
+
+#file-upload-image:hover {
+    filter: brightness(0) saturate(100%) invert(83%) sepia(39%) saturate(5960%) hue-rotate(350deg) brightness(100%) contrast(96%);
 }
 
 .submit-post {
@@ -129,8 +139,6 @@
 
 #image-preview-container {
     position: relative;
-    height: 100px;
-    width: 100px;
     cursor: pointer;
     height: 100%;
     width: 100%;
@@ -155,15 +163,8 @@
 }
 
 #trash-image-preview {
-    height: 50%;
-    width: 50%;
-}
-
-#file-upload input {
-    /* display: block;
-    height: 100%;
-    width: 100%;
-    cursor: pointer; */
+    height: 40%;
+    width: 40%;
 }
 
 #pic-input {
