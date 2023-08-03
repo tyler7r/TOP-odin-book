@@ -1,0 +1,40 @@
+.profile-header {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    align-items: center;
+    padding: 8px;
+    color: rgb(66, 66, 66);
+    column-gap: 8px;
+}
+
+.profile-pic {
+
+}
+
+.profile-header-name {
+    font-family: 'Montserrat';
+    font-weight: lighter;
+    font-size: 48px;
+}
+
+.profile-friends-btn {
+    grid-column: 2 / 3;
+    justify-self: center;
+    margin-top: -24px;
+    text-decoration: none;
+    font-family: 'Ysabeau SC';
+    font-size: 18px;
+    color: rgb(250, 158, 20);
+}
+
+.profile-friends-btn:hover {
+    text-decoration: underline;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.profile-bio {
+    grid-column: 1 / 3;
+    font-family: 'Kanit';
+    margin-left: 8px;
+}

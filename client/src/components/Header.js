@@ -4,7 +4,7 @@ import { userInitials } from '../HelperFunctions/UserInitials';
 import '../styles/header.css'
 
 export const Header = (props) => {
-    const { user, searchOpen, setSearchOpen, searchBtnVisible, newPostOpen, setNewPostOpen, newPostVisible } = props;
+    const { user, searchOpen, setSearchOpen, searchBtnVisible, newPostOpen, setNewPostOpen, newPostVisible, editProfileBtnVisible, setEditProfileModalOpen, editProfileModalOpen, requestModalOpen, setRequestModalOpen, requestBtnVisible, requestAmount } = props;
 
     const logout = async() => {
         await fetch('/odinbook/logout', {
@@ -26,6 +26,15 @@ export const Header = (props) => {
                 return <div id='open-search' className='open-modal-btn' onClick={() => setSearchOpen(!searchOpen)}>Search</div>
             } else if (btn === 'new-post') {
                 return <div id='open-new-post' className='open-modal-btn' onClick={() => setNewPostOpen(!newPostOpen)}>New Post</div>
+            } else if (btn === 'edit-profile') {
+                return <div id='open-edit-profile' className='open-modal-btn' onClick={() => setEditProfileModalOpen(!editProfileModalOpen)}>Edit Profile</div>
+            } else if (btn === 'request') {
+                return (
+                    <div id='open-requests' className='open-modal-btn' onClick={() => setRequestModalOpen(!requestModalOpen)}>
+                        <div>Handle Requests</div>
+                        {/* <div>{requestNumber}</div> */}
+                    </div>
+                )
             }
         } else {
             return
@@ -44,6 +53,8 @@ export const Header = (props) => {
                         {checkBtnFunctionality(newPostVisible, 'new-post')}
                         <Link id='user-index' className='open-modal-btn' to='/odinbook/users/index'>User Index</Link>
                         {checkBtnFunctionality(searchBtnVisible, 'search')}
+                        {checkBtnFunctionality(editProfileBtnVisible, 'edit-profile')}
+                        {checkBtnFunctionality(requestBtnVisible, 'request')}
                     </div>
                     <div id="user-header">
                         <Link id='header-user-link' to={`/odinbook${user.url}`}>{userInitials(user)}</Link>

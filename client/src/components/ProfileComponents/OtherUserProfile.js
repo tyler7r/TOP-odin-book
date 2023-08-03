@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Header } from '../Header';
 import { ProfileHeader } from './ProfileHeader';
 import { DisplayPosts } from '../PostComponents/DisplayPosts';
 
@@ -87,6 +88,7 @@ export const OtherUserProfile = (props) => {
 
     return (
         <div>
+            <Header user={user} />
             {profileData !== null
             ? <>
                 <ProfileHeader profileData={profileData} />

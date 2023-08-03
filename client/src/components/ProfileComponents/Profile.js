@@ -25,7 +25,6 @@ export const Profile = (props) => {
 
     return (
         <div>
-            <Header user={user} />
             {isCurrentUserProfile === true 
             ? <CurrentUserProfile token={token} user={user} />
             : <OtherUserProfile token={token} user={user} />

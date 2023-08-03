@@ -4,6 +4,7 @@ import { ProfileHeader } from './ProfileHeader';
 import { ProfileInfo } from './ProfileInfo';
 import { DisplayPosts } from '../PostComponents/DisplayPosts';
 import { NewPost } from '../PostComponents/NewPost';
+import { Header } from '../Header';
 
 export const CurrentUserProfile = (props) => {
     const { userId } = useParams();
@@ -11,7 +12,8 @@ export const CurrentUserProfile = (props) => {
     const [profileData, setProfileData] = useState(null)
     const [profilePosts, setProfilePosts] = useState(null);
     const [requests, setRequests] = useState(null);
-    const [editProfileModal, setEditProfileModal] = useState(false);
+    const [editProfileModalOpen, setEditProfileModalOpen] = useState(false);
+    const [requestModalOpen, setRequestModalOpen] = useState(false);
     const [formData, setFormData] = useState('');
     const [skip, setSkip] = useState(0);
 
@@ -56,14 +58,14 @@ export const CurrentUserProfile = (props) => {
 
     return (
         <div>
+            <Header user={user} setEditProfileModalOpen={setEditProfileModalOpen} editProfileModalOpen={editProfileModalOpen} editProfileBtnVisible={true} requestModalOpen={requestModalOpen} setRequestModalOpen={setRequestModalOpen} requestBtnVisible={true} />
             {profileData !== null &&
                 <ProfileHeader profileData={profileData} />
             }
             {profilePosts !== null &&
                 <>
-                    {editProfileModal === false &&
-                        <>
-                            <button onClick={() => setEditProfileModal(true)}>Edit Profile</button>
+                    {editProfileModalOpen === false &&
+                        <div className='profile-interaction-container'>
                             <h3>Friend Requests</h3>
                             {requests !== null &&
                                 requests.map(request => {
@@ -76,13 +78,11 @@ export const CurrentUserProfile = (props) => {
                                     )
                                 })
                             }
-                        </>
+                        </div>
                     }
-                    {editProfileModal === true && 
-                        <ProfileInfo setEditProfileModal={setEditProfileModal} token={token} setProfileData={setProfileData} profileData={profileData} formData={formData} setFormData={setFormData} />
+                    {editProfileModalOpen === true && 
+                        <ProfileInfo setEditProfileModalOpen={setEditProfileModalOpen} token={token} setProfileData={setProfileData} profileData={profileData} formData={formData} setFormData={setFormData} />
                     }
-                    {/* <h3>New Post</h3>
-                    <NewPost token={token} user={user} posts={profilePosts} setPosts={setProfilePosts}/> */}
                     <DisplayPosts token={token} user={user} posts={profilePosts} setPosts={setProfilePosts} setSkip={setSkip} />
                 </>
             }

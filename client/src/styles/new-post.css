@@ -29,12 +29,14 @@
 
 #new-post-title {
     font-family: 'Montserrat';
+    font-style: italic;
     font-size: 32px;
     color: rgb(66, 66, 66);
 }
 
 #close-new-post {
     font-family: 'Montserrat';
+    font-style: italic;
     background-color: white;
     border: none;
     font-weight: bold;
@@ -111,6 +113,7 @@
 
 .submit-post {
     font-family: 'Montserrat';
+    font-style: italic;
     display: flex;
     justify-content: center;
     align-items: center;
