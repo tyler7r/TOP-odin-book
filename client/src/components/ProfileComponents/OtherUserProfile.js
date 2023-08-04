@@ -87,7 +87,7 @@ export const OtherUserProfile = (props) => {
     }
 
     return (
-        <div>
+        <>
             <Header user={user} />
             {profileData !== null
             ? <>
@@ -105,9 +105,9 @@ export const OtherUserProfile = (props) => {
             : <div>No user data found</div>
             }
             {(profilePosts !== null && profilePosts.length !== 0)
-                ? <DisplayPosts token={token} user={user} posts={profilePosts} setPosts={setProfilePosts} setSkip={setSkip} />
+                ? <div className='profile-feed'><DisplayPosts token={token} user={user} posts={profilePosts} setPosts={setProfilePosts} setSkip={setSkip} /></div>
                 : <div>No posts found</div>
             }
-        </div>
+        </>
     )
 }

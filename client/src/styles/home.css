@@ -1,4 +1,4 @@
-#home-menu {
+.view-select-menu {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,7 +27,7 @@
     font-size: 24px;
 }
 
-.home-page {
+.home-page, .search-home, .profile-feed {
     display: flex;
     justify-content: center;
     align-items: center;

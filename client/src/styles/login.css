@@ -57,6 +57,7 @@
 
 input {
     padding: 4px;
+    font-family: 'Kanit';
 }
 
 #error-msg {

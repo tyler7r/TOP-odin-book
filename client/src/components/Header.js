@@ -31,8 +31,8 @@ export const Header = (props) => {
             } else if (btn === 'request') {
                 return (
                     <div id='open-requests' className='open-modal-btn' onClick={() => setRequestModalOpen(!requestModalOpen)}>
-                        <div>Handle Requests</div>
-                        {/* <div>{requestNumber}</div> */}
+                        <div id='open-requests-title'>Friend Requests</div>
+                        <div id='request-amount'>{requestAmount}</div>
                     </div>
                 )
             }

@@ -39,7 +39,7 @@ export const Home = (props) => {
                     {searchOpen &&
                         <SearchBar token={token} user={user} setSearchOpen={setSearchOpen} />
                     }
-                    <div id="home-menu">
+                    <div className="view-select-menu">
                         <button className={checkView('friends')} onClick={() => setView('friends')}>Friends</button>
                         <button className={checkView('recent')} onClick={() => setView('recent')}>Recent</button>
                         <button className={checkView('popular')} onClick={() => setView('popular')}>Popular</button>

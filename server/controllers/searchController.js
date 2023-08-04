@@ -9,9 +9,9 @@ exports.search = asyncHandler(async (req, res, next) => {
     let users;
 
     if (req.query.view === 'posts') {
-        posts = await Post.find({ 'text': { $regex: req.params.topic }}, undefined, { skip, limit: 2 }).populate('author').populate({ path: 'comments', populate: { path: 'author' } }).sort({ 'time': -1 }).exec();
+        posts = await Post.find({ 'text': { $regex: req.params.topic }}, undefined, { skip, limit: 5 }).populate('author').populate({ path: 'comments', populate: { path: 'author' } }).sort({ 'time': -1 }).exec();
     } else if (req.query.view === 'users') {
-        users = await User.find({  $or: [ { 'username': { $regex: req.params.topic }}, { 'first_name' : { $regex: req.params.topic }}, { 'last_name' : { $regex: req.params.topic }} ]}, undefined, { skip, limit: 1 }).populate('friends sentRequests receivedRequests').exec();
+        users = await User.find({  $or: [ { 'username': { $regex: req.params.topic }}, { 'first_name' : { $regex: req.params.topic }}, { 'last_name' : { $regex: req.params.topic }} ]}, undefined, { skip, limit: 5 }).populate('friends sentRequests receivedRequests').exec();
     }
 
     res.status(200).json({

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { CurrentUserProfile } from './CurrentUserProfile';
-import { Header } from '../Header';
 import { OtherUserProfile } from './OtherUserProfile';
 
 export const Profile = (props) => {

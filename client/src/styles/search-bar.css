@@ -1,4 +1,4 @@
-#main-search-container {
+.search-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,29 +7,63 @@
     width: 100%;
 }
 
-#main-search {
+.search-text {
     font-family: 'Kanit';
     border: 1px solid #424242;
-    width: 90%;
+    width: 80%;
     border-radius: 4px;
 }
 
-#main-search:focus {
+.search-text:focus {
     padding: 6px;
     font-size: 16px;
     border: 2px solid rgb(66, 66, 66);
     outline: none;
 }
 
-#search-icon {
+.search-icon {
     filter: brightness(0) saturate(100%) invert(22%) sepia(1%) saturate(0%) hue-rotate(184deg) brightness(96%) contrast(83%);
     height: 30px;
     width: 30px;
 }
 
-#search-icon:hover {
+.search-icon:hover {
     filter: brightness(0) saturate(100%) invert(94%) sepia(0%) saturate(770%) hue-rotate(153deg) brightness(95%) contrast(72%);
     cursor: pointer;
     height: 35px;
     width: 35px;
+}
+
+.search-results-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat';
+    font-size: 20px;
+    gap: 8px;
+}
+
+.search-results-msg {
+    color: rgb(66, 66, 66);
+}
+
+.search-results-keyword {
+    font-style: italic;
+    color: rgb(250, 158, 20);
+}
+
+.clear-search-btn {
+    font-family: 'Montserrat';
+    font-style: italic;
+    font-weight: bold;
+    color: rgb(66, 66, 66);
+    background-color: white;
+    border: none;
+    font-size: 24px;
+}
+
+.clear-search-btn:hover {
+    font-size: 26px;
+    cursor: pointer;
+    color: rgb(221, 1, 1);
 }

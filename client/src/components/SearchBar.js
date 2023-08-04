@@ -22,9 +22,9 @@ export const SearchBar = (props) => {
     }
 
     return (
-        <form id='main-search-container'>
-            <input id='main-search' type='text' placeholder='Search...' value={search.topic === undefined ? '' : search.topic} name='topic' onChange={(e) => handleChange(e)} maxLength={20} />
-            <img src={require('../images/search-icon.png')} onClick={(e) => handleSubmit(e)} id='search-icon' alt='search' />
+        <form className='search-container'>
+            <input className='search-text' type='text' placeholder='Search...' value={search.topic === undefined ? '' : search.topic} name='topic' onChange={(e) => handleChange(e)} maxLength={20} />
+            <img src={require('../images/search-icon.png')} onClick={(e) => handleSubmit(e)} className='search-icon' alt='search' />
         </form>
     )
 }

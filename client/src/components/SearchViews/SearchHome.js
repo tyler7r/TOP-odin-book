@@ -10,15 +10,28 @@ export const SearchHome = (props) => {
     const { token, user } = props;
     const [view, setView] = useState('posts');
 
+    const checkView = (buttonView) => {
+        if (view === buttonView) {
+            return 'view-select selected'
+        } else {
+            return 'view-select'
+        }
+    }
+
     return (
         <>
             {token !== null &&
                 <div>
                     <Header user={user} />
-                    <h1>Search Results for {search.topic}</h1>
                     <SearchBar token={token} />
-                    <button onClick={() => setView('posts')}>Posts</button>
-                    <button onClick={() => setView('users')}>Users</button>
+                    <div className='search-results-container'>
+                        <h2 className='search-results-msg'>Search Results for</h2>
+                        <h2 className='search-results-keyword'>{search.topic}</h2>
+                    </div>
+                    <div className="view-select-menu">
+                        <button className={checkView('posts')} onClick={() => setView('posts')}>Posts</button>
+                        <button className={checkView('users')} onClick={() => setView('users')}>Users</button>
+                    </div>
                     {view === 'posts'
                         ? <PostResults token={token} user={user} view={view} />
                         : <UserResults token={token} user={user} view={view} />

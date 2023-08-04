@@ -83,10 +83,14 @@ exports.rejectRequest = asyncHandler(async (req, res, next) => {
     await Request.findByIdAndRemove(req.params.requestId).exec();
 
     let receivedRequests = await Request.find({ receiver: request.receiver._id, status: 'Pending' }).populate('sender receiver').exec()
+    let sender = await User.findById(request.sender._id).populate('friends sentRequests receivedRequests').exec();
+    let receiver = await User.findById(request.receiver._id).populate('friends sentRequests receivedRequests').exec();
 
     res.status(200).json({
         message: 'Request rejected',
         receivedRequests,
+        sender,
+        receiver
     })
 })
 

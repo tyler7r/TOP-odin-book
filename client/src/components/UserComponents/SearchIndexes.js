@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 export const SearchIndexes = (props) => {
-    const { mode, setMode, setSearch } = props;
+    const { mode, setMode, setSearch, view } = props;
     const [topic, setTopic] = useState('');
 
     const handleChange = (e) => {
@@ -24,13 +24,13 @@ export const SearchIndexes = (props) => {
 
     return (
         <>
-            <form>
-                <input type='text' placeholder='Search term...' value={topic.topic === undefined ? '' : topic.topic} name='topic' onChange={(e) => handleChange(e)} />
-                <button type='submit' onClick={(e) => handleSearch(e)}>Search</button>
+            <form className='search-container'>
+                <input type='text' className='search-text' placeholder={`Search ${view}...`} value={topic.topic === undefined ? '' : topic.topic} name='topic' onChange={(e) => handleChange(e)} />
+                {mode === 'search' &&
+                    <button className='clear-search-btn' onClick={(e) => clearSearch(e)}>X</button>
+                }
+                <img src={require('../../images/search-icon.png')} onClick={(e) => handleSearch(e)} className='search-icon' alt='search' />
             </form>
-            {mode === 'search' &&
-                <button onClick={(e) => clearSearch(e)}>Clear Search</button>
-            }
         </>
     )
 }

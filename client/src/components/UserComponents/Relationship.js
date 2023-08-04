@@ -1,31 +1,31 @@
 import React from 'react'
 
 export const Relationship = (props) => {
-    const { token, user, setUsers, users, currentUser } = props;
+    const { token, user, setUsers, users, indexedUser } = props;
 
     const isFriendWithUser = (currentUserIndex) => {
         let friends = currentUserIndex.friends;
-        if (friends.some(friend => friend._id === currentUser._id)) {
+        if (friends.some(friend => friend._id === user._id)) {
             return true
         } else return false
     }
 
     const requestReceivedFromIndexedUser = (currentUserIndex) => {
         let sentRequests = currentUserIndex.sentRequests;
-        if (sentRequests.some(request => request.receiver === currentUser._id)) {
+        if (sentRequests.some(request => request.receiver === user._id)) {
             return true
         }
     }
 
     const requestSentByCurrentUser = (currentUserIndex) => {
         let receivedRequests = currentUserIndex.receivedRequests;
-        if (receivedRequests.some(request => request.sender === currentUser._id)) {
+        if (receivedRequests.some(request => request.sender === user._id)) {
             return true
         }
     }
 
     const statusWithCurrentUser = (currentUserIndex) => {
-        if (currentUserIndex._id === currentUser._id) {
+        if (currentUserIndex._id === user._id) {
             return 'Current User'
         }
         if (isFriendWithUser(currentUserIndex) === true) {
@@ -78,25 +78,26 @@ export const Relationship = (props) => {
     }
 
     return (
-        <div>
-            {statusWithCurrentUser(user) === 'Current User' &&
+        <>
+            {statusWithCurrentUser(indexedUser) === 'Current User' &&
                 <></>
             }
-            {statusWithCurrentUser(user) === 'Friend' && 
-                <button id={user._id} onClick={(e) => requestButton(e, 'unfriend')}>Unfriend</button>
+            {statusWithCurrentUser(indexedUser) === 'Friend' && 
+                <button className='friend-status-btn unfriend-btn' id={indexedUser._id} onClick={(e) => requestButton(e, 'unfriend')}>Unfriend</button>
             }
-            {statusWithCurrentUser(user) === 'Pending Request' &&
-                <button id={user._id} onClick={(e) => requestButton(e, 'request')}>Pending Request</button>
+            {statusWithCurrentUser(indexedUser) === 'Pending Request' &&
+                <button className='friend-status-btn' id={indexedUser._id} onClick={(e) => requestButton(e, 'request')}>Pending Request</button>
             }
-            {statusWithCurrentUser(user) === 'Not Friend' &&
-                <button id={user._id} onClick={(e) => requestButton(e, 'request')}>Send Friend Request</button>
+            {statusWithCurrentUser(indexedUser) === 'Not Friend' &&
+                <button className='friend-status-btn' id={indexedUser._id} onClick={(e) => requestButton(e, 'request')}>Send Friend Request</button>
             }
-            {statusWithCurrentUser(user) === 'Request Received' && 
-                <>
-                    <button id={user._id} onClick={(e) => handleRequest(e, 'accept', user)}>Accept</button>
-                    <button id={user._id} onClick={(e) => handleRequest(e, 'reject', user)}>Reject</button>
-                </>
+            {statusWithCurrentUser(indexedUser) === 'Request Received' && 
+                <div className='handle-request-container'>
+                    <div className='request-received-message'>*Request Received*</div>
+                    <button id={indexedUser._id} className='accept-request friend-status-btn' onClick={(e) => handleRequest(e, 'accept', indexedUser)}>Accept</button>
+                    <button id={indexedUser._id} className='reject-request friend-status-btn' onClick={(e) => handleRequest(e, 'reject', indexedUser)}>Reject</button>
+                </div>
             }
-        </div>
+        </>
     )
 }

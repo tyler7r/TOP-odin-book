@@ -17,13 +17,13 @@ export const DisplayUsers = (props) => {
     }
 
     return (
-        <>
-            <h2>Users</h2>
-            <div className='feed' onScroll={handleScroll}>
+        <div className='users-container'>
+            <h2 className='feed-title'>Users</h2>
+            <div className='users-feed' onScroll={handleScroll}>
                 {users !== null &&
                     users.map(indexedUser => {
                         return (
-                            <User key={indexedUser._id} token={token} currentUser={user} user={indexedUser} users={users} setUsers={setUsers} />
+                            <User key={indexedUser._id} token={token} user={user} indexedUser={indexedUser} users={users} setUsers={setUsers} />
                         )
                     })
                 }
@@ -31,6 +31,6 @@ export const DisplayUsers = (props) => {
                     <div>No users to display</div>
                 }
             </div>
-        </>
+        </div>
     )
 }

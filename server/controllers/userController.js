@@ -83,13 +83,13 @@ exports.index = asyncHandler(async (req, res, next) => {
     let otherUsers;
 
     if (req.query.mode === 'search') {
-        users = await User.find({ $and: [{ $or: [{ 'username': { $regex: req.query.search }}, { 'first_name' : { $regex: req.query.search }}, { 'last_name' : { $regex: req.query.search }} ]}, { '_id': { $ne: [req.user._id] } }]}, undefined, { skip, limit: 1 }).populate('friends sentRequests receivedRequests').exec();
+        users = await User.find({ $and: [{ $or: [{ 'username': { $regex: req.query.search }}, { 'first_name' : { $regex: req.query.search }}, { 'last_name' : { $regex: req.query.search }} ]}, { '_id': { $ne: [req.user._id] } }]}, undefined, { skip, limit: 5 }).populate('friends sentRequests receivedRequests').exec();
     } else {
         if (skip === 0) {
-            otherUsers = await User.find({ _id: { $ne: [req.user._id] }}, undefined, { skip, limit: 1 }).populate('friends sentRequests receivedRequests').sort({ last_name: 1 }).exec();
+            otherUsers = await User.find({ _id: { $ne: [req.user._id] }}, undefined, { skip, limit: 5 }).populate('friends sentRequests receivedRequests').sort({ last_name: 1 }).exec();
             users = [currentUser, ...otherUsers]
         } else {
-            otherUsers = await User.find({ _id: { $ne: [req.user._id] }}, undefined, { skip: (skip - 1), limit: 1 }).populate('friends sentRequests receivedRequests').sort({ last_name: 1 }).exec();
+            otherUsers = await User.find({ _id: { $ne: [req.user._id] }}, undefined, { skip: (skip - 1), limit: 5 }).populate('friends sentRequests receivedRequests').sort({ last_name: 1 }).exec();
             users = [...otherUsers]
         }
     }
@@ -106,14 +106,14 @@ exports.userFriends = asyncHandler(async (req, res, next) => {
 
     let friends;
 
-    let allFriends = await User.find({ friends: req.params.userId }, undefined, { skip, limit: 1 }).populate('friends sentRequests receivedRequests').sort({ last_name: 1 }).exec()
+    let allFriends = await User.find({ friends: req.params.userId }, undefined, { skip, limit: 5 }).populate('friends sentRequests receivedRequests').sort({ last_name: 1 }).exec()
 
     let currentUser = await User.findById(req.user._id).populate('friends').exec();
 
     let currentUserFriends = currentUser.friends
 
     if (req.query.mode === 'search'){
-        friends = await User.find({ $and: [ { friends: req.params.userId }, { $or: [{ 'username': { $regex: req.query.search }}, { 'first_name' : { $regex: req.query.search }}, { 'last_name' : { $regex: req.query.search }}]}]}, undefined, { skip, limit: 1 }).populate('friends').exec();
+        friends = await User.find({ $and: [ { friends: req.params.userId }, { $or: [{ 'username': { $regex: req.query.search }}, { 'first_name' : { $regex: req.query.search }}, { 'last_name' : { $regex: req.query.search }}]}]}, undefined, { skip, limit: 5 }).populate('friends').exec();
     } else {
         if (currentUserFriends.includes(req.params.userId)) {
             if (skip === 0) {

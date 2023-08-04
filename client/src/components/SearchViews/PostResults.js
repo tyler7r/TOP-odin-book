@@ -35,10 +35,8 @@ export const PostResults = (props) => {
         }
     }, [token, skip]);
 
-    //add token !== null if necessary
-
     return (
-        <div>
+        <div className='search-home'>
             {(posts !== null && posts.length !== 0) 
                 ? <DisplayPosts setSkip={setSkip} token={token} posts={posts} setPosts={setPosts} user={user} />
                 : <div>No posts results</div>

@@ -64,6 +64,21 @@
     color: rgb(250, 158, 20);
 }
 
+#open-requests {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
+}
+
+#request-amount {
+    font-weight: bold;
+    color: white;
+    background-color: rgb(250, 158, 20);
+    padding: 4px;
+    border-radius: 50%;
+}
+
 .open-modal-btn {
     text-decoration: none;
 }

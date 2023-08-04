@@ -36,7 +36,7 @@ export const UserResults = (props) => {
     }, [token, skip]);
 
     return (
-        <div>
+        <div className='search-home'>
             {users !== null 
                 ? <DisplayUsers user={user} token={token} setSkip={setSkip} users={users} setUsers={setUsers} />
                 : <div>No users found</div>
