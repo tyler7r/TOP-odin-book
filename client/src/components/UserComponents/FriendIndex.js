@@ -46,7 +46,10 @@ export const FriendIndex = (props) => {
         <div>
             <Header token={token} user={user} />
             {viewedUser !== null &&
-                <h2>{viewedUser.fullName}'s Friends List</h2>
+                <div className='friend-index-title-container'>
+                    <div className='friend-index-title-name'>{viewedUser.fullName}'s</div>
+                    <div className='friend-index-title'>Friends List</div>
+                </div>
             }
             <SearchIndexes view={'friends'} mode={mode} setMode={setMode} setSearch={setSearch} token={token} />
             <DisplayUsers user={user} token={token} users={friends} setUsers={setFriends} setSkip={setSkip} />

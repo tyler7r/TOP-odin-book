@@ -28,7 +28,7 @@
 }
 
 .search-icon:hover {
-    filter: brightness(0) saturate(100%) invert(94%) sepia(0%) saturate(770%) hue-rotate(153deg) brightness(95%) contrast(72%);
+    filter: brightness(0) saturate(100%) invert(70%) sepia(41%) saturate(2176%) hue-rotate(347deg) brightness(97%) contrast(101%);
     cursor: pointer;
     height: 35px;
     width: 35px;

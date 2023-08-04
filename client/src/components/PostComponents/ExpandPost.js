@@ -20,12 +20,6 @@ export const ExpandPost = (props) => {
             }
         }).then(res => res.json())
             .then(data => {
-                // console.log(data.post)
-                // if (skip === 0) {
-                //     setComments(data.comments)
-                // } else {
-                //     setComments([...comments, ...data.comments])
-                // }
                 setPost(data.post);
                 setComments(data.comments);
             })

@@ -48,3 +48,10 @@
     display: grid;
     gap: 8px;
 }
+
+.no-items-msg {
+    font-family: 'Kanit';
+    color: rgb(211, 0, 0);
+    text-align: center;
+    font-size: 24px;
+}

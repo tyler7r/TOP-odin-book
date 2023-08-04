@@ -44,7 +44,7 @@ export const FriendsFeed = (props) => {
                     }
                     {(posts !== null && posts.length !== 0)
                         ? <DisplayPosts setSkip={setSkip} token={token} user={user} posts={posts} setPosts={setPosts} />
-                        : <div>No Friend Posts</div>
+                        : <div className='no-items-msg'>No Friend Posts Found</div>
                     }
                 </div>
             }

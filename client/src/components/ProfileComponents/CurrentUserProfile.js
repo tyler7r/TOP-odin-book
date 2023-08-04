@@ -59,7 +59,7 @@ export const CurrentUserProfile = (props) => {
                 </div>
             }
             {profilePosts === null &&
-                <div>No user data found</div>
+                <div className='no-items-msg'>No user data found</div>
             }
         </>
     )

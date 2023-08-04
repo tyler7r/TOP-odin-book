@@ -44,7 +44,7 @@ export const RecentFeed = (props) => {
                     }
                     {(posts !== null && posts.length !== 0)
                         ? <DisplayPosts setSkip={setSkip} token={token} user={user} posts={posts} setPosts={setPosts} />
-                        : <div>No recent posts</div>
+                        : <div className='no-items-msg'>No recent posts</div>
                     }
                 </div>
             }

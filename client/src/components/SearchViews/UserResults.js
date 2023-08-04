@@ -39,7 +39,7 @@ export const UserResults = (props) => {
         <div className='search-home'>
             {users !== null 
                 ? <DisplayUsers user={user} token={token} setSkip={setSkip} users={users} setUsers={setUsers} />
-                : <div>No users found</div>
+                : <div className='no-items-msg'>No users found</div>
             }
         </div>
     )

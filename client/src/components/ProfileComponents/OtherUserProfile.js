@@ -90,23 +90,23 @@ export const OtherUserProfile = (props) => {
         <>
             <Header user={user} />
             {profileData !== null
-            ? <>
+            ? <div className='profile-header-container'>
                 <ProfileHeader profileData={profileData} />
                 {friendStatus() === 'Not Friend' && 
-                    <button onClick={() => friendRequestButton()}>Send Friend Request</button>
+                    <button className='profile-friend-status-btn' onClick={() => friendRequestButton()}>Send Friend Request</button>
                 }
                 {friendStatus() === 'Pending Request' &&
-                    <button onClick={() => friendRequestButton()}>Request Sent</button>
+                    <button className='profile-friend-status-btn' onClick={() => friendRequestButton()}>Request Sent</button>
                 }
                 {friendStatus() === 'Friend' &&
-                    <button onClick={() => unfriendUser()}>Friends</button>
+                    <button className='profile-friend-status-btn unfriend-btn' onClick={() => unfriendUser()}>Unfriend</button>
                 }
-            </>
+            </div>
             : <div>No user data found</div>
             }
             {(profilePosts !== null && profilePosts.length !== 0)
                 ? <div className='profile-feed'><DisplayPosts token={token} user={user} posts={profilePosts} setPosts={setProfilePosts} setSkip={setSkip} /></div>
-                : <div>No posts found</div>
+                : <div className='no-items-msg'>No posts found</div>
             }
         </>
     )

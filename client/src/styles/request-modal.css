@@ -1,0 +1,46 @@
+#requests-modal {
+    background-color: white;
+    border: 4px double rgb(250, 158, 20);
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+.request {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+.request-user-container {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.request-profile-pic {
+    height: 50px;
+    width: 50px;
+}
+
+.request-name-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.request-fullName {
+    font-family: 'Montserrat';
+    color: rgb(250, 158, 20);
+    font-size: 24px;
+}
+
+.request-username {
+    font-family: 'Ysabeau SC';
+    font-weight: lighter;
+    margin-top: -4px;
+}
+
+.request-btn-container {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
