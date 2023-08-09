@@ -2,6 +2,7 @@
   "name": "guest-client",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://odinbook-server-c9d66bab1c39.herokuapp.com/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
