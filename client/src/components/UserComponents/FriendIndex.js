@@ -35,12 +35,12 @@ export const FriendIndex = (props) => {
         if (token !== null) {
             fetchFriends()
         }
-    }, [token, skip, mode])
+    }, [token, skip])
 
     useEffect(() => {
         setFriends(null)
         setSkip(0);
-    }, [search])
+    }, [search, mode])
 
     return (
         <div>
@@ -51,7 +51,7 @@ export const FriendIndex = (props) => {
                     <div className='friend-index-title'>Friends List</div>
                 </div>
             }
-            <SearchIndexes view={'friends'} mode={mode} setMode={setMode} setSearch={setSearch} token={token} />
+            <SearchIndexes view={'friends'} mode={mode} setMode={setMode} setSearch={setSearch} token={token} setSkip={setSkip} />
             <DisplayUsers user={user} token={token} users={friends} setUsers={setFriends} setSkip={setSkip} />
         </div>
     )

@@ -36,7 +36,7 @@ export const ExpandPost = (props) => {
         <div>
             <Header />
             {post !== null &&
-                <div>
+                <div className='post'>
                     <Post post={post} postId={post._id} />
                     {comments !== null &&
                         <DisplayComments comments={comments} view={'feed'} setSkip={setSkip} />

@@ -3,7 +3,7 @@ import '../styles/search-bar.css'
 import '../images/search-icon.png'
 
 export const SearchBar = (props) => {
-    const { setSearchOpen } = props;
+    const {  } = props;
     const [search, setSearch] = useState('')
 
     const handleChange = (e) => {
@@ -16,7 +16,6 @@ export const SearchBar = (props) => {
         if (search.topic === undefined || search.topic === '') {
             return
         } else {
-            setSearchOpen(false);
             window.location.href = `/odinbook/search/${search.topic}`;
         }
     }

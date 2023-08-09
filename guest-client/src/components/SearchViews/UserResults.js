@@ -36,7 +36,7 @@ export const UserResults = (props) => {
         <div>
             {(users !== null && users.length !== 0)
                 ? <DisplayUsers setSkip={setSkip} users={users} />
-                : <div>No users found</div>
+                : <div className='no-items-msg'>No users found</div>
             }
         </div>
     )

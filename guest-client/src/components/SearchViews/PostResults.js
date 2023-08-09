@@ -36,7 +36,7 @@ export const PostResults = (props) => {
         <div>
             {(posts !== null && posts.length !== 0) 
                 ? <DisplayPosts setSkip={setSkip} posts={posts} />
-                : <div>No posts results</div>
+                : <div className='no-items-msg'>No posts results</div>
             }
         </div>
     )

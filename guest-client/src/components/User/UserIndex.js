@@ -18,6 +18,7 @@ export const UserIndex = (props) => {
             }
         }).then(res => res.json())
             .then(data => {
+                console.log(index);
                 if (index === null) {
                     setIndex(data.users);
                 } else {
@@ -28,17 +29,17 @@ export const UserIndex = (props) => {
 
     useEffect(() => {
         getUsers()
-    }, [skip, mode])
+    }, [skip])
 
     useEffect(() => {
         setIndex(null);
         setSkip(0);
-    }, [search])
+    }, [search, mode]);
 
     return (
         <div>
             <Header />
-            <SearchIndexes mode={mode} setMode={setMode} setSearch={setSearch} />
+            <SearchIndexes view={'users'} mode={mode} setMode={setMode} setSearch={setSearch} setSkip={setSkip} />
             {index !== null
                 ? <DisplayUsers users={index} setSkip={setSkip} />
                 : <div>No users found</div>

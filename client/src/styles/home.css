@@ -1,3 +1,7 @@
+#root {
+    min-width: 370px;
+}
+
 .view-select-menu {
     display: flex;
     justify-content: center;
@@ -25,6 +29,7 @@
 
 .selected {
     font-size: 24px;
+    border: 4px solid rgb(250, 158, 20);
 }
 
 .home-page, .search-home, .profile-feed {

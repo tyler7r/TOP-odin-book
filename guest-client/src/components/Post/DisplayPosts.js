@@ -16,14 +16,13 @@ export const DisplayPosts = (props) => {
     }
  
     return (
-        <div>
-            <h2>Feed</h2>
+        <div className="home-page">
             <div className='feed' onScroll={handleScroll}>
+                <div className='feed-title'>Feed</div>
                 {posts.map(post => {
                     return (
                         <div key={post._id} className='post'>
                             <Post post={post} postId={post._id} posts={posts} />
-                            <DisplayComments post={post} comments={post.comments} />
                         </div>
                     )
                 })}

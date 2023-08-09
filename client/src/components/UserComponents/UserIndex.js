@@ -19,6 +19,7 @@ export const UserIndex = (props) => {
             }
         }).then(res => res.json())
             .then(data => {
+                console.log(data);
                 if (skip === 0) {
                     setIndex(data.users);
                 } else {
@@ -31,17 +32,17 @@ export const UserIndex = (props) => {
         if (token !== null) {
             getUsers()
         }
-    }, [token, skip, mode])
+    }, [token, skip])
 
     useEffect(() => {
         setIndex(null);
         setSkip(0)
-    }, [search])
+    }, [search, mode]);
 
     return (
         <div>
             <Header user={user} />
-            <SearchIndexes view={'users'} mode={mode} setMode={setMode} setSearch={setSearch} token={token} />
+            <SearchIndexes view={'users'} mode={mode} setMode={setMode} setSearch={setSearch} token={token} setSkip={setSkip} />
             {index !== null
                 ? <DisplayUsers token={token} user={user} setUsers={setIndex} users={index} setSkip={setSkip} />
                 : <div>No users found</div>

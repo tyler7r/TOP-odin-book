@@ -1,7 +1,61 @@
+#root {
+    min-width: 370px;
+}
+
+.view-select-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    gap: 12px;
+}
+
+.view-select {
+    font-family: 'Montserrat';
+    font-style: italic;
+    color: rgb(66, 66, 66);
+    width: 100%;
+    padding: 4px;
+    border: 4px double rgb(250, 158, 20);
+    background-color: white;
+    border-radius: 4px;
+}
+
+.view-select:hover {
+    border: 4px solid rgb(250, 158, 20);
+    cursor: pointer;
+    font-size: 24px;
+}
+
+.selected {
+    font-size: 24px;
+}
+
+.home-page, .search-home, .profile-feed {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.feed-title {
+    font-family: 'Ysabeau SC';
+    font-weight: 400;
+    font-size: 24px;
+    color: rgb(66, 66, 66);
+    text-align: center;
+}
+
 .feed {
-    width: 80vw;
+    width: 90%;
     height: 100vh;
     overflow-y: scroll;
     display: grid;
     gap: 8px;
+}
+
+.no-items-msg {
+    font-family: 'Kanit';
+    color: rgb(211, 0, 0);
+    text-align: center;
+    font-size: 24px;
 }

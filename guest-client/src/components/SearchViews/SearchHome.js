@@ -10,14 +10,27 @@ export const SearchHome = (props) => {
     const {  } = props;
     const [view, setView] = useState('posts');
 
+    const checkView = (btn) => {
+        if (view === btn) {
+            return 'view-select selected'
+        } else {
+            return 'view-select'
+        }
+    }
+
     return (
         <div>
             <Header />
-            <h1>Search Results for {search.topic}</h1>
             <SearchBar />
-            <button onClick={() => setView('posts')}>Posts</button>
-            <button onClick={() => setView('users')}>Users</button>
-            {view === 'posts' 
+            <div className='search-results-container'>
+                <div className='search-results-msg'>Search Results for</div>
+                <div className='search-results-keyword'>{search.topic}</div>
+            </div>
+            <div className="view-select-menu">
+                <button className={checkView('posts')} onClick={() => setView('posts')}>Posts</button>
+                <button className={checkView('users')} onClick={() => setView('users')}>Users</button>
+            </div>
+            {view === 'posts'
                 ? <PostResults view={view} />
                 : <UserResults view={view} />
             }

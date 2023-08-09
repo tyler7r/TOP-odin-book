@@ -1,4 +1,67 @@
 .header {
     display: flex;
     justify-content: space-between;
+    padding: 6px 12px 6px 12px;
+}
+
+#logo {
+    font-family: 'Montserrat';
+    font-style: italic;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    color: rgb(66, 66, 66);
+}
+
+#logo:hover {
+    cursor: pointer;
+}
+
+#logo-the {
+    margin-bottom: -4px;
+    font-size: 10px;
+}
+
+#logo-odinbook {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+#logo-odinbook:hover {
+    text-decoration: underline;
+}
+
+#header-links {
+    color: rgb(66, 66, 66);
+    font-size: 14px;
+    font-family: 'Montserrat';
+    font-style: italic;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: light;
+}
+
+#user-index {
+    color: rgb(250, 158, 20);
+}
+
+#login-btn {
+    color: rgb(66, 66, 66);
+}
+
+#signup-btn {
+    color: rgb(250, 158, 20);
+}
+
+.open-modal-btn {
+    text-decoration: none;
+}
+
+.open-modal-btn:hover {
+    cursor: pointer;
+    text-decoration: underline;
 }

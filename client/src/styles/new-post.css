@@ -97,7 +97,13 @@
     cursor: default;
     color: rgb(66, 66, 66);
     border: 4px double rgb(66, 66, 66);
-} 
+}
+
+.submit-modal-btn.invalid:hover {
+    cursor: default;
+    border: 4px double rgb(66, 66, 66);
+    font-size: 28px;
+}
 
 .image-preview-container {
     position: relative;

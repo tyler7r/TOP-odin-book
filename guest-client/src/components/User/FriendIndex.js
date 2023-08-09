@@ -14,7 +14,6 @@ export const FriendIndex = (props) => {
     const [skip, setSkip] = useState(0);
 
     const fetchFriends = async() => {
-        console.log('ran');
         await fetch(`/odinbook/g/users/${userId}/friends?skip=${skip}&mode=${mode}&search=${search}`, {
             method: 'get',
             headers: {
@@ -33,23 +32,23 @@ export const FriendIndex = (props) => {
 
     useEffect(() => {
         fetchFriends()
-    }, [skip, mode])
+    }, [skip])
 
     useEffect(() => {
         setFriends(null)
-        setSkip(0)
-    }, [search])
+        setSkip(0);
+    }, [search, mode]);
 
     return (
         <div>
             <Header />
             {viewedUser !== null &&
-                <>
-                    <Link to={`/odinbook/g${viewedUser.url}`}>Back</Link>
-                    <h2>{viewedUser.fullName}'s Friends List</h2>
-                </>
+                <div className='search-results-container'>
+                    <div className='search-results-keyword'>{viewedUser.fullName}'s</div>
+                    <div className='search-results-msg'>Friends List</div>
+                </div>
             }
-            <SearchIndexes mode={mode} setMode={setMode} setSearch={setSearch} />
+            <SearchIndexes view={'friends'} mode={mode} setMode={setMode} setSearch={setSearch} setSkip={setSkip} />
             <DisplayUsers users={friends} setSkip={setSkip} />
         </div>
     )

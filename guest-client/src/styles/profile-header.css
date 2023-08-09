@@ -1,7 +1,6 @@
 .profile-header-container {
     display: flex;
     flex-direction: column;
-    gap: 8px;
 }
 
 .profile-header {
@@ -57,19 +56,4 @@
     grid-column: 1 / 3;
     font-family: 'Kanit';
     margin-left: 8px;
-}
-
-.profile-friend-status-btn {
-    border: none;
-    font-family: 'Kanit';
-    font-size: 18px;
-    color: rgb(66, 66, 66);
-    padding: 4px;
-}
-
-.profile-friend-status-btn:hover {
-    font-size: 20px;
-    cursor: pointer;
-    background-color: rgba(211, 211, 211, 0.5);
-    color: rgb(250, 158, 20);
 }

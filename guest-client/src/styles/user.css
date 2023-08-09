@@ -1,4 +1,107 @@
+.users-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.users-feed {
+    width: 90%;
+    height: 100vh;
+    overflow-y: scroll;
+    display: grid;
+    gap: 16px;
+    padding: 8px;
+}
+
 .user {
     height: 100%;
-    border: 1px solid black;
+    background-color: rgba(211, 211, 211, 0.1);
+    color: rgb(66, 66, 66);
+    display: grid;
+    grid-template-columns: 1fr 5fr 2fr;
+    column-gap: 8px;
+    border: 1px solid lightgray;
+    padding: 4px;
+    align-items: center;
+}
+
+.user-pfp-container {
+    text-decoration: none;
+    margin-left: 8px;
+}
+
+.user-user-initials {
+    color: rgb(66, 66, 66);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 6px double rgb(250, 158, 20);
+    border-radius: 50%;
+    font-family: 'Ysabeau SC';
+    font-weight: bolder;
+    font-size: 36px;
+    height: 80px;
+    width: 80px;
+}
+
+.user-user-initials:hover {
+    border: 6px solid rgb(250, 158, 20);
+}
+
+.user-profile-pic {
+    height: 100px;
+    width: 100px;
+}
+
+.user-name-container {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: rgb(66, 66, 66);
+}
+
+.user-fullName {
+    font-family: 'Montserrat';
+    font-style: italic;
+    font-weight: bolder;
+    color: rgb(250, 158, 20);
+    font-size: 36px;
+}
+
+.user-fullName:hover {
+    text-decoration: underline;
+}
+
+.user-username {
+    font-family: 'Ysabeau SC';
+    font-weight: lighter;
+    margin: -4px 0px 0px 12px;
+}
+
+.user-friends-btn {
+    color: rgb(66, 66, 66);
+    text-decoration: none;
+    font-family: 'Kanit';
+    font-size: 24px;
+    height: 25%;
+    grid-column: 3 / 4;
+}
+
+.user-friends-btn:hover {
+    text-decoration: underline;
+}
+
+.friend-index-title-container {
+    color: rgb(66, 66, 66);
+    font-family: 'Montserrat';
+    text-align: center;
+    font-size: 32px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.friend-index-title-name {
+    color: #fa9e14;
 }

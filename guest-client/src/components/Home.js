@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { URL } from '../Url'
 import { DisplayPosts } from './Post/DisplayPosts';
 import { Header } from './Header';
 import { SearchBar } from './SearchBar';
@@ -8,11 +9,12 @@ export const Home = (props) => {
     const { } = props;
     const [posts, setPosts] = useState(null);
     const [view, setView] = useState('recent');
+    const [searchOpen, setSearchOpen] = useState(false);
     const [skip, setSkip] = useState(0);
     
     const fetchHome = async () => {
         try {
-            await fetch(`/odinbook/g/home?skip=${skip}&view=${view}`, {
+            await fetch(`${URL}/odinbook/g/home?skip=${skip}&view=${view}`, {
                 method: 'get',
                 headers: {
                     'Content-Type': 'application/json',
@@ -40,13 +42,24 @@ export const Home = (props) => {
         }
     }, [view])
 
+    const checkView = (buttonView) => {
+        if (view === buttonView) {
+            return 'view-select selected'
+        } else {
+            return 'view-select'
+        }
+    }
+
     return (
         <div>
-            <Header />
-            <Link to='/odinbook/g/users/index'>User Index</Link>
-            <SearchBar />
-            <button onClick={() => setView('recent')}>Recent</button>
-            <button onClick={() => setView('popular')}>Popular</button>
+            <Header setSearchOpen={setSearchOpen} searchOpen={searchOpen} searchBtnVisible={true} />
+            {searchOpen &&
+                <SearchBar setSearchOpen={setSearchOpen} />
+            }
+            <div className="view-select-menu">
+                <button className={checkView('recent')} onClick={() => setView('recent')}>Recent</button>
+                <button className={checkView('popular')} onClick={() => setView('popular')}>Popular</button>
+            </div>
             {posts !== null &&
                 <DisplayPosts posts={posts} setSkip={setSkip} />
             }

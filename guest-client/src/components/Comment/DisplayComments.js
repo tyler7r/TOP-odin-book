@@ -15,17 +15,20 @@ export const DisplayComments = (props) => {
     }
 
     return (
-        <div className={view} onScroll={handleScroll}>
-            {comments.length > 0 &&
-                comments.map(comment => {
-                    return (
-                        <Comment key={comment._id} comment={comment} />
-                    )
-                })
-            }
-            {comments.length === 0 && 
-                <div>No Comments</div>
-            }
+        <div className="comment-container">
+            <h3>Comments</h3>
+            <div className='comment-section' onScroll={handleScroll}>
+                {comments.length > 0 &&
+                    comments.map(comment => {
+                        return (
+                            <Comment key={comment._id} comment={comment} />
+                        )
+                    })
+                }
+                {comments.length === 0 &&
+                    <div>No Comments</div>
+                }
+            </div>
         </div>
     )
 }

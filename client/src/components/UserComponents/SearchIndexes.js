@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 export const SearchIndexes = (props) => {
-    const { mode, setMode, setSearch, view } = props;
+    const { mode, setMode, setSearch, view, setSkip } = props;
     const [topic, setTopic] = useState('');
 
     const handleChange = (e) => {
