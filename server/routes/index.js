@@ -6,7 +6,7 @@ require('../passport');
 router.get('/', (req, res, next) => {
   // res.redirect('/odinbook')
   // res.send('Hello')
-  res.redirect('/odinbook/g')
+  res.redirect('/odinbook/g/home')
 });
 
 module.exports = router;
