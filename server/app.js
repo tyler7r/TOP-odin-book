@@ -16,7 +16,7 @@ var app = express();
 
 mongoose.set('strictQuery', false);
 
-const mongoDB = process.env.MONGO_KEY;
+const mongoDB = process.env.MONGO_URI;
 
 const main = async () => {
   await mongoose.connect(mongoDB)
