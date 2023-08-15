@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { URL } from '../Url'
 import { DisplayPosts } from './Post/DisplayPosts';
 import { Header } from './Header';
 import { SearchBar } from './SearchBar';
 
 export const Home = (props) => {
-    const { } = props;
+    const { host } = props;
     const [posts, setPosts] = useState(null);
     const [view, setView] = useState('recent');
     const [searchOpen, setSearchOpen] = useState(false);
@@ -14,7 +13,7 @@ export const Home = (props) => {
     
     const fetchHome = async () => {
         try {
-            await fetch(`${URL}/odinbook/g/home?skip=${skip}&view=${view}`, {
+            await fetch(`${host}/odinbook/g/home?skip=${skip}&view=${view}`, {
                 method: 'get',
                 headers: {
                     'Content-Type': 'application/json',
