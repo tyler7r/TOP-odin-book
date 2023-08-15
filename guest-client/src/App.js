@@ -8,13 +8,14 @@ import { SearchHome } from './components/SearchViews/SearchHome';
 import { ExpandPost } from './components/Post/ExpandPost';
 
 function App() {
+  const site = 'https://top-odinbook.netlify.app/'
   const host = 'https://top-odinbook-0b5f675079ea.herokuapp.com'
 
   return (
     <BrowserRouter>
       <div className="App">
         <Routes>
-          <Route path='/odinbook/g/home' element={<Home host={host} />} />
+          <Route path={`${site}/odinbook/g/home`} element={<Home host={host} />} />
           <Route path='/odinbook/g/users/:userId' element={<Profile />} />
           <Route path='/odinbook/g/users/index' element={<UserIndex />} />
           <Route path='/odinbook/g/users/:userId/friends' element={<FriendIndex />} />
