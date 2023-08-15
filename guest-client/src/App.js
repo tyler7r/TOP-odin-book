@@ -8,11 +8,12 @@ import { SearchHome } from './components/SearchViews/SearchHome';
 import { ExpandPost } from './components/Post/ExpandPost';
 
 function App() {
+  // const host = 'https://odinbook-server-c9d66bab1c39.herokuapp.com';
   return (
     <BrowserRouter>
       <div className="App">
         <Routes>
-          <Route path='/odinbook/g/home' element={<Home />} />
+          <Route path={`/odinbook/g/home`} element={<Home />} />
           <Route path='/odinbook/g/users/:userId' element={<Profile />} />
           <Route path='/odinbook/g/users/index' element={<UserIndex />} />
           <Route path='/odinbook/g/users/:userId/friends' element={<FriendIndex />} />
