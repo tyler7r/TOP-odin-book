@@ -13,8 +13,9 @@ export const Home = (props) => {
     
     const fetchHome = async () => {
         console.log('here');
+        // https://top-odinbook-0b5f675079ea.herokuapp.com
         try {
-            await fetch(`https://top-odinbook-0b5f675079ea.herokuapp.com/odinbook/g/home?skip=${skip}&view=${view}`, {
+            await fetch(`/odinbook/g/home?skip=${skip}&view=${view}`, {
                 method: 'get',
                 headers: {
                     'Content-Type': 'application/json',
