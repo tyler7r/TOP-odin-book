@@ -12,10 +12,9 @@ export const Home = (props) => {
     const [skip, setSkip] = useState(0);
     
     const fetchHome = async () => {
-        console.log('here');
-        // https://top-odinbook-0b5f675079ea.herokuapp.com
+        const server = process.env.REACT_APP_SERVER_URL
         try {
-            await fetch(`/odinbook/g/home?skip=${skip}&view=${view}`, {
+            await fetch(`${server}/odinbook/g/home?skip=${skip}&view=${view}`, {
                 method: 'get',
                 headers: {
                     'Content-Type': 'application/json',
