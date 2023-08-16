@@ -14,7 +14,7 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Routes>
-          <Route path={`https://top-odinbook.netlify.app/odinbook/g/home`} element={<Home />} />
+          <Route path='/odinbook/g/home' element={<Home />} />
           <Route path='/odinbook/g/users/:userId' element={<Profile />} />
           <Route path='/odinbook/g/users/index' element={<UserIndex />} />
           <Route path='/odinbook/g/users/:userId/friends' element={<FriendIndex />} />
