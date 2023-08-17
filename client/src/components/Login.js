@@ -35,7 +35,7 @@ export const Login = (props) => {
     }
 
     const handleGuest = async() => {
-        window.location.href = 'http://localhost:3001/odinbook/g/home'
+        window.location.href = process.env.REACT_APP_GUEST_URL;
     }
 
     return (

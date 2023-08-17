@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { DisplayUsers } from './DisplayUsers';
 import { Header } from '../Header';
 import { SearchIndexes } from './SearchIndexes';
