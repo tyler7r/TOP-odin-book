@@ -41,7 +41,7 @@ export const UserIndex = (props) => {
             <SearchIndexes view={'users'} mode={mode} setMode={setMode} setSearch={setSearch} setSkip={setSkip} />
             {index !== null
                 ? <DisplayUsers users={index} setSkip={setSkip} />
-                : <div>No users found</div>
+                : <div className='no-items-msg'>No users found</div>
             }
         </div>
     )

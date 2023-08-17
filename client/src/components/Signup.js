@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../styles/signup.css'
 
-export const Signup = () => {
+export const Signup = (props) => {
+    const { server } = props;
     const [formData, setFormData] = useState('');
     const [errors, setErrors] = useState(null)
 
@@ -14,7 +15,7 @@ export const Signup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         let data = JSON.stringify(formData);
-        await fetch('/odinbook/signup', {
+        await fetch(`${server}/odinbook/signup`, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',

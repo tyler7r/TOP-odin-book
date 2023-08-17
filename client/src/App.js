@@ -13,6 +13,8 @@ function App() {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
 
+  const server = process.env.REACT_APP_SERVER_URL;
+
   useEffect(() => {
     const checkToken = localStorage.getItem('token')
     const checkUser = localStorage.getItem('user')
@@ -31,14 +33,14 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Routes>
-          <Route path='/odinbook' element={<Home token={token} user={user} />} />
-          <Route path='/odinbook/login' element={<Login setToken={setToken} setUser={setUser} />} />
-          <Route path='/odinbook/signup' element={<Signup />} />
-          <Route path='/odinbook/users/:userId' element={<Profile user={user} setUser={setUser} token={token} />} />
-          <Route path='/odinbook/users/index' element={<UserIndex token={token} user={user} />} />
-          <Route path='/odinbook/users/:userId/friends' element={<FriendIndex user={user} token={token} />} />
-          <Route path='/odinbook/search/:topic' element={<SearchHome token={token} user={user} />} />
-          <Route path='/odinbook/:postId' element={<ExpandPost token={token} user={user} />} />
+          <Route path='/odinbook' element={<Home server={server} token={token} user={user} />} />
+          <Route path='/odinbook/login' element={<Login server={server} setToken={setToken} setUser={setUser} />} />
+          <Route path='/odinbook/signup' element={<Signup server={server} />} />
+          <Route path='/odinbook/users/:userId' element={<Profile server={server} user={user} setUser={setUser} token={token} />} />
+          <Route path='/odinbook/users/index' element={<UserIndex server={server} token={token} user={user} />} />
+          <Route path='/odinbook/users/:userId/friends' element={<FriendIndex server={server} user={user} token={token} />} />
+          <Route path='/odinbook/search/:topic' element={<SearchHome server={server} token={token} user={user} />} />
+          <Route path='/odinbook/:postId' element={<ExpandPost server={server} token={token} user={user} />} />
         </Routes>
       </div>
     </BrowserRouter>

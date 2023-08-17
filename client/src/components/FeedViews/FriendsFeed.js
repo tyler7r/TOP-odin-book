@@ -4,13 +4,13 @@ import { DisplayPosts } from '../PostComponents/DisplayPosts';
 import '../../styles/home.css';
 
 export const FriendsFeed = (props) => {
-    const { user, token, view, newPostOpen, setNewPostOpen } = props;
+    const { server, user, token, view, newPostOpen, setNewPostOpen } = props;
     const [posts, setPosts] = useState(null);
     const [skip, setSkip] = useState(0);
     
     const fetchPosts = async () => {
         try {
-            await fetch(`/odinbook?skip=${skip}&feed=${view}`, {
+            await fetch(`${server}/odinbook?skip=${skip}&feed=${view}`, {
                 method: 'get',
                 headers: {
                     'Authorization': token,

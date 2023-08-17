@@ -3,7 +3,7 @@ import '../../styles/new-post.css'
 import '../../styles/modal.css'
 
 export const NewPost = (props) => {
-    const { token, posts, setPosts, setNewPostOpen, setSkip } = props;
+    const { server, token, posts, setPosts, setNewPostOpen, setSkip } = props;
     const [postData, setPostData] = useState('');
     const [previewMode, setPreviewMode] = useState(false)
     const [imageHover, setImageHover] = useState(false)
@@ -19,7 +19,7 @@ export const NewPost = (props) => {
         e.preventDefault();
         const data = JSON.stringify(postData);
         
-        await fetch(`/odinbook/create/post`, {
+        await fetch(`${server}/odinbook/create/post`, {
             method: 'post',
             body: data,
             headers: {

@@ -5,11 +5,11 @@ import { userInitials } from '../HelperFunctions/UserInitials';
 import '../styles/request-modal.css'
 
 export const RequestModal = (props) => {
-    const { requests, token, setRequests, setProfileData, profileData, setRequestModalOpen } = props;
+    const { server, requests, token, setRequests, setProfileData, profileData, setRequestModalOpen } = props;
 
     const handleRequest = async (e, action) => {
         const requestId = e.target.id;
-        await fetch(`/odinbook/${requestId}/${action}`, {
+        await fetch(`${server}/odinbook/${requestId}/${action}`, {
             method: 'get',
             headers: {
                 'Content-Type': 'application/json',

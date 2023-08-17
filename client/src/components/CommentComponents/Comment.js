@@ -7,13 +7,13 @@ import { isProfilePicAvailable } from '../../HelperFunctions/CheckForProfilePic'
 import '../../styles/comment.css';
 
 export const Comment = (props) => {
-    const { comment, postId, posts, setPosts, token, user } = props
+    const { server, comment, postId, posts, setPosts, token, user } = props
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
     const handleLike = async (e) => {
         const commentId = e.target.id;
 
-        await fetch(`/odinbook/${postId}/${commentId}/like`, {
+        await fetch(`${server}/odinbook/${postId}/${commentId}/like`, {
             method: 'get',
             headers: {
                 'Authorization': token,

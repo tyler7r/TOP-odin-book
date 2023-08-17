@@ -4,14 +4,14 @@ import { DisplayUsers } from './DisplayUsers';
 import { SearchIndexes } from './SearchIndexes';
 
 export const UserIndex = (props) => {
-    const { token, user } = props;
+    const { server, token, user } = props;
     const [index, setIndex] = useState(null);
     const [mode, setMode] = useState('all');
     const [search, setSearch] = useState('')
     const [skip, setSkip] = useState(0);
 
     const getUsers = async () => {
-        await fetch(`/odinbook/users/index?skip=${skip}&mode=${mode}&search=${search}`, {
+        await fetch(`${server}/odinbook/users/index?skip=${skip}&mode=${mode}&search=${search}`, {
             method: 'get',
             headers: {
                 'Authorization': token,

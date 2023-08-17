@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../../styles/new-comment.css'
 
 export const NewComment = (props) => {
-    const { setPosts, posts, postId, token } = props;
+    const { server, setPosts, posts, postId, token } = props;
     const [comment, setComment] = useState('')
 
     const handleChange = (e) => {
@@ -24,7 +24,7 @@ export const NewComment = (props) => {
 
         const data = JSON.stringify(comment)
 
-        await fetch(`/odinbook/${postId}/create/comment`, {
+        await fetch(`${server}/odinbook/${postId}/create/comment`, {
             method: 'post',
             headers: {
                 'Authorization': token,

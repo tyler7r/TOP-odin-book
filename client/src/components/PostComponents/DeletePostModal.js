@@ -1,12 +1,12 @@
 import React from 'react';
 
 export const DeleteModal = (props) => {
-    const { posts, setPosts, postId, deleteModalOpen, setDeleteModalOpen, post, token } = props;
+    const { server, posts, setPosts, postId, deleteModalOpen, setDeleteModalOpen, post, token } = props;
     
     const handleDelete = async (e) => {
         const pId = e.target.id
 
-        await fetch(`/odinbook/${pId}/delete`, {
+        await fetch(`${server}/odinbook/${pId}/delete`, {
             method: 'get',
             headers: {
                 'Authorization': token,

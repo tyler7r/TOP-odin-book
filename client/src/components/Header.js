@@ -4,10 +4,10 @@ import { userInitials } from '../HelperFunctions/UserInitials';
 import '../styles/header.css'
 
 export const Header = (props) => {
-    const { user, searchOpen, setSearchOpen, searchBtnVisible, newPostOpen, setNewPostOpen, newPostVisible, editProfileBtnVisible, setEditProfileModalOpen, editProfileModalOpen, requestModalOpen, setRequestModalOpen, requestBtnVisible, requestAmount } = props;
+    const { server, user, searchOpen, setSearchOpen, searchBtnVisible, newPostOpen, setNewPostOpen, newPostVisible, editProfileBtnVisible, setEditProfileModalOpen, editProfileModalOpen, requestModalOpen, setRequestModalOpen, requestBtnVisible, requestAmount } = props;
 
     const logout = async() => {
-        await fetch('/odinbook/logout', {
+        await fetch(`${server}/odinbook/logout`, {
             method: 'get',
             headers: {
                 'Content-Type': 'application/json'

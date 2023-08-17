@@ -5,7 +5,7 @@ import '../../styles/modal.css'
 import { EmptyFormWarning } from './EmptyFormWarning';
 
 export const EditProfile = (props) => {
-    const { setEditProfileModalOpen, token, setProfileData, profileData, formData, setFormData } = props;
+    const { server, setEditProfileModalOpen, token, setProfileData, profileData, formData, setFormData } = props;
     const { userId } = useParams();
     const [previewMode, setPreviewMode] = useState(false);
     const [emptyFormWarning, setEmptyFormWarning] = useState(false);
@@ -33,7 +33,7 @@ export const EditProfile = (props) => {
         setEmptyFormWarning(false);
         console.log(formData)
         let data = JSON.stringify(formData);
-        await fetch(`/odinbook/users/${userId}/edit-profile`, {
+        await fetch(`${server}/odinbook/users/${userId}/edit-profile`, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',

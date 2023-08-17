@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const Relationship = (props) => {
-    const { token, user, setUsers, users, indexedUser } = props;
+    const { server, token, user, setUsers, users, indexedUser } = props;
 
     const isFriendWithUser = (currentUserIndex) => {
         let friends = currentUserIndex.friends;
@@ -42,7 +42,7 @@ export const Relationship = (props) => {
 
     const requestButton = async (e, action) => {
         let userId = e.target.id;
-        await fetch(`/odinbook/${userId}/${action}`, {
+        await fetch(`${server}/odinbook/${userId}/${action}`, {
             method: 'get',
             headers: {
                 'Content-Type': 'application/json',
@@ -62,7 +62,7 @@ export const Relationship = (props) => {
         let requests = user.sentRequests;
         let request = requests.find(request => request.sender === userId);
         let requestId = request._id;
-        await fetch(`/odinbook/${requestId}/${action}`, {
+        await fetch(`${server}/odinbook/${requestId}/${action}`, {
             method: 'get',
             headers: {
                 'Content-Type': 'application/json',

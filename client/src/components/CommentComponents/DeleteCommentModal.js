@@ -1,12 +1,12 @@
 import React from 'react';
 
 export const DeleteCommentModal = (props) => {
-    const { posts, setPosts, postId, deleteModalOpen, setDeleteModalOpen, comment, token } = props;
+    const { server, posts, setPosts, postId, deleteModalOpen, setDeleteModalOpen, comment, token } = props;
     
     const handleDelete = async (e) => {
         const commentId = e.target.id;
 
-        await fetch(`/odinbook/${postId}/${commentId}/delete`, {
+        await fetch(`${server}/odinbook/${postId}/${commentId}/delete`, {
             method: 'get',
             headers: {
                 'Authorization': token,

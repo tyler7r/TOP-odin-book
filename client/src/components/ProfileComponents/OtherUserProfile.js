@@ -6,13 +6,13 @@ import { DisplayPosts } from '../PostComponents/DisplayPosts';
 
 export const OtherUserProfile = (props) => {
     const { userId } = useParams();
-    const { token, user } = props;
+    const { server, token, user } = props;
     const [profileData, setProfileData] = useState(null);
     const [profilePosts, setProfilePosts] = useState(null);
     const [skip, setSkip] = useState(0);
 
     const fetchPosts = async() => {
-        await fetch(`/odinbook/users/${userId}?skip=${skip}`, {
+        await fetch(`${server}/odinbook/users/${userId}?skip=${skip}`, {
             method: 'get',
             headers: {
                 'Authorization': token,
@@ -56,7 +56,7 @@ export const OtherUserProfile = (props) => {
     }
 
     const friendRequestButton = async () => {
-        await fetch(`/odinbook/${userId}/request`, {
+        await fetch(`${server}/odinbook/${userId}/request`, {
             method: 'get',
             headers: {
                 'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ export const OtherUserProfile = (props) => {
     }
 
     const unfriendUser = async () => {
-        await fetch(`/odinbook/${userId}/unfriend`, {
+        await fetch(`${server}/odinbook/${userId}/unfriend`, {
             method: 'get',
             headers: {
                 'Authorization': token,

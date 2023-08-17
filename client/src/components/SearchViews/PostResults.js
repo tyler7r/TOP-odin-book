@@ -4,13 +4,13 @@ import { DisplayPosts } from '../PostComponents/DisplayPosts';
 
 export const PostResults = (props) => {
     const search = useParams();
-    const { token, user, view } = props;
+    const { server, token, user, view } = props;
     const [posts, setPosts] = useState(null);
     const [skip, setSkip] = useState(0)
 
     const fetchPosts = async () => {
         try {
-            await fetch(`/odinbook/search/${search.topic}?skip=${skip}&view=${view}`, {
+            await fetch(`${server}/odinbook/search/${search.topic}?skip=${skip}&view=${view}`, {
                 method: 'get',
                 headers: {
                     'Authorization': token,

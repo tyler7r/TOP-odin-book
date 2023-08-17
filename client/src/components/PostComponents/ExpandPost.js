@@ -6,13 +6,13 @@ import { DisplayComments } from '../CommentComponents/DisplayComments';
 import '../../styles/home.css'
 
 export const ExpandPost = (props) => {
-    const { token, user } = props
+    const { server, token, user } = props
     const { postId } = useParams()
     const [post, setPost] = useState(null)
     const [comments, setComments] = useState(null)
 
     const getPost = async () => {
-        await fetch(`/odinbook/${postId}`, {
+        await fetch(`${server}/odinbook/${postId}`, {
             method: 'get',
             headers: {
                 'Content-Type': 'application/json',

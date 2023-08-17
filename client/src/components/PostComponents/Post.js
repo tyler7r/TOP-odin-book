@@ -7,13 +7,13 @@ import { DeleteModal } from './DeletePostModal';
 
 export const Post = (props) => {
     const { postId } = useParams();
-    const { post, pId, posts, setPosts, token, user } = props;
+    const { server, post, pId, posts, setPosts, token, user } = props;
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
     const handleLike = async (e) => {
         const pId = e.target.id;
 
-        await fetch(`/odinbook/${pId}/like`, {
+        await fetch(`${server}/odinbook/${pId}/like`, {
             method: 'get',
             headers: {
                 'Authorization': token,
