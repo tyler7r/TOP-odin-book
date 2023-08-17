@@ -8,7 +8,7 @@ export const Post = (props) => {
     const { host, post, postId } = props
 
     const handleClick = () => {
-        window.location.href = `${host}/odinbook/g/${postId}`
+        window.location.href = `/odinbook/g/${postId}`
     }
 
     const redirectGuest = () => {

@@ -18,8 +18,9 @@ export const UserIndex = (props) => {
             }
         }).then(res => res.json())
             .then(data => {
-                console.log(index);
-                if (index === null) {
+
+                console.log(data);
+                if (index === null || skip === 0) {
                     setIndex(data.users);
                 } else {
                     setIndex([...index, ...data.users])
@@ -32,7 +33,7 @@ export const UserIndex = (props) => {
     }, [skip])
 
     useEffect(() => {
-        setIndex(null);
+        // setIndex(null);
         setSkip(0);
     }, [search, mode]);
 

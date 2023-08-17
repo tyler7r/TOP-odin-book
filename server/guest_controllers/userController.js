@@ -12,7 +12,7 @@ exports.home = asyncHandler(async (req, res, next) => {
     if (req.query.view === 'popular') {
         posts = await Post.find({}, undefined, { skip, limit: 5 }).populate('author').populate({ path: 'comments', populate: { path: 'author'} }).sort({ 'interactions' : -1, '_id': 1 }).exec();
     } else {
-        posts = await Post.find({}, undefined, { skip, limit: 5 }).populate('author').populate({ path: 'comments', populate: { path: 'author'} }).sort({ 'time' : -1 }).exec();
+        posts = await Post.find({}, undefined, { skip, limit: 5 }).populate('author').populate({ path: 'comments', populate: { path: 'author'} }).sort({ 'time' : -1, '_id': 1 }).exec();
     }
 
     res.status(200).json({
@@ -24,7 +24,7 @@ exports.profile = asyncHandler(async (req, res, next) => {
     const skip = req.query.skip && /^\d+$/.test(req.query.skip) ? Number(req.query.skip) : 0;
 
     let userData = await User.findById(req.params.userId).populate('friends posts receivedRequests sentRequests').exec();
-    let userPosts = await Post.find({ author: req.params.userId }, undefined, { skip, limit: 5 }).populate('author').populate({ path: 'comments', populate: { path: 'author'} }).sort({'time': -1}).exec();
+    let userPosts = await Post.find({ author: req.params.userId }, undefined, { skip, limit: 5 }).populate('author').populate({ path: 'comments', populate: { path: 'author'} }).sort({ 'time': -1, '_id': 1 }).exec();
 
     res.status(200).json({
         data: userData, 
@@ -35,12 +35,11 @@ exports.profile = asyncHandler(async (req, res, next) => {
 exports.index = asyncHandler(async (req, res, next) => {
     const skip = req.query.skip && /^\d+$/.test(req.query.skip) ? Number(req.query.skip) : 0;
 
-    let users;
+    let users = null;
 
     if (req.query.mode === 'search') {
         users = await User.find({ $or: [ { 'username': { $regex: req.query.search }}, { 'first_name' : { $regex: req.query.search }}, { 'last_name' : { $regex: req.query.search }} ]}, undefined, { skip, limit: 5 }).populate('friends sentRequests receivedRequests').exec();
     } else {
-        console.log('here');
         users = await User.find({}, undefined, { skip, limit: 5 }).populate('friends').sort({ username: 1 }).exec();
     }
 
@@ -54,7 +53,7 @@ exports.userFriends = asyncHandler(async (req, res, next) => {
 
     let viewedUser = await User.findById(req.params.userId).populate('friends sentRequests receivedRequests').exec()
 
-    let friends;
+    let friends = null;
 
     if (req.query.mode === 'search') {
         friends = await User.find({ $and: [ { friends: req.params.userId }, { $or: [{ 'username': { $regex: req.query.search }}, { 'first_name' : { $regex: req.query.search }}, { 'last_name' : { $regex: req.query.search }}]}]}, undefined, { skip, limit: 5 }).populate('friends').exec();

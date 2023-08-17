@@ -77,7 +77,7 @@ exports.profileInfo = [
 exports.index = asyncHandler(async (req, res, next) => {
     const skip = req.query.skip && /^\d+$/.test(req.query.skip) ? Number(req.query.skip) : 0;
 
-    let users;
+    let users = null;
 
     let currentUser = await User.findById(req.user._id).populate('friends').exec()
     let otherUsers;
@@ -104,7 +104,7 @@ exports.userFriends = asyncHandler(async (req, res, next) => {
 
     let viewedUser = await User.findById(req.params.userId).populate('friends sentRequests receivedRequests').exec()
 
-    let friends;
+    let friends = null;
 
     let allFriends = await User.find({ friends: req.params.userId }, undefined, { skip, limit: 5 }).populate('friends sentRequests receivedRequests').sort({ last_name: 1 }).exec()
 
