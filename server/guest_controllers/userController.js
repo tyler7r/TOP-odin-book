@@ -35,7 +35,7 @@ exports.profile = asyncHandler(async (req, res, next) => {
 exports.index = asyncHandler(async (req, res, next) => {
     const skip = req.query.skip && /^\d+$/.test(req.query.skip) ? Number(req.query.skip) : 0;
 
-    let users = null;
+    let users;
 
     if (req.query.mode === 'search') {
         users = await User.find({ $or: [ { 'username': { $regex: req.query.search }}, { 'first_name' : { $regex: req.query.search }}, { 'last_name' : { $regex: req.query.search }} ]}, undefined, { skip, limit: 5 }).populate('friends sentRequests receivedRequests').exec();
@@ -53,7 +53,7 @@ exports.userFriends = asyncHandler(async (req, res, next) => {
 
     let viewedUser = await User.findById(req.params.userId).populate('friends sentRequests receivedRequests').exec()
 
-    let friends = null;
+    let friends;
 
     if (req.query.mode === 'search') {
         friends = await User.find({ $and: [ { friends: req.params.userId }, { $or: [{ 'username': { $regex: req.query.search }}, { 'first_name' : { $regex: req.query.search }}, { 'last_name' : { $regex: req.query.search }}]}]}, undefined, { skip, limit: 5 }).populate('friends').exec();
