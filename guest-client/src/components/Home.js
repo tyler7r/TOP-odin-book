@@ -5,14 +5,13 @@ import { Header } from './Header';
 import { SearchBar } from './SearchBar';
 
 export const Home = (props) => {
-    const { host } = props;
+    const { server } = props;
     const [posts, setPosts] = useState(null);
     const [view, setView] = useState('recent');
     const [searchOpen, setSearchOpen] = useState(false);
     const [skip, setSkip] = useState(0);
     
     const fetchHome = async () => {
-        const server = process.env.REACT_APP_SERVER_URL
         try {
             await fetch(`${server}/odinbook/g/home?skip=${skip}&view=${view}`, {
                 method: 'get',

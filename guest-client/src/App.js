@@ -8,18 +8,19 @@ import { SearchHome } from './components/SearchViews/SearchHome';
 import { ExpandPost } from './components/Post/ExpandPost';
 
 function App() {
-  // const host = 'https://top-odinbook-0b5f675079ea.herokuapp.com'
+  const host = process.env.REACT_APP_HOST_URL
+  const server = process.env.REACT_APP_SERVER_URL
 
   return (
     <BrowserRouter>
       <div className="App">
         <Routes>
-          <Route path='/odinbook/g/home' element={<Home />} />
-          <Route path='/odinbook/g/users/:userId' element={<Profile />} />
-          <Route path='/odinbook/g/users/index' element={<UserIndex />} />
-          <Route path='/odinbook/g/users/:userId/friends' element={<FriendIndex />} />
-          <Route path='/odinbook/g/search/:topic' element={<SearchHome />} />
-          <Route path='/odinbook/g/:postId' element={<ExpandPost />} />
+          <Route path='/odinbook/g/home' element={<Home host={host} server={server} />} />
+          <Route path='/odinbook/g/users/:userId' element={<Profile host={host} server={server} />} />
+          <Route path='/odinbook/g/users/index' element={<UserIndex host={host} server={server} />} />
+          <Route path='/odinbook/g/users/:userId/friends' element={<FriendIndex host={host} server={server} />} />
+          <Route path='/odinbook/g/search/:topic' element={<SearchHome host={host} server={server} />} />
+          <Route path='/odinbook/g/:postId' element={<ExpandPost host={host} server={server} />} />
         </Routes>
       </div>
     </BrowserRouter>

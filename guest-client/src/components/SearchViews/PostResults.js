@@ -4,13 +4,13 @@ import { DisplayPosts } from '../Post/DisplayPosts';
 
 export const PostResults = (props) => {
     const search = useParams();
-    const { view } = props;
+    const { server, view } = props;
     const [posts, setPosts] = useState(null);
     const [skip, setSkip] = useState(0)
 
     const fetchPosts = async () => {
         try {
-            await fetch(`/odinbook/g/search/${search.topic}?skip=${skip}&view=${view}`, {
+            await fetch(`${server}/odinbook/g/search/${search.topic}?skip=${skip}&view=${view}`, {
                 method: 'get',
                 headers: {
                     'Content-Type': 'application/json',

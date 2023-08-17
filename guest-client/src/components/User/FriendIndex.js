@@ -6,7 +6,7 @@ import { SearchIndexes } from './SearchIndexes';
 
 export const FriendIndex = (props) => {
     const { userId } = useParams();
-    const { } = props;
+    const { server } = props;
     const [viewedUser, setViewedUser] = useState(null);
     const [friends, setFriends] = useState(null);
     const [mode, setMode] = useState('all');
@@ -14,7 +14,7 @@ export const FriendIndex = (props) => {
     const [skip, setSkip] = useState(0);
 
     const fetchFriends = async() => {
-        await fetch(`/odinbook/g/users/${userId}/friends?skip=${skip}&mode=${mode}&search=${search}`, {
+        await fetch(`${server}/odinbook/g/users/${userId}/friends?skip=${skip}&mode=${mode}&search=${search}`, {
             method: 'get',
             headers: {
                 'Content-Type': 'application/json',

@@ -4,7 +4,7 @@ import { DisplayUsers } from '../User/DisplayUsers';
 
 export const UserResults = (props) => {
     const search = useParams();
-    const { view } = props;
+    const { server, view } = props;
     const [users, setUsers] = useState(null);
     const [skip, setSkip] = useState(0);
 
