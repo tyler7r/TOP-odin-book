@@ -9,7 +9,7 @@ export const Comment = (props) => {
     const { comment } = props
 
     const redirectGuest = () => {
-        window.location.href = `http://localhost:3000/odinbook/login`
+        window.location.href = process.env.REACT_APP_MAIN_URL;
     }
 
     return (
