@@ -21,7 +21,7 @@ export const FriendIndex = (props) => {
             }
         }).then(res => res.json())
             .then(data => {
-                if (friends === null) {
+                if (friends === null || skip === 0) {
                     setFriends(data.friends)
                 } else {
                     setFriends([...friends, ...data.friends])
@@ -32,10 +32,9 @@ export const FriendIndex = (props) => {
 
     useEffect(() => {
         fetchFriends()
-    }, [skip])
+    }, [skip, search])
 
     useEffect(() => {
-        setFriends(null)
         setSkip(0);
     }, [search, mode]);
 

@@ -32,10 +32,9 @@ export const UserIndex = (props) => {
         if (token !== null) {
             getUsers()
         }
-    }, [token, skip])
+    }, [token, skip, search])
 
     useEffect(() => {
-        setIndex(null);
         setSkip(0)
     }, [search, mode]);
 

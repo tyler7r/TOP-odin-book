@@ -29,10 +29,9 @@ export const UserIndex = (props) => {
 
     useEffect(() => {
         getUsers()
-    }, [skip])
+    }, [skip, search])
 
     useEffect(() => {
-        // setIndex(null);
         setSkip(0);
     }, [search, mode]);
 
