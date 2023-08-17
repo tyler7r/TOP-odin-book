@@ -4,7 +4,7 @@ import { CurrentUserProfile } from './CurrentUserProfile';
 import { OtherUserProfile } from './OtherUserProfile';
 
 export const Profile = (props) => {
-    const { userId } = useParams();
+    const { server, userId } = useParams();
     const { token, user } = props;
     const [isCurrentUserProfile, setIsCurrentUserProfile] = useState(false);
 

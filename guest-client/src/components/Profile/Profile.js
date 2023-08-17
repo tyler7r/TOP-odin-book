@@ -38,7 +38,7 @@ export const Profile = (props) => {
             {profilePosts !== null &&
                 <>
                     <ProfileHeader profileData={profileData} />
-                    <DisplayPosts setSkip={setSkip} posts={profilePosts} />
+                    <DisplayPosts server={server} setSkip={setSkip} posts={profilePosts} />
                 </>
             }
             {profilePosts === null &&
