@@ -10,7 +10,7 @@ export const UserResults = (props) => {
 
     const fetchUsers = async () => {
         try {
-            await fetch(`/odinbook/g/search/${search.topic}?skip=${skip}&view=${view}`, {
+            await fetch(`${server}/odinbook/g/search/${search.topic}?skip=${skip}&view=${view}`, {
                 method: 'get',
                 headers: {
                     'Content-Type': 'application/json',
