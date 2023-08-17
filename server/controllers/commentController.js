@@ -51,7 +51,7 @@ exports.like_comment = asyncHandler(async (req, res, next) => {
 })
 
 exports.delete_comment = asyncHandler(async (req, res, next) => {
-    await Post.findByIdAndUpdate(req.params.postId, { $pull: { comments: req.params.commentId }, $inc: { interactions: 1 }}).exec();
+    await Post.findByIdAndUpdate(req.params.postId, { $pull: { comments: req.params.commentId }, $inc: { interactions: -1 }}).exec();
     await Comment.findByIdAndRemove(req.params.commentId).exec();
     let post = await Post.findById(req.params.postId).populate({ path: 'comments', populate: { path: 'author'} }).populate('author').exec();
     let comments = post.comments;
