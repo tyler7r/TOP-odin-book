@@ -35,7 +35,7 @@ export const Home = (props) => {
         <>
             {token !== null &&
                 <div>
-                    <Header user={user} searchOpen={searchOpen} setSearchOpen={setSearchOpen} searchBtnVisible={true} newPostOpen={newPostOpen} setNewPostOpen={setNewPostOpen} newPostVisible={true} />
+                    <Header server={server} user={user} searchOpen={searchOpen} setSearchOpen={setSearchOpen} searchBtnVisible={true} newPostOpen={newPostOpen} setNewPostOpen={setNewPostOpen} newPostVisible={true} />
                     {searchOpen &&
                         <SearchBar token={token} user={user} setSearchOpen={setSearchOpen} />
                     }

@@ -43,19 +43,19 @@ export const CurrentUserProfile = (props) => {
 
     return (
         <>
-            <Header user={user} setEditProfileModalOpen={setEditProfileModalOpen} editProfileModalOpen={editProfileModalOpen} editProfileBtnVisible={true} requestModalOpen={requestModalOpen} setRequestModalOpen={setRequestModalOpen} requestBtnVisible={true} requestAmount={requests.length} />
+            <Header server={server} user={user} setEditProfileModalOpen={setEditProfileModalOpen} editProfileModalOpen={editProfileModalOpen} editProfileBtnVisible={true} requestModalOpen={requestModalOpen} setRequestModalOpen={setRequestModalOpen} requestBtnVisible={true} requestAmount={requests.length} />
             {profileData !== null &&
                 <ProfileHeader profileData={profileData} />
             }
             {profilePosts !== null &&
                 <div className='profile-feed'>
                     {requestModalOpen &&
-                        <RequestModal requests={requests} setProfileData={setProfileData} profileData={profileData} token={token} setRequestModalOpen={setRequestModalOpen} setRequests={setRequests} />
+                        <RequestModal server={server} requests={requests} setProfileData={setProfileData} profileData={profileData} token={token} setRequestModalOpen={setRequestModalOpen} setRequests={setRequests} />
                     }
                     {editProfileModalOpen &&
-                        <EditProfile setEditProfileModalOpen={setEditProfileModalOpen} token={token} setProfileData={setProfileData} profileData={profileData} formData={formData} setFormData={setFormData} />
+                        <EditProfile server={server} setEditProfileModalOpen={setEditProfileModalOpen} token={token} setProfileData={setProfileData} profileData={profileData} formData={formData} setFormData={setFormData} />
                     }
-                    <DisplayPosts token={token} user={user} posts={profilePosts} setPosts={setProfilePosts} setSkip={setSkip} />
+                    <DisplayPosts server={server} token={token} user={user} posts={profilePosts} setPosts={setProfilePosts} setSkip={setSkip} />
                 </div>
             }
             {profilePosts === null &&

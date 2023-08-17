@@ -36,9 +36,9 @@ export const ExpandPost = (props) => {
             <Header user={user} />
             {post !== null &&
             <div className='post'>
-                <Post token={token} user={user} post={post} postId={post._id} posts={[post]} setPosts={getPost} />
+                <Post server={server} token={token} user={user} post={post} postId={post._id} posts={[post]} setPosts={getPost} />
                 {comments !== null &&
-                    <DisplayComments token={token} user={user} postId={postId} posts={[post]} setPosts={getPost} comments={comments} view={'feed'} />
+                    <DisplayComments server={server} token={token} user={user} postId={postId} posts={[post]} setPosts={getPost} comments={comments} view={'feed'} />
                 }
             </div>
             }

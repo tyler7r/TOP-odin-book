@@ -40,10 +40,10 @@ export const FriendsFeed = (props) => {
             {token !== null &&
                 <div className='home-page'>
                     {newPostOpen === true &&
-                        <NewPost token={token} user={user} posts={posts} setPosts={setPosts} setNewPostOpen={setNewPostOpen} setSkip={setSkip} />
+                        <NewPost server={server} token={token} user={user} posts={posts} setPosts={setPosts} setNewPostOpen={setNewPostOpen} setSkip={setSkip} />
                     }
                     {(posts !== null && posts.length !== 0)
-                        ? <DisplayPosts setSkip={setSkip} token={token} user={user} posts={posts} setPosts={setPosts} />
+                        ? <DisplayPosts server={server} setSkip={setSkip} token={token} user={user} posts={posts} setPosts={setPosts} />
                         : <div className='no-items-msg'>No Friend Posts Found</div>
                     }
                 </div>

@@ -22,7 +22,7 @@ export const SearchHome = (props) => {
         <>
             {token !== null &&
                 <div>
-                    <Header user={user} />
+                    <Header server={server} user={user} />
                     <SearchBar token={token} />
                     <div className='search-results-container'>
                         <h2 className='search-results-msg'>Search Results for</h2>

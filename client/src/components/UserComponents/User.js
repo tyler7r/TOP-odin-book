@@ -6,7 +6,7 @@ import { isProfilePicAvailable } from '../../HelperFunctions/CheckForProfilePic'
 import '../../styles/user.css'
 
 export const User = (props) => {
-    const { token, indexedUser, users, setUsers, user } = props
+    const { server, token, indexedUser, users, setUsers, user } = props
 
     return (
         <div className='user'>
@@ -20,7 +20,7 @@ export const User = (props) => {
                 <div className="user-username">@{indexedUser.username}</div>
             </Link>
             <Link to={`/odinbook/users/${indexedUser._id}/friends`} className='user-friends-btn'>Friends: {indexedUser.friends.length}</Link>
-            <Relationship token={token} users={users} setUsers={setUsers} user={user} indexedUser={indexedUser} />
+            <Relationship server={server} token={token} users={users} setUsers={setUsers} user={user} indexedUser={indexedUser} />
         </div>
     )
 }

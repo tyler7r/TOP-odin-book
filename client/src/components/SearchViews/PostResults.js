@@ -38,7 +38,7 @@ export const PostResults = (props) => {
     return (
         <div className='search-home'>
             {(posts !== null && posts.length !== 0) 
-                ? <DisplayPosts setSkip={setSkip} token={token} posts={posts} setPosts={setPosts} user={user} />
+                ? <DisplayPosts server={server} setSkip={setSkip} token={token} posts={posts} setPosts={setPosts} user={user} />
                 : <div className='no-items-msg'>No posts results</div>
             }
         </div>

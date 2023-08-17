@@ -5,7 +5,7 @@ import '../../styles/post.css'
 import '../../styles/home.css'
 
 export const DisplayPosts = (props) => {
-    const { setPosts, posts, token, user, setSkip } = props;
+    const { server, setPosts, posts, token, user, setSkip } = props;
 
     const handleScroll = (e) => {
         const { offsetHeight, scrollTop, scrollHeight } = e.target;
@@ -21,7 +21,7 @@ export const DisplayPosts = (props) => {
             {posts.map(post => {
                 return (  
                     <div className='post' key={post._id}>
-                        <Post token={token} user={user} post={post} pId={post._id} posts={posts} setPosts={setPosts} />
+                        <Post server={server} token={token} user={user} post={post} pId={post._id} posts={posts} setPosts={setPosts} />
                     </div>
                 )
             })}

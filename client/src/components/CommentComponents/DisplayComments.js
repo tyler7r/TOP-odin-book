@@ -5,17 +5,17 @@ import '../../styles/home.css'
 import '../../styles/comment.css'
 
 export const DisplayComments = (props) => {
-    const { token, user, postId, posts, setPosts, comments, view } = props;
+    const { server, token, user, postId, posts, setPosts, comments, view } = props;
 
     return (
         <div className='comment-container'>
-            <NewComment user={user} postId={postId} token={token} posts={posts} setPosts={setPosts} comments={comments} />
+            <NewComment server={server} user={user} postId={postId} token={token} posts={posts} setPosts={setPosts} comments={comments} />
             <h3>Comments</h3>
             <div className='comment-section'>
                 {comments.length > 0 &&
                     comments.map(comment => {
                         return (
-                            <Comment key={comment._id} token={token} user={user} postId={postId} posts={posts} setPosts={setPosts} comment={comment} />
+                            <Comment server={server} key={comment._id} token={token} user={user} postId={postId} posts={posts} setPosts={setPosts} comment={comment} />
                         )
                     })
                 }

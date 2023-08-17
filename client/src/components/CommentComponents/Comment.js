@@ -65,7 +65,7 @@ export const Comment = (props) => {
                     <img className='delete-icon' src={require('../../images/trash.png')} id={comment._id} onClick={() => setDeleteModalOpen(true)} />
                 }
                 {deleteModalOpen && 
-                    <DeleteCommentModal posts={posts} setPosts={setPosts} comment={comment} postId={postId} deleteModalOpen={deleteModalOpen} setDeleteModalOpen={setDeleteModalOpen} token={token} />
+                    <DeleteCommentModal server={server} posts={posts} setPosts={setPosts} comment={comment} postId={postId} deleteModalOpen={deleteModalOpen} setDeleteModalOpen={setDeleteModalOpen} token={token} />
                 }
             </div>
         </div>

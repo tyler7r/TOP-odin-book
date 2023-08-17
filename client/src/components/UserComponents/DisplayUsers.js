@@ -6,7 +6,7 @@ import '../../styles/user.css'
 import { User } from './User';
 
 export const DisplayUsers = (props) => {
-    const { token, user, users, setUsers, setSkip } = props;
+    const { server, token, user, users, setUsers, setSkip } = props;
 
     const handleScroll = (e) => {
         const { offsetHeight, scrollTop, scrollHeight } = e.target;
@@ -23,7 +23,7 @@ export const DisplayUsers = (props) => {
                 {users !== null &&
                     users.map(indexedUser => {
                         return (
-                            <User key={indexedUser._id} token={token} user={user} indexedUser={indexedUser} users={users} setUsers={setUsers} />
+                            <User server={server} key={indexedUser._id} token={token} user={user} indexedUser={indexedUser} users={users} setUsers={setUsers} />
                         )
                     })
                 }

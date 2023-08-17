@@ -43,7 +43,7 @@ export const FriendIndex = (props) => {
 
     return (
         <div>
-            <Header token={token} user={user} />
+            <Header server={server} token={token} user={user} />
             {viewedUser !== null &&
                 <div className='friend-index-title-container'>
                     <Link to={`/odinbook${viewedUser.url}`} className='friend-index-title-name'>{viewedUser.fullName}'s</Link>
@@ -51,7 +51,7 @@ export const FriendIndex = (props) => {
                 </div>
             }
             <SearchIndexes view={'friends'} mode={mode} setMode={setMode} setSearch={setSearch} token={token} setSkip={setSkip} />
-            <DisplayUsers user={user} token={token} users={friends} setUsers={setFriends} setSkip={setSkip} />
+            <DisplayUsers server={server} user={user} token={token} users={friends} setUsers={setFriends} setSkip={setSkip} />
         </div>
     )
 }
