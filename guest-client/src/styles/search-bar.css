@@ -51,6 +51,11 @@
 .search-results-keyword {
     font-style: italic;
     color: rgb(250, 158, 20);
+    text-decoration: none;
+}
+
+.search-results-keyword:hover {
+    text-decoration: underline;
 }
 
 .clear-search-btn {

@@ -42,7 +42,7 @@ export const Profile = (props) => {
                 </>
             }
             {profilePosts === null &&
-                <div>No user data found</div>
+                <div className='no-items-msg'>No user data found</div>
             }
         </div>
     )

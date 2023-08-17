@@ -8,19 +8,18 @@ import { SearchHome } from './components/SearchViews/SearchHome';
 import { ExpandPost } from './components/Post/ExpandPost';
 
 function App() {
-  const host = process.env.REACT_APP_HOST_URL
   const server = process.env.REACT_APP_SERVER_URL
 
   return (
     <BrowserRouter>
       <div className="App">
         <Routes>
-          <Route path='/odinbook/g/home' element={<Home host={host} server={server} />} />
-          <Route path='/odinbook/g/users/:userId' element={<Profile host={host} server={server} />} />
-          <Route path='/odinbook/g/users/index' element={<UserIndex host={host} server={server} />} />
-          <Route path='/odinbook/g/users/:userId/friends' element={<FriendIndex host={host} server={server} />} />
-          <Route path='/odinbook/g/search/:topic' element={<SearchHome host={host} server={server} />} />
-          <Route path='/odinbook/g/:postId' element={<ExpandPost host={host} server={server} />} />
+          <Route path='/odinbook/g/home' element={<Home server={server} />} />
+          <Route path='/odinbook/g/users/:userId' element={<Profile server={server} />} />
+          <Route path='/odinbook/g/users/index' element={<UserIndex server={server} />} />
+          <Route path='/odinbook/g/users/:userId/friends' element={<FriendIndex server={server} />} />
+          <Route path='/odinbook/g/search/:topic' element={<SearchHome server={server} />} />
+          <Route path='/odinbook/g/:postId' element={<ExpandPost server={server} />} />
         </Routes>
       </div>
     </BrowserRouter>

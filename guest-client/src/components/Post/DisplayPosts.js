@@ -19,6 +19,9 @@ export const DisplayPosts = (props) => {
         <div className="home-page">
             <div className='feed' onScroll={handleScroll}>
                 <div className='feed-title'>Feed</div>
+                {(posts.length === 0 || posts === null) &&
+                <div className='no-items-msg'>No posts found</div>
+                }
                 {posts.map(post => {
                     return (
                         <div key={post._id} className='post'>

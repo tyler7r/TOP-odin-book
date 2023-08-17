@@ -149,4 +149,9 @@
 
 .friend-index-title-name {
     color: #fa9e14;
+    text-decoration: none;
+}
+
+.friend-index-title-name:hover {
+    text-decoration: underline;
 }

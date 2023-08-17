@@ -46,7 +46,7 @@ export const FriendIndex = (props) => {
             <Header token={token} user={user} />
             {viewedUser !== null &&
                 <div className='friend-index-title-container'>
-                    <div className='friend-index-title-name'>{viewedUser.fullName}'s</div>
+                    <Link to={`/odinbook${viewedUser.url}`} className='friend-index-title-name'>{viewedUser.fullName}'s</Link>
                     <div className='friend-index-title'>Friends List</div>
                 </div>
             }

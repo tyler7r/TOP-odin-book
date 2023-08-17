@@ -43,7 +43,7 @@ export const FriendIndex = (props) => {
             <Header />
             {viewedUser !== null &&
                 <div className='search-results-container'>
-                    <div className='search-results-keyword'>{viewedUser.fullName}'s</div>
+                    <Link className='search-results-keyword' to={`/odinbook/g${viewedUser.url}`}>{viewedUser.fullName}'s</Link>
                     <div className='search-results-msg'>Friends List</div>
                 </div>
             }

@@ -26,7 +26,7 @@ export const DisplayComments = (props) => {
                     })
                 }
                 {comments.length === 0 &&
-                    <div>No Comments</div>
+                    <div className='no-items-msg'>No Comments</div>
                 }
             </div>
         </div>
