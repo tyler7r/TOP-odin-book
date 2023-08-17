@@ -32,7 +32,7 @@ export const FriendIndex = (props) => {
 
     useEffect(() => {
         fetchFriends()
-    }, [skip, search])
+    }, [skip, search, userId])
 
     useEffect(() => {
         setSkip(0);
