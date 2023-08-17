@@ -45,9 +45,7 @@ exports.expand_post = asyncHandler(async (req, res, next) => {
 
 exports.like_post = asyncHandler(async (req, res, next) => {
     let post = await Post.findById(req.params.postId).exec();
-    console.log(post.likes);
     if (post.likes.includes(req.user._id)) {
-        console.log('user liked post');
         await Post.findByIdAndUpdate(req.params.postId, { $pull: { likes: req.user._id }, $inc: { interactions: -1 }}).exec();
     } else {
         await Post.findByIdAndUpdate(req.params.postId, { $push: { likes: req.user._id }, $inc: { interactions: 1 }}).exec();

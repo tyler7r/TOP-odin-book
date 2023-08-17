@@ -31,7 +31,6 @@ export const EditProfile = (props) => {
         e.preventDefault();
         setEditProfileModalOpen(false);
         setEmptyFormWarning(false);
-        console.log(formData)
         let data = JSON.stringify(formData);
         await fetch(`${server}/odinbook/users/${userId}/edit-profile`, {
             method: 'post',
@@ -42,7 +41,6 @@ export const EditProfile = (props) => {
             body: data
         }).then(res => res.json())
             .then(data => {
-                console.log(data.user);
                 setProfileData({
                     ...profileData,
                     profilePic: data.user.profilePic,

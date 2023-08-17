@@ -53,7 +53,6 @@ exports.profileInfo = [
     body('bio').trim().isLength({ max: 60 }).withMessage('Bio can not exceed 160 characters'),
 
     asyncHandler(async (req, res, next) => {
-        console.log(req.body);
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(403).json({

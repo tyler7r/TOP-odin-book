@@ -19,7 +19,6 @@ export const UserIndex = (props) => {
             }
         }).then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (skip === 0) {
                     setIndex(data.users);
                 } else {
