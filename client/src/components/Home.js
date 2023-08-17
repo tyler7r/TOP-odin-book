@@ -8,18 +8,18 @@ import { Header } from './Header';
 import '../styles/home.css'
 
 export const Home = (props) => {
-    const { user, token } = props;
+    const { server, user, token } = props;
     const [searchOpen, setSearchOpen] = useState(false);
     const [newPostOpen, setNewPostOpen] = useState(false)
     const [view, setView] = useState('friends');
 
     const viewSelector = (view) => {
         if (view === 'recent') {
-            return <RecentFeed setView={setView} view={view} token={token} user={user} newPostOpen={newPostOpen} setNewPostOpen={setNewPostOpen} />
+            return <RecentFeed server={server} setView={setView} view={view} token={token} user={user} newPostOpen={newPostOpen} setNewPostOpen={setNewPostOpen} />
         } else if (view === 'friends') {
-            return <FriendsFeed setView={setView} view={view} token={token} user={user} newPostOpen={newPostOpen} setNewPostOpen={setNewPostOpen} />
+            return <FriendsFeed server={server} setView={setView} view={view} token={token} user={user} newPostOpen={newPostOpen} setNewPostOpen={setNewPostOpen} />
         } else if (view === 'popular') {
-            return <PopularFeed setView={setView} view={view} token={token} user={user} newPostOpen={newPostOpen} setNewPostOpen={setNewPostOpen} />
+            return <PopularFeed server={server} setView={setView} view={view} token={token} user={user} newPostOpen={newPostOpen} setNewPostOpen={setNewPostOpen} />
         }
     }
 

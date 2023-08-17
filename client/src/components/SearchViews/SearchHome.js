@@ -7,7 +7,7 @@ import { Header } from '../Header';
 
 export const SearchHome = (props) => {
     const search = useParams();
-    const { token, user } = props;
+    const { server, token, user } = props;
     const [view, setView] = useState('posts');
 
     const checkView = (buttonView) => {
@@ -33,8 +33,8 @@ export const SearchHome = (props) => {
                         <button className={checkView('users')} onClick={() => setView('users')}>Users</button>
                     </div>
                     {view === 'posts'
-                        ? <PostResults token={token} user={user} view={view} />
-                        : <UserResults token={token} user={user} view={view} />
+                        ? <PostResults server={server} token={token} user={user} view={view} />
+                        : <UserResults server={server} token={token} user={user} view={view} />
                     }
                 </div>
             }
