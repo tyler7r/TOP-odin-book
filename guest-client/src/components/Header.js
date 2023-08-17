@@ -22,8 +22,8 @@ export const Header = (props) => {
             <div id="header-links">
                 <Link id='user-index' className='open-modal-btn' to='/odinbook/g/users/index'>User Index</Link>
                 {checkBtnFunctionality(searchBtnVisible, 'search')}
-                <Link className='open-modal-btn' id='login-btn' to='http://localhost:3000/odinbook/login'>Log In</Link>
-                <Link className='open-modal-btn' id='signup-btn' to='http://localhost:3000/odinbook/signup'>Sign Up</Link>
+                <Link className='open-modal-btn' id='login-btn' to='https://top-odinbook.netlify.app/odinbook/login'>Log In</Link>
+                <Link className='open-modal-btn' id='signup-btn' to='https://top-odinbook.netlify.app/odinbook/signup'>Sign Up</Link>
             </div>
         </div>
     )
